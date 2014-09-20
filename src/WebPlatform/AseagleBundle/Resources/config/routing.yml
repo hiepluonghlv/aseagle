@@ -1,0 +1,73 @@
+aseagle_homepage:
+    path:     /welcome
+    defaults: { _controller: AseagleBundle:Default:index }
+
+aseagle_main:
+    path:     /main
+    defaults: { _controller: AseagleBundle:Main:index }
+
+main_left_side_bar:
+    path:     /main/left_side_bar/{category_id}
+    defaults: { _controller: AseagleBundle:Main:left_side_bar }
+    requirements:
+                    _method:  GET
+
+main_filter:
+    path:     /main/filter/{category_id}
+    defaults: { _controller: AseagleBundle:Main:filter }
+    requirements:
+                    _method:  GET
+
+main_category_products:
+    path:     /main/{catrgory_id}
+    defaults: { _controller: AseagleBundle:Main:index }
+
+main_search:
+    path:     /main/search
+    defaults: { _controller: AseagleBundle:Main:search }
+    requirements:
+                _method:  GET
+
+main_get_list_products:
+    path:     /main/get_list_products_main
+    defaults: { _controller: AseagleBundle:Main:get_list_products_main }
+    requirements:
+                _method:  GET
+
+
+get_list_product_search:
+    path:     /search/get_list_product_search
+    defaults: { _controller: AseagleBundle:Search:get_list_product_search }
+    requirements:
+                _method:  GET
+
+show_product:
+    path:     /product/show/{id}
+    defaults: { _controller: AseagleBundle:Product:show }
+
+upload_file:
+    path:     /upload_file
+    defaults: { _controller: AseagleBundle:Default:upload_file }
+    requirements:
+                _method:  POST
+
+fos_user_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /profile
+
+fos_user_register:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register
+
+fos_user_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+fos_user_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /profile
+
+
