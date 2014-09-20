@@ -1,4 +1,4 @@
-// require(["js/_util/util", "js/_util/mapping"], function(util) {
+// require(["/js/_util/util", "/js/_util/mapping_en"], function(util) {
 	// _AsgMainBuilder.LeftSideBar.build(_ajax_cat_filter_json);
 	// _AsgMainBuilder.MainContent.build(_ajax_product_list_json);
 // });
@@ -98,7 +98,7 @@ _AsgMainBuilder.LeftSideBar = ( function() {
 	}
 	
 	function _build_leftsidebar_columleftbox_region(ajax_json, left_side_bar) {
-		var region_array_json = ajax_json;
+		var region_array_json = region_mapping;
 		
 		var div_wrapper = $('<div/>')
 			.addClass('column-left c-box region-list')
@@ -108,7 +108,28 @@ _AsgMainBuilder.LeftSideBar = ( function() {
 		$('<div/>').addClass('header').text("Region of Supplier").appendTo(div_wrapper);
 		// --- list
 		var ul_wrapper = $('<ul/>').appendTo(div_wrapper);
-		$.each(region_array_json, function(i) {
+		
+		var region_id;
+		for (region_id in region_array_json) {
+			var region = region_array_json[region_id];
+		    var li = $('<li/>')
+		        .addClass('item')
+		        .appendTo(ul_wrapper);
+		    
+		    var input = $('<input/>')
+		        .addClass('region-check')
+		        .attr('type', 'checkbox')
+		        .attr('name', region_id)
+		        .appendTo(li);
+		    var a = $('<a/>')
+		        //.addClass('')
+		        //.attr('href', '#' +cat.id)
+		    	.attr('title', region_id)
+		        .text(region)
+		        .appendTo(li);
+		}
+		
+		/*$.each(region_array_json, function(i) {
 			var region = region_array_json[i];
 		    var li = $('<li/>')
 		        .addClass('item')
@@ -125,7 +146,7 @@ _AsgMainBuilder.LeftSideBar = ( function() {
 		    	.attr('title', region.id)
 		        .text(_AsgUtil.Mapping.getRegionName(region.id))
 		        .appendTo(li);
-		});
+		});*/
 		
 		
 		$("div.region-list input[type=checkbox]").change(function(e) {
@@ -240,9 +261,8 @@ _AsgMainBuilder.LeftSideBar = ( function() {
 		});
 	}
 
-	function _build_leftsidebar_columleftbox_cat_1() {
+	function _build_leftsidebar_columleftbox_cat_1(ajax_json, left_side_bar) {
 		var cat_list = ajax_json;
-		
 		var div_wrapper = $('<div/>')
 		.addClass('column-left c-box')
 	    .appendTo(left_side_bar);
@@ -251,8 +271,7 @@ _AsgMainBuilder.LeftSideBar = ( function() {
 		$('<div/>').addClass('header').text("Category").appendTo(div_wrapper);
 		// --- list
 		var ul_wrapper = $('<ul/>').addClass('nav').appendTo(div_wrapper);
-		$.each(cat_list, function(i)
-		{
+		$.each(cat_list, function(i) {
 			var cat = cat_list[i];
 			
 			if(cat.parent_id == null) {
@@ -274,7 +293,7 @@ _AsgMainBuilder.LeftSideBar = ( function() {
 				
 				var ul_wrapper_1 = $('ul#'+cat.parent_id);
 				
-				if(ul_wrapper_1 == null) {
+				if(ul_wrapper_1.length == 0) {
 					var li_wrapper =  $('li#'+cat.parent_id);
 					ul_wrapper_1 = $('<ul/>').addClass('nav').attr("id",cat.parent_id).appendTo(li_wrapper);
 				} 
@@ -316,7 +335,7 @@ _AsgMainBuilder.LeftSideBar = ( function() {
 				var ul_wrapper = $('<ul/>').appendTo(div_wrapper);
 				var default_value_array_json = _AsgUtil.Mapping.getDefaultValueArray(g_str_cat_id, filter_id);
 				$.each(default_value_array_json, function(i) {
-					var default_value = default_value_array_json[i];
+					var default_value_id = default_value_array_json[i];
 				    var li = $('<li/>')
 				        .addClass('item')
 				        .appendTo(ul_wrapper);
@@ -328,8 +347,8 @@ _AsgMainBuilder.LeftSideBar = ( function() {
 				    var a = $('<a/>')
 				        //.addClass('')
 				        //.attr('href', '#' +cat.id)
-				    	.attr('title', default_value)
-				        .text(default_value)
+				    	.attr('title', default_value_id)
+				        .text(_AsgUtil.Mapping.getDefaultValue(default_value_id))
 				        .appendTo(li);
 				});
 			}

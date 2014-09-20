@@ -12,6 +12,10 @@ _AsgUtil.Mapping = ( function() {
 	pub.getDefaultValueArray = function (cat_id, key) {
 		return cat_col_mapping[cat_id][key].def_v;
 	}
+	
+	pub.getDefaultValue = function (key) {
+		return cat_col_defaultvalue_mapping[key];
+	}
 
 	pub.getRegionName = function (key) {
 		return region_mapping[key];
