@@ -134,7 +134,7 @@ class MainController extends Controller
                 'm_o' => $product->getMinOrderQuantity(),
                 'port' => $product->getPort(),
                 'pay' => $product->getPaymentTerms(),
-                'cmt' => array($product->getComment()),
+                'cmt' => $product->getComment() == null ? [] : ($product->getComment() == "" ? [] : array($product->getComment())),
                 'd' => $product_detail
             ));
         }
