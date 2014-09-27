@@ -51,6 +51,18 @@ upload_file:
     requirements:
                 _method:  POST
 
+upload_file:
+    path:     /upload_file
+    defaults: { _controller: AseagleBundle:Default:upload_file }
+    requirements:
+                _method:  GET
+
+delete_file:
+    path:     /delete_file
+    defaults: { _controller: AseagleBundle:Default:upload_file }
+    requirements:
+                _method:  DELETE
+
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 

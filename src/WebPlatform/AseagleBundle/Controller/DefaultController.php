@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WebPlatform\AseagleBundle\Form\Model\Document;
 
+
 class DefaultController extends Controller
 {
     public function indexAction(Request $request)
@@ -54,14 +55,16 @@ class DefaultController extends Controller
         return $this->render('AseagleBundle:Default:index.html.twig', array('name' => 'Aseagle','status'=>'index', 'uploadedURL'=>'index'));
     }
 
-    public function upload_fileAction(Request $request)
+    public function upload_fileAction()
     {
-        $uploaded_file = $request->request->get('files');
-        
         /*
+        $request = $this->get('request');
+        $uploaded_file = $request;
+        $req = $request->request->all();
+        $que = $request->query->all();
+        $fil = $request->files->all();
         if ($uploaded_file)
         {
-
             $picture1 = $this->processImage($uploaded_file);
             $picture1->setPath('pictures/artist/' . $picture1);
             $em->persist($picture1);
@@ -70,9 +73,11 @@ class DefaultController extends Controller
         }
         else $response= 'error';
         */
+        error_reporting(E_ALL | E_STRICT);
+        require('bundles/framework/js/jquery-file-upload/server/php/UploadHandler.php');
+        $upload_handler = new UploadHandler();
 
-        $response = $uploaded_file;
-        $response = new Response(json_encode(array('response'=>$response)));
+        $response = new Response();
         $response->headers->set('Content-Type', 'application/json');
         return $response;
 

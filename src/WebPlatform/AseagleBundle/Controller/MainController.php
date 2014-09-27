@@ -115,15 +115,16 @@ class MainController extends Controller
         $mapped_products_info = array();
         foreach($products as $product)
         {
-            $product_detail = array('1' => $product->getProductDetail1(),
+            $product_detail = array(
+                '1' => $product->getProductDetail1(),
                 '2' => $product->getProductDetail2(),
                 '3' => $product->getProductDetail3(),
                 '4' => $product->getProductDetail4(),
                 '5' => $product->getProductDetail5(),
                 '6' => $product->getProductDetail6(),
                 '7' => $product->getProductDetail7(),
-                '8' => $product->getProductDetail7(),
-                '9' => $product->getProductDetail7()
+                '8' => $product->getProductDetail8(),
+                '9' => $product->getProductDetail9()
             );
 
             array_push($mapped_products_info, array(
