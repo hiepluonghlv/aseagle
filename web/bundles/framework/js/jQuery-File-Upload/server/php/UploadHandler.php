@@ -1,4 +1,5 @@
 <?php
+namespace WebPlatform\AseagleBundle\Controller;
 /*
  * jQuery File Upload Plugin PHP Class 8.1.0
  * https://github.com/blueimp/jQuery-File-Upload
