@@ -5,7 +5,23 @@
 {% block content_header '' %}
 
     {% block content %}
+
+
         <div class="div-body-content">
             {% include 'AseagleBundle::file_upload.html.twig' %}
         </div>
+
+        <div class="test-upload-file">
+            <form class="upload-file-form">
+                <input type="hidden" name="hid" value="123">
+            </form>
+        </div>
+        <script src="http://malsup.github.com/jquery.form.js"></script>
+        <script>
+            $(document).ready(function() {
+                $(".upload-file-form").ajaxSubmit({url: '{{path('upload_product')}}', type: 'post'});
+
+
+            });
+        </script>
     {% endblock %}

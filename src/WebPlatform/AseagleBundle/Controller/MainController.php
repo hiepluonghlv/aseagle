@@ -6,6 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
+
+
 class MainController extends Controller
 {
     public function indexAction()
@@ -139,8 +141,6 @@ class MainController extends Controller
                 'd' => $product_detail
             ));
         }
-
-
         return new Response(json_encode($mapped_products_info),200,array('Content-Type'=>'application/json'));
     }
 

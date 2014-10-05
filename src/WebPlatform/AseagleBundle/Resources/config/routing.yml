@@ -45,17 +45,15 @@ show_product:
     path:     /product/show/{id}
     defaults: { _controller: AseagleBundle:Product:show }
 
-upload_file:
-    path:     /upload_file
-    defaults: { _controller: AseagleBundle:Default:upload_file }
-    requirements:
-                _method:  POST
+upload_product:
+    path:     /product/upload
+    defaults: { _controller: AseagleBundle:Product:upload }
 
 upload_file:
     path:     /upload_file
     defaults: { _controller: AseagleBundle:Default:upload_file }
     requirements:
-                _method:  GET
+                _method:  POST
 
 delete_file:
     path:     /delete_file

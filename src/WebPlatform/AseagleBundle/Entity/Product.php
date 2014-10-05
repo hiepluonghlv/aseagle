@@ -492,7 +492,7 @@ class Product
 
     public function __construct()
     {
-        $this->$product_tags = new ArrayCollection();
+        //$this->$product_tags = new ArrayCollection();
         $this->transactions = new ArrayCollection();
     }
 
