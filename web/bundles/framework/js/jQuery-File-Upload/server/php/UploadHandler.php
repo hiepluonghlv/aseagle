@@ -41,11 +41,11 @@ class UploadHandler
 
     protected $image_objects = array();
 
-    function __construct($options = null, $initialize = true, $error_messages = null) {
+    function __construct($options = null, $initialize = true, $error_messages = null, $id = null) {
         $this->options = array(
-            'script_url' => $this->get_full_url().'/',
-            'upload_dir' => dirname($this->get_server_var('SCRIPT_FILENAME')).'/files/',
-            'upload_url' => $this->get_full_url().'/files/',
+            'script_url' => $this->get_full_url().'/'.$id.'/',
+            'upload_dir' => dirname($this->get_server_var('SCRIPT_FILENAME')).'/files/'.$id.'/',
+            'upload_url' => $this->get_full_url().'/files/'.$id.'/',
             'user_dirs' => false,
             'mkdir_mode' => 0755,
             'param_name' => 'files',
@@ -84,10 +84,10 @@ class UploadHandler
             'accept_file_types' => '/.+$/i',
             // The php.ini settings upload_max_filesize and post_max_size
             // take precedence over the following max_file_size setting:
-            'max_file_size' => null,
+            'max_file_size' => 1000000,
             'min_file_size' => 1,
             // The maximum number of files for the upload directory:
-            'max_number_of_files' => null,
+            'max_number_of_files' => 5,
             // Defines which files are handled as image files:
             'image_file_types' => '/\.(gif|jpe?g|png)$/i',
             // Use exif_imagetype on all files to correct file extensions:

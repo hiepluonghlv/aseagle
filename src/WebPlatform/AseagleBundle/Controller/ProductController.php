@@ -3,6 +3,7 @@
 namespace WebPlatform\AseagleBundle\Controller;
 
 use FOS\UserBundle\FOSUserEvents;
+use FOS\UserBundle\Model\UserInterface;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,7 +12,6 @@ use WebPlatform\AseagleBundle\Entity\Product;
 
 class ProductController extends Controller
 {
-
     public function indexAction()
     {
         return array(
@@ -25,8 +25,8 @@ class ProductController extends Controller
         $request->request->get('hid');
 
         //get current user
-        $usr= $this->get('security.context')->getToken()->getUser();
-
+        $user = $this->getUser();
+        $id = $user->getId();
         //create & save product
         $em = $this->getDoctrine()->getManager();
         $cat = $em->getRepository('AseagleBundle:Category')->find(1);
@@ -41,7 +41,7 @@ class ProductController extends Controller
         //$em->persist($product);
         //$em->flush();
 
-        return new Response(json_encode(array('result'=>$usr->getUsername())),200,array('Content-Type'=>'application/json'));
+        return new Response(json_encode(array('result'=>'abc')),200,array('Content-Type'=>'application/json'));
     }
 
     public function showAction($id)

@@ -75,7 +75,7 @@ class DefaultController extends Controller
         */
         error_reporting(E_ALL | E_STRICT);
         require('bundles/framework/js/jquery-file-upload/server/php/UploadHandler.php');
-        $upload_handler = new UploadHandler();
+        $upload_handler = new UploadHandler(null, true, null, 1);
 
         $response = new Response();
         $response->headers->set('Content-Type', 'application/json');
