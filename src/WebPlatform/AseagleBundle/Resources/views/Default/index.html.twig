@@ -25,6 +25,7 @@
 
         </style>
 
+
 		<div class="container-fluid" style="width: 1200px">
 			<div class="row">
 				<h1 class="page-header">Upload Product</h1>
@@ -81,7 +82,7 @@
 				<div class="col-sx-12 col-sm-12 col-md-12">
 					<form class="form-horizontal" id="upload-product-form" action="{{path('upload_product')}}" method="post">
 						<fieldset>
-						<input id="text_category_id" type="hidden" name="category_id" value="">
+						<input id="category_id" type="hidden" name="category_id" value="">
 						
 						<legend>Product Basic Infomation</legend>
 						<div class="product-basic-information"> <!-- Need build this form -->
@@ -97,7 +98,7 @@
 						<div class="form-group">
 						  <label class="col-md-4 control-label" for="specification">Product Specification</label>  
 						  <div class="col-md-6">
-						  <input id="specification" name="specification" type="text" placeholder="specification" class="form-control input-md" required="">
+						  <input id="specification" name="brief_description" type="text" placeholder="specification" class="form-control input-md" required="">
 						    
 						  </div>
 						</div>
@@ -106,7 +107,7 @@
 						<div class="form-group">
 						  <label class="col-md-4 control-label" for="description">Product Description</label>
 						  <div class="col-md-6">                     
-						    <textarea class="form-control" id="description" name="description"></textarea>
+						    <textarea class="form-control" id="specification" name="specification"></textarea>
 						  </div>
 						</div>
 						        
@@ -129,9 +130,9 @@
 						  <label class="col-md-4 control-label" for="buttondropdown">Min. Order Quantity</label>
 						  <div class="col-md-6">
 						    <div class="input-group">
-						      <input id="buttondropdown" name="min_order_quantity" class="form-control" placeholder="Min. Order Quantity" type="text" required="">
+						      <input id="buttondropdown" name="min_order" class="form-control" placeholder="Min. Order Quantity" type="text" required="">
 						      <div class="input-group-btn">
-						      	<input type="hidden" name="Min_order_unit" value="">
+						      	<input type="hidden" name="min_order_unit_type" value="">
 						        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 						          Unit Type
 						          <span class="caret"></span>
@@ -148,7 +149,7 @@
 						<div class="form-group">
 						  <label class="col-md-4 control-label" for="prependedtext">FOB Price</label>
 						  <div class="col-md-1">
-						  	<select id="selectbasic" name="FOB_currency" class="form-control" style="padding: 3px">
+						  	<select id="selectbasic" name="price_currency" class="form-control" style="padding: 3px">
 						      <option value="USD">USD</option>
 						      <option value="SGD">SGD</option>
 						      <option value="VND">VND</option>
@@ -158,7 +159,7 @@
 						    <div class="input-group">
 						      <input id="buttondropdown" name="price_origin" class="form-control" placeholder="FOB Price" type="text" required="">
 						      <div class="input-group-btn">
-						      	<input type="hidden" name="FOB_unit" value="">
+						      	<input type="hidden" name="price_unit_type" value="">
 						        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 						          <em>per</em> Unit Type
 						          <span class="caret"></span>
@@ -176,7 +177,7 @@
 						<div class="form-group">
 						  <label class="col-md-4 control-label" for="textinput">Port</label>  
 						  <div class="col-md-6">
-						  <input id="textinput" name="textinput" type="text" placeholder="Port" class="form-control input-md" required="">
+						  <input id="textinput" name="port" type="text" placeholder="Port" class="form-control input-md" required="">
 						    
 						  </div>
 						</div>
@@ -186,31 +187,31 @@
 						  <label class="col-md-4 control-label" for="checkboxes">Payment Terms</label>
 						  <div class="col-md-4">
 						    <label class="checkbox-inline" for="checkboxes-0">
-						      <input type="checkbox" name="checkboxes" id="checkboxes-0" value="1">
+						      <input type="checkbox" name="payment_terms" id="checkboxes-0" value="1">
 						      L/C
 						    </label>
 						    <label class="checkbox-inline" for="checkboxes-1">
-						      <input type="checkbox" name="checkboxes" id="checkboxes-1" value="2">
+						      <input type="checkbox" name="payment_terms" id="checkboxes-1" value="2">
 						      D/A
 						    </label>
 						    <label class="checkbox-inline" for="checkboxes-2">
-						      <input type="checkbox" name="checkboxes" id="checkboxes-2" value="3">
+						      <input type="checkbox" name="payment_terms" id="checkboxes-2" value="3">
 						      D/P
 						    </label>
 						    <label class="checkbox-inline" for="checkboxes-3">
-						      <input type="checkbox" name="checkboxes" id="checkboxes-3" value="4">
+						      <input type="checkbox" name="payment_terms" id="checkboxes-3" value="4">
 						      T/T
 						    </label>
 						    <label class="checkbox-inline" for="checkboxes-4">
-						      <input type="checkbox" name="checkboxes" id="checkboxes-4" value="5">
+						      <input type="checkbox" name="payment_terms" id="checkboxes-4" value="5">
 						      Western Union
 						    </label>
 						    <label class="checkbox-inline" for="checkboxes-5">
-						      <input type="checkbox" name="checkboxes" id="checkboxes-5" value="6">
+						      <input type="checkbox" name="payment_terms" id="checkboxes-5" value="6">
 						      MoneyGram
 						    </label>
 						    <label class="checkbox-inline" for="checkboxes-6">
-						      <input type="checkbox" name="checkboxes" id="checkboxes-6" value="7">
+						      <input type="checkbox" name="payment_terms" id="checkboxes-6" value="7">
 						      Other
 						    </label>
 						  </div>
@@ -259,7 +260,7 @@
 						<div class="form-group">
 						  <label class="col-md-4 control-label" for="textarea">Packaging Details</label>
 						  <div class="col-md-6">                     
-						    <textarea class="form-control" id="textarea" placeholder="Packaging Details" name="package_details"></textarea>
+						    <textarea class="form-control" id="textarea" placeholder="Packaging Details" name="packaging"></textarea>
 						  </div>
 						</div>
 						</div>
@@ -270,6 +271,7 @@
 				<!-- /.col-lg-6 (nested) -->
 			</div>
 		</div>
+
 
     	<script src="{{ asset('bundles/framework/vendor/bootstrap/js/bootstrap-list-filter.min.js') }}"></script>
     	<script src="{{ asset('bundles/framework/js/dashboard/upload.js') }}"></script>
