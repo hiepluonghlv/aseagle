@@ -12,11 +12,6 @@ main_left_side_bar:
     requirements:
                     _method:  GET
 
-main_filter:
-    path:     /main/filter/{category_id}
-    defaults: { _controller: AseagleBundle:Main:filter }
-    requirements:
-                    _method:  GET
 
 main_category_products:
     path:     /main/{catrgory_id}

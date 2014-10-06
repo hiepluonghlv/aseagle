@@ -9,7 +9,7 @@
 
 
 <div class="div-file-upload">
-    <form id="fileupload" action="{{path('upload_file')}}" method="POST" enctype="multipart/form-data">
+    <div id="fileupload" action="{{path('upload_file')}}" method="POST" enctype="multipart/form-data">
         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
         <div class="row fileupload-buttonbar">
             <div class="col-lg-7">
@@ -44,7 +44,8 @@
         </div>
         <!-- The table listing the files available for upload/download -->
         <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
-    </form>
+    </div>
+
     <!-- The blueimp Gallery widget -->
     <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-filter=":even">
         <div class="slides"></div>
@@ -155,3 +156,7 @@
     <script src="{{ asset('bundles/framework/js/jquery-file-upload/js/cors/jquery.xdr-transport.js') }}"></script>
     <![endif]-->
 </div>
+
+<script>
+    $('#fileupload').fileupload({url: "{{path('upload_file')}}", method:"POST"});
+</script>

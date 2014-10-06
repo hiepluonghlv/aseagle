@@ -36,7 +36,7 @@ class ProductController extends Controller
         $product->setTitle('A Bar');
         $product->setCategory($cat);
         $product->setOwner($owner);
-        $product->setFobPrice('19.99');
+        $product->setPriceOrigin('19.99');
 
         //$em->persist($product);
         //$em->flush();
@@ -49,13 +49,13 @@ class ProductController extends Controller
         $mapping_helper = $this->get('mapping_helper');
         $product = $this->getDoctrine()->getRepository('AseagleBundle:Product')->find($id);
         $product_info = array(
-            'id' => $product->getId(),
-            'n' => $product->getTitle(),
-            'pr' => $product->getPrice(),
-            'm_o' => $product->getMinOrderQuantity(),
-            'port' => $product->getPort(),
-            'pay' => $product->getPaymentTerms(),
-            'd' => $mapping_helper->mapping_products_in_category($product)
+            //'id' => $product->getId(),
+            //'n' => $product->getTitle(),
+            //'pr' => $product->getPrice(),
+            //'m_o' => $product->getMinOrderQuantity(),
+            //'port' => $product->getPort(),
+            //'pay' => $product->getPaymentTerms(),
+            //'d' => $mapping_helper->mapping_products_in_category($product)
         );
         return $this->render('AseagleBundle:Product:show.html.twig', $product_info);
     }
