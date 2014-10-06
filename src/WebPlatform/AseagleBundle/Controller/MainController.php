@@ -151,28 +151,6 @@ class MainController extends Controller
         $search_string = $request->query->get('search_string');
         $sort_by = $request->query->get('sort_by');
 
-        /*
-        $products = $this->getDoctrine()->getRepository('AseagleBundle:Product')->createQueryBuilder('p')
-            ->select("p.id, p.category_id as cat_id, p.title as n, p.price_origin as pr, p.min_order_quantity as m_o,
-                      p.brief_description as des, p.port, p.payment_terms as pay, concat('[',COALESCE(p.comment,''),']') as cmt,
-                      concat('{','\"1\"',':',COALESCE(p.product_detail_1,''),',',
-                             '2',':',COALESCE(p.product_detail_2,''),',',
-                             '3',':',COALESCE(p.product_detail_3,''),',',
-                             '4',':',COALESCE(p.product_detail_4,''),',',
-                             '5',':',COALESCE(p.product_detail_5,''),',',
-                             '6',':',COALESCE(p.product_detail_6,''),',',
-                             '7',':',COALESCE(p.product_detail_7,''),',',
-                             '8',':',COALESCE(p.product_detail_8,''),',',
-                             '9',':',COALESCE(p.product_detail_9,''),
-                            '}')
-                            as d
-                      ")
-            ->where('p.category_id = :category_id')
-            ->andWhere('p.title LIKE :search_string')
-            ->setParameter('category_id', $category_id)
-            ->setParameter('search_string', '%'.$search_string.'%')
-            ->getQuery()
-            ->getResult();*/
         $products = $this->getDoctrine()->getRepository('AseagleBundle:Product')->createQueryBuilder('p')
             ->where('p.category_id = :category_id')
             ->andWhere('p.title LIKE :search_string')
@@ -180,16 +158,6 @@ class MainController extends Controller
             ->setParameter('search_string', '%'.$search_string.'%')
             ->getQuery()
             ->getResult();
-
-        /*
-        //just test
-        $em = $this->getDoctrine()->getManager();
-        $product_list = $em->createQuery(
-            'SELECT p.title
-            FROM AseagleBundle:Product p'
-            )->getResult();
-        */
-
 
         $mapped_products_info = array();
         foreach($products as $product)
@@ -218,30 +186,9 @@ class MainController extends Controller
             ));
         }
 
-
         return new Response(json_encode($mapped_products_info),200,array('Content-Type'=>'application/json'));
     }
 
-    public function get_list_products_mainAction()
-    {
-        $mapping_helper = $this->get('mapping_helper');
-        $products = $this->getDoctrine()->getRepository('AseagleBundle:Product')->findBy(array('category_id' => '1'), array('id' => 'ASC'));
-        $mapped_products_info = array();
 
-        foreach($products as $product)
-        {
-            array_push($mapped_products_info, array(
-                'id' => $product->getId(),
-                'n' => $product->getTitle(),
-                'pr' => $product->getPrice(),
-                'm-o' => $product->getMinOrderQuantity(),
-                'port' => $product->getPort(),
-                'pay' => $product->getPaymentTerms(),
-                'd' => $mapping_helper->mapping_products_in_category($product)
-            ));
-        }
-
-        return new Response(json_encode($mapped_products_info),200,array('Content-Type'=>'application/json'));
-    }
 
 }

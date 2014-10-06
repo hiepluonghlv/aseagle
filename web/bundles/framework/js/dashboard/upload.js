@@ -105,8 +105,8 @@ _AsgDashboard.Upload = ( function() {
     function _build_product_detail(cat_id) {
     	var current_product_detail_list = cat_col_mapping[cat_id];
     	
-    	$("#text_category_id").val(cat_id);
-    	$("#text_category_id").text(cat_id);
+    	$("#category_id").val(cat_id);
+    	$("#category_id").text(cat_id);
     	
     	//$(".product-detail-fields").empty();
     	$.each(current_product_detail_list, function(i) {
