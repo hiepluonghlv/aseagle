@@ -8,9 +8,21 @@ _AsgUtil.Mapping = ( function() {
 	pub.getColumnName = function (cat_id, key) {
 		return cat_col_mapping[cat_id][key].n;
 	}
+	
+	pub.getColumnId = function (cat_id, key) {
+		return cat_col_mapping[cat_id][key].c_id;
+	}
 
 	pub.getDefaultValueArray = function (cat_id, key) {
 		return cat_col_mapping[cat_id][key].def_v;
+	}
+	
+	pub.getColumnRequired = function (cat_id, key) {
+		return cat_col_mapping[cat_id][key].rq;
+	}
+	
+	pub.getColumnRstr = function (cat_id, key) {
+		return cat_col_mapping[cat_id][key].rstr;
 	}
 	
 	pub.getDefaultValue = function (key) {

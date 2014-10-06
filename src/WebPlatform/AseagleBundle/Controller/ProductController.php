@@ -26,7 +26,7 @@ class ProductController extends Controller
 
         //get current user
         $user = $this->getUser();
-        $id = $user->getId();
+        //$id = $user->getId();
         //create & save product
         $em = $this->getDoctrine()->getManager();
         $cat = $em->getRepository('AseagleBundle:Category')->find(1);

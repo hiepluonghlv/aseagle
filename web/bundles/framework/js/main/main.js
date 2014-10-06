@@ -107,8 +107,11 @@ _AsgMainBuilder.LeftSideBar = ( function() {
 		// --- header 
 		$('<div/>').addClass('header').text("Region of Supplier").appendTo(div_wrapper);
 		// --- list
-		var ul_wrapper = $('<ul/>').appendTo(div_wrapper);
-		
+		var cbox = $('<div/>')
+			.addClass('c-box')
+		    .appendTo(div_wrapper);
+		var ul_wrapper = $('<ul/>').appendTo(cbox);
+			
 		var region_id;
 		for (region_id in region_array_json) {
 			var region = region_array_json[region_id];
@@ -150,10 +153,11 @@ _AsgMainBuilder.LeftSideBar = ( function() {
 		
 		
 		$("div.region-list input[type=checkbox]").change(function(e) {
+			$("div.country-list li").hide();
 		    if(this.checked){
-				$("div.country-list li[name="+this.name+"]").hide();
+				$("div.country-list li[name="+this.name+"]").show();
 		    } else {
-		    	$("div.country-list li[name="+this.name+"]").show();
+		    	$("div.country-list li[name="+this.name+"]").hide();
 		    }
 		});
 	}
@@ -162,13 +166,16 @@ _AsgMainBuilder.LeftSideBar = ( function() {
 		var country_array_json = ajax_json;
 		
 		var div_wrapper = $('<div/>')
-			.addClass('column-left c-box country-list')
+			.addClass('column-left country-list')
 		    .appendTo(left_side_bar);
 		
 		// --- header 
 		$('<div/>').addClass('header').text("Country of Supplier").appendTo(div_wrapper);
 		// --- list
-		var ul_wrapper = $('<ul/>').appendTo(div_wrapper);
+		var cbox = $('<div/>')
+			.addClass('c-box')
+		    .appendTo(div_wrapper);
+		var ul_wrapper = $('<ul/>').appendTo(cbox);
 		$.each(country_array_json, function(i) {
 			var country = country_array_json[i];
 		    var li = $('<li/>')
@@ -238,7 +245,10 @@ _AsgMainBuilder.LeftSideBar = ( function() {
 		// --- header 
 		$('<div/>').addClass('header').text("Category").appendTo(div_wrapper);
 		// --- list
-		var ul_wrapper = $('<ul/>').addClass('nav').appendTo(div_wrapper);
+		var cbox = $('<div/>')
+			.addClass('c-box')
+		    .appendTo(div_wrapper);
+		var ul_wrapper = $('<ul/>').addClass('nav').appendTo(cbox);
 		$.each(cat_list, function(i)
 		{
 			var cat = cat_list[i];
@@ -270,7 +280,10 @@ _AsgMainBuilder.LeftSideBar = ( function() {
 		// --- header 
 		$('<div/>').addClass('header').text("Category").appendTo(div_wrapper);
 		// --- list
-		var ul_wrapper = $('<ul/>').addClass('nav').appendTo(div_wrapper);
+		var cbox = $('<div/>')
+			.addClass('c-box')
+		    .appendTo(div_wrapper);
+		var ul_wrapper = $('<ul/>').addClass('nav').appendTo(cbox);
 		$.each(cat_list, function(i) {
 			var cat = cat_list[i];
 			
@@ -332,7 +345,11 @@ _AsgMainBuilder.LeftSideBar = ( function() {
 				// --- header 
 				$('<div/>').addClass('header').text(header_text).appendTo(div_wrapper);
 				// --- list
-				var ul_wrapper = $('<ul/>').appendTo(div_wrapper);
+
+				var cbox = $('<div/>')
+					.addClass('c-box')
+				    .appendTo(div_wrapper);
+				var ul_wrapper = $('<ul/>').appendTo(cbox);
 				var default_value_array_json = _AsgUtil.Mapping.getDefaultValueArray(g_str_cat_id, filter_id);
 				$.each(default_value_array_json, function(i) {
 					var default_value_id = default_value_array_json[i];
