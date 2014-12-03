@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Product
  *
- * @ORM\Table()
+ * @ORM\Table(name="product")
  * @ORM\Entity
  */
 class Product
@@ -167,6 +167,13 @@ class Product
      * @ORM\Column(name="rating", type="integer", nullable=true)
      */
     private $rating = null;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="place_of_origin", type="integer", nullable=true)
+     */
+    private $place_of_origin = null;
 
     /**
      * @var string
@@ -2061,5 +2068,28 @@ class Product
     public function getTransactions()
     {
         return $this->transactions;
+    }
+
+    /**
+     * Set place_of_origin
+     *
+     * @param integer $placeOfOrigin
+     * @return Product
+     */
+    public function setPlaceOfOrigin($placeOfOrigin)
+    {
+        $this->place_of_origin = $placeOfOrigin;
+
+        return $this;
+    }
+
+    /**
+     * Get place_of_origin
+     *
+     * @return integer 
+     */
+    public function getPlaceOfOrigin()
+    {
+        return $this->place_of_origin;
     }
 }

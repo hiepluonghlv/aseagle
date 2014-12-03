@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ProductDetailNameMapping
  *
- * @ORM\Table()
+ * @ORM\Table(name="productdetailnamemapping")
  * @ORM\Entity
  */
 class ProductDetailNameMapping

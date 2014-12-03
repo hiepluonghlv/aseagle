@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ProductTag
  *
- * @ORM\Table()
+ * @ORM\Table(name="producttag")
  * @ORM\Entity
  */
 class ProductTag

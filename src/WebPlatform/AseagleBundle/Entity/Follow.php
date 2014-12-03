@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Follow
  *
- * @ORM\Table()
+ * @ORM\Table(name="follow")
  * @ORM\Entity(repositoryClass="WebPlatform\AseagleBundle\Entity\FollowRepository")
  */
 class Follow

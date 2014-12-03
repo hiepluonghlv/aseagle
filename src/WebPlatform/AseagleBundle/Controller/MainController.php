@@ -106,8 +106,8 @@ class MainController extends Controller
         $country_id = $request->query->get('country');
 
         $products = $this->getDoctrine()->getRepository('AseagleBundle:Product')->createQueryBuilder('p')
-            ->where('p.category_id = :category_id')
-            ->andWhere("p.title LIKE :search_string and p.place_of_origin_id = :country_id and ".$filter_string)
+            ->where('p.category_id = :category_id and p.place_of_origin = :country_id'.($search_string != "" ? " and p.title LIKE ".$search_string : "").($filter_string != "" ? " and ".$filter_string : "" ))
+
             ->setParameter('category_id', $category_id)
             ->setParameter('search_string', '%'.$search_string.'%')
             ->setParameter('country_id', $country_id)
@@ -134,7 +134,7 @@ class MainController extends Controller
                 'cat_id' => $product->getCategoryId(),
                 'n' => $product->getTitle(),
                 'pr' => $product->getPriceOrigin(),
-                'm_o' => $product->getMinOrderQuantity(),
+                'm_o' => $product->getMinOrder(),
                 'port' => $product->getPort(),
                 'pay' => $product->getPaymentTerms(),
                 'cmt' => $product->getComment() == null ? [] : ($product->getComment() == "" ? [] : array($product->getComment())),

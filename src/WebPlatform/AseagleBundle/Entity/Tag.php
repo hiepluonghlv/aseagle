@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Tag
  *
- * @ORM\Table()
+ * @ORM\Table(name="tag")
  * @ORM\Entity
  */
 class Tag

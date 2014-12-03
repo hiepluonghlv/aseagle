@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * UserCategory
  *
- * @ORM\Table()
+ * @ORM\Table(name="usercategory")
  * @ORM\Entity
  */
 class UserCategory
