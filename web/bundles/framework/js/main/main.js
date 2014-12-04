@@ -57,8 +57,8 @@ _AsgMainBuilder.LeftSideBar = ( function() {
 			var country = search_str.countries;
 			ret+="country=";
 			$.each(country, function(i) {
-				ret+=country[i]+",";
-			})
+				ret+=country[i] + ",";
+			});
 		} else {
 			ret+="country=0";
 		}
@@ -70,7 +70,7 @@ _AsgMainBuilder.LeftSideBar = ( function() {
 				default_values = filters[id];
 				$.each(default_values, function(i) {
 					ret+=default_values[i]+",";
-				})
+				});
 				
 			}
 			
@@ -85,14 +85,16 @@ _AsgMainBuilder.LeftSideBar = ( function() {
 	
  	function __ajax_call(request_str) {
  		$.ajax({
-		  url: "/"+g_cat_id+"?"+request_str,
+		  url: "main/filter/"+g_cat_id+"?"+request_str,
 		})
-		.done(function() {
-			_AsgMainBuilder.MainContent.build(_ajax_product_list_json);
+		.done(function(data ) {
+			alert("success:" + data);
+			_AsgMainBuilder.MainContent.build(data);
 		})
 		.fail(function() {
-			_AsgMainBuilder.MainContent.build(_ajax_product_list_json);
-		  });
+			//_AsgMainBuilder.MainContent.build(_ajax_product_list_json);
+			alert( "error" );  
+		});
  		
  		
 	}
@@ -457,6 +459,7 @@ _AsgMainBuilder.MainContent = ( function() {
 				var col;
 				var h3_prop = '<h3 class="prop">';
 				for (col in product_json.d) {
+					if(product_json.d[col] != null)
 					h3_prop+="<em>"+_AsgUtil.Mapping.getColumnName(product_json.cat_id, parseInt(col))+":</em>" + product_json.d[col] + "; ";
 				}
 				h3_prop += "</h3>";
@@ -513,4 +516,6 @@ _AsgMainBuilder.MainContent = ( function() {
 $(document).ready(function(){
 	_AsgMainBuilder.LeftSideBar.build(_ajax_cat_filter_json);
 	_AsgMainBuilder.MainContent.build(_ajax_product_list_json);
+
+	_AsgUtil.HeaderNavbar.build();
 });

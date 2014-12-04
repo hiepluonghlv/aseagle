@@ -3,7 +3,7 @@ aseagle_homepage:
     defaults: { _controller: AseagleBundle:Default:index }
 
 aseagle_main:
-    path:     /main
+    path:     /main/{category_id}
     defaults: { _controller: AseagleBundle:Main:index }
 
 main_left_side_bar:

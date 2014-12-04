@@ -10,12 +10,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 class MainController extends Controller
 {
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         //$cat_list = $this->getDoctrine()->getRepository('AseagleBundle:Category')->findBy(array(), array('lft' => 'ASC'));
         //$parents = $this->getDoctrine()->getRepository('AseagleBundle:Category')->findBy(array('parentId' => null), array('id' => 'ASC'));
         //self::get_cat_tree($parents, $cat_tree);
-        return $this->render('AseagleBundle:Main:index.html.twig', array('name' => 'asd'));
+        return $this->render('AseagleBundle:Main:index.html.twig', array('cat_id' => $request->get('category_id')));
     }
 
     public function left_side_barAction(Request $request)
@@ -106,13 +106,23 @@ class MainController extends Controller
         $country_id = $request->query->get('country');
 
         $products = $this->getDoctrine()->getRepository('AseagleBundle:Product')->createQueryBuilder('p')
-            ->where('p.category_id = :category_id')
-            ->andWhere("p.title LIKE :search_string and p.place_of_origin_id = :country_id and ".$filter_string)
-            ->setParameter('category_id', $category_id)
-            ->setParameter('search_string', '%'.$search_string.'%')
-            ->setParameter('country_id', $country_id)
-            ->getQuery()
-            ->getResult();
+            ->where('p.category_id = '.$category_id);
+        	
+        	if ($search_string) {
+        		$products->andWhere("p.title LIKE :search_string")
+        		->setParameter('search_string', '%'.$search_string.'%');
+        	}
+        	
+        	if ($country_id) {
+        		//$products->andWhere("p.place_of_origin_id LIKE :place_of_origin_id")
+        		//->setParameter('place_of_origin_id', '%'.$country_id.'%');
+        	}
+        	
+        	if ($filter_string != '') {
+        		$products->andWhere($filter_string);
+        	}
+        	
+            $products = $products->getQuery()->getResult();
 
         $mapped_products_info = array();
         foreach($products as $product)
@@ -134,7 +144,7 @@ class MainController extends Controller
                 'cat_id' => $product->getCategoryId(),
                 'n' => $product->getTitle(),
                 'pr' => $product->getPriceOrigin(),
-                'm_o' => $product->getMinOrderQuantity(),
+                'm_o' => $product->getMinOrder(),
                 'port' => $product->getPort(),
                 'pay' => $product->getPaymentTerms(),
                 'cmt' => $product->getComment() == null ? [] : ($product->getComment() == "" ? [] : array($product->getComment())),
@@ -162,15 +172,47 @@ class MainController extends Controller
         $mapped_products_info = array();
         foreach($products as $product)
         {
-            $product_detail = array('1' => $product->getProductDetail1(),
+            $product_detail = array(
+            	'1' => $product->getProductDetail1(),
                 '2' => $product->getProductDetail2(),
                 '3' => $product->getProductDetail3(),
                 '4' => $product->getProductDetail4(),
                 '5' => $product->getProductDetail5(),
                 '6' => $product->getProductDetail6(),
                 '7' => $product->getProductDetail7(),
-                '8' => $product->getProductDetail7(),
-                '9' => $product->getProductDetail7()
+                '8' => $product->getProductDetail8(),
+                '9' => $product->getProductDetail9(),
+            	'10' => $product->getProductDetail10(),
+            	'11' => $product->getProductDetail11(),
+                '12' => $product->getProductDetail12(),
+                '13' => $product->getProductDetail13(),
+                '14' => $product->getProductDetail14(),
+                '15' => $product->getProductDetail15(),
+                '16' => $product->getProductDetail16(),
+                '17' => $product->getProductDetail17(),
+                '18' => $product->getProductDetail18(),
+                '19' => $product->getProductDetail19(),
+            	'20' => $product->getProductDetail20(),
+                '21' => $product->getProductDetail21(),
+                '22' => $product->getProductDetail22(),
+                '23' => $product->getProductDetail23(),
+                '24' => $product->getProductDetail24(),
+                '25' => $product->getProductDetail25(),
+                '26' => $product->getProductDetail26(),
+                '27' => $product->getProductDetail27(),
+                '28' => $product->getProductDetail28(),
+                '29' => $product->getProductDetail29(),
+            	'30' => $product->getProductDetail30(),
+                '31' => $product->getProductDetail31(),
+                '32' => $product->getProductDetail32(),
+                '33' => $product->getProductDetail33(),
+                '34' => $product->getProductDetail34(),
+                '35' => $product->getProductDetail35(),
+                '36' => $product->getProductDetail36(),
+                '37' => $product->getProductDetail37(),
+                '38' => $product->getProductDetail38(),
+                '39' => $product->getProductDetail39(),
+            	'40' => $product->getProductDetail40(),
             );
 
             array_push($mapped_products_info, array(

@@ -438,7 +438,9 @@ class SymfonyRequirements extends RequirementCollection
                     $timezones[$abbreviation['timezone_id']] = true;
                 }
             }
-
+            
+            date_default_timezone_set("GMT");
+            
             $this->addRequirement(
                 isset($timezones[date_default_timezone_get()]),
                 sprintf('Configured default timezone "%s" must be supported by your installation of PHP', date_default_timezone_get()),
