@@ -24,7 +24,7 @@ class MainController extends Controller
         $cat_list = self::get_cat_lr_tree($category_id);
         $country_list = self::get_country($category_id);
         $filter_list =self::get_filter($category_id);
-        $left_side_bar = ['current_cat_id' => $category_id, 'country' => $country_list, 'cat' => $cat_list, 'filter' => $filter_list];
+        $left_side_bar = array('current_cat_id' => $category_id, 'country' => $country_list, 'cat' => $cat_list, 'filter' => $filter_list);
         return new Response(json_encode($left_side_bar),200,array('Content-Type'=>'application/json'));
     }
 
@@ -38,7 +38,7 @@ class MainController extends Controller
             ->setParameter('category_id', $category_id)
             ->getQuery()
             ->getResult();
-        $result = [];
+        $result = array();
         foreach ($filter_list as $f){
             array_push($result,$f['colId']);
         }
@@ -67,7 +67,7 @@ class MainController extends Controller
 
     private function get_cat_tree( $parent_list, &$result ){
         foreach($parent_list as $parent){
-           array_push($result,array('cat' => $parent, 'par' => $parent->getParent()));
+            array_push($result,array('cat' => $parent, 'par' => $parent->getParent()));
             $children = $this->getDoctrine()->getRepository('AseagleBundle:Category')->findBy(array('parentId' => $parent->getId()), array('id' => 'ASC'));
             if (sizeof($children)>0){
                 self::get_cat_tree($children, $result);
@@ -99,30 +99,20 @@ class MainController extends Controller
             $filter_string = substr($filter_string, 0, -3);
         }
 
-        $mapping_helper = $this->get('mapping_helper');
+        //$mapping_helper = $this->get('mapping_helper');
         $category_id = $request->get('category_id');
         $page = $request->query->get('page');
         $search_string = $request->query->get('search_string');
         $country_id = $request->query->get('country');
 
         $products = $this->getDoctrine()->getRepository('AseagleBundle:Product')->createQueryBuilder('p')
-            ->where('p.category_id = '.$category_id);
-        	
-        	if ($search_string) {
-        		$products->andWhere("p.title LIKE :search_string")
-        		->setParameter('search_string', '%'.$search_string.'%');
-        	}
-        	
-        	if ($country_id) {
-        		//$products->andWhere("p.place_of_origin_id LIKE :place_of_origin_id")
-        		//->setParameter('place_of_origin_id', '%'.$country_id.'%');
-        	}
-        	
-        	if ($filter_string != '') {
-        		$products->andWhere($filter_string);
-        	}
-        	
-            $products = $products->getQuery()->getResult();
+            ->where('p.category_id = :category_id and p.place_of_origin = :country_id'.($search_string != "" ? " and p.title LIKE '%".$search_string."%'" : "").($filter_string != "" ? " and ".$filter_string : "" ))
+
+            ->setParameter('category_id', $category_id)
+
+            ->setParameter('country_id', $country_id)
+            ->getQuery()
+            ->getResult();
 
         $mapped_products_info = array();
         foreach($products as $product)
@@ -147,7 +137,7 @@ class MainController extends Controller
                 'm_o' => $product->getMinOrder(),
                 'port' => $product->getPort(),
                 'pay' => $product->getPaymentTerms(),
-                'cmt' => $product->getComment() == null ? [] : ($product->getComment() == "" ? [] : array($product->getComment())),
+                'cmt' => $product->getComment() == null ? array() : ($product->getComment() == "" ? array() : array($product->getComment())),
                 'd' => $product_detail
             ));
         }
@@ -230,7 +220,5 @@ class MainController extends Controller
 
         return new Response(json_encode($mapped_products_info),200,array('Content-Type'=>'application/json'));
     }
-
-
 
 }

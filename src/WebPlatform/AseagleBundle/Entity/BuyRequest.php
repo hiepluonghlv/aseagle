@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * BuyRequest
  *
- * @ORM\Table()
+ * @ORM\Table(name="buyrequest")
  * @ORM\Entity
  */
 class BuyRequest
