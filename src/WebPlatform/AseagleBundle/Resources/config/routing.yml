@@ -51,6 +51,12 @@ delete_file:
     requirements:
                 _method:  DELETE
 
+getToken:
+    path:     Main:getToken
+    defaults: { _controller: AseagleBundle:Main:getToken }
+    requirements:
+                _method:  GET
+
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 
