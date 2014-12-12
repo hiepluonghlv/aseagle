@@ -175,7 +175,14 @@ class Product
      */
     private $rating = null;
 
-     /**
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="place_of_origin", type="integer", nullable=true)
+     */
+    private $place_of_origin = null;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="product_detail_1", type="string", nullable=true)
@@ -2093,4 +2100,26 @@ class Product
         return $this->transactions;
     }
 
+    /**
+     * Set place_of_origin
+     *
+     * @param integer $placeOfOrigin
+     * @return Product
+     */
+    public function setPlaceOfOrigin($placeOfOrigin)
+    {
+        $this->place_of_origin = $placeOfOrigin;
+
+        return $this;
+    }
+
+    /**
+     * Get place_of_origin
+     *
+     * @return integer 
+     */
+    public function getPlaceOfOrigin()
+    {
+        return $this->place_of_origin;
+    }
 }
