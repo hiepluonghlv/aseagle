@@ -2116,7 +2116,7 @@ class Product
     /**
      * Get place_of_origin
      *
-     * @return integer 
+     * @return integer
      */
     public function getPlaceOfOrigin()
     {
