@@ -218,4 +218,11 @@ class MainController extends Controller
         return new Response(json_encode($mapped_products_info),200,array('Content-Type'=>'application/json'));
     }
 
+    public function getTokenAction()
+    {
+        return new Response($this->container->get('form.csrf_provider')
+            ->generateCsrfToken('authenticate'));
+    }
+
+
 }
