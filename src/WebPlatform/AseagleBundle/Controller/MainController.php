@@ -106,11 +106,8 @@ class MainController extends Controller
         $country_id = $request->query->get('country');
 
         $products = $this->getDoctrine()->getRepository('AseagleBundle:Product')->createQueryBuilder('p')
-            ->where('p.category_id = :category_id and p.place_of_origin = :country_id'.($search_string != "" ? " and p.title LIKE '%".$search_string."%'" : "").($filter_string != "" ? " and ".$filter_string : "" ))
-
+            ->where('p.category_id = :category_id '.($country_id != "" ? " and p.place_of_origin = ".$country_id : "").($search_string != "" ? " and p.title LIKE '%".$search_string."%'" : "").($filter_string != "" ? " and ".$filter_string : "" ))
             ->setParameter('category_id', $category_id)
-
-            ->setParameter('country_id', $country_id)
             ->getQuery()
             ->getResult();
 
