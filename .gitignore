@@ -46,3 +46,4 @@ cache
 vendor
 /*.project
 /.idea
+/web/files

@@ -135,6 +135,7 @@ class MainController extends Controller
                 'port' => $product->getPort(),
                 'pay' => $product->getPaymentTerms(),
                 'cmt' => $product->getComment() == null ? array() : ($product->getComment() == "" ? array() : array($product->getComment())),
+                'pic' => $product->getPicture(),
                 'd' => $product_detail
             ));
         }
@@ -211,6 +212,7 @@ class MainController extends Controller
                 'port' => $product->getPort(),
                 'pay' => $product->getPaymentTerms(),
                 'cmt' => array($product->getComment()),
+                'pic' => $product->getPicture(),
                 'd' => $product_detail
             ));
         }

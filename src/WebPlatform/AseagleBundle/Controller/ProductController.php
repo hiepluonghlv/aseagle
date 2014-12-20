@@ -217,7 +217,9 @@ class ProductController extends Controller
         if($request->request->get('product_detail_40') != ""){
             $product->setProductDetail40($request->request->get('product_detail_40'));
         }
-
+        if($request->request->get('hid-list-file-upload') != ""){
+            $product->setPicture($request->request->get('hid-list-file-upload'));
+        }
 
         $em->persist($product);
         $em->flush();

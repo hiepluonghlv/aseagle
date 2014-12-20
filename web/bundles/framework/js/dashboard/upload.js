@@ -146,7 +146,7 @@ _AsgDashboard.Upload = ( function() {
 		
 		build : function (ajax_json) {
 
-		},
+		}
 	}; 
 })();
 

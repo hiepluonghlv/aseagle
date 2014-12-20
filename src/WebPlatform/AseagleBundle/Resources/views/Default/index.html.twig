@@ -113,6 +113,7 @@
 						        
 				        <div class="div-file-upload-content">
 				            {% include 'AseagleBundle::file_upload.html.twig' %}
+                            <input type="hidden" id="hid-list-file-upload" name="hid-list-file-upload">
 				        </div>
 						
 						</div>
@@ -264,7 +265,7 @@
 						  </div>
 						</div>
 						</div>
-						<button type="submit" class="btn btn-default">Submit</button>
+						<button id="btn-upload-file-submit" type="submit" class="btn btn-default">Submit</button>
 						</fieldset>
 						</form>
 				</div>
@@ -279,7 +280,20 @@
         <script src="http://malsup.github.com/jquery.form.js"></script>
         <script>
             $(document).ready(function() {
+                //set form to ajax form
                 $("#upload-product-form").ajaxForm();
+
+                //Prepare string of uploaded files
+                $("#btn-upload-file-submit").click(function(){
+                    var images = "";
+                    $("div#fileupload tr").each(function(){
+                        image = $(this).find("span.preview a").attr("href");
+                        images += image.split('/')[image.split('/').length-3] + "/" + image.split('/')[image.split('/').length-2] + "/" + image.split('/')[image.split('/').length-1] + ";";
+                    });
+                    $("#hid-list-file-upload").val(images.length ? images.substr(0,images.length-1) : "");
+
+                    return true;
+                });
             });
         </script>
     {% endblock %}
