@@ -230,19 +230,57 @@ class ProductController extends Controller
     public function showAction($id)
     {
         $mapping_helper = $this->get('mapping_helper');
+        $image_helper = $this->get('image_helper');
         $product = $this->getDoctrine()->getRepository('AseagleBundle:Product')->find($id);
+        $product_detail = array();
+        self::notEmptyOrNull($product->getProductDetail1()) ? $product_detail['1'] = $product->getProductDetail1() : null;
+        self::notEmptyOrNull($product->getProductDetail2()) ? $product_detail['2'] = $product->getProductDetail2() : null;
+        self::notEmptyOrNull($product->getProductDetail3()) ? $product_detail['3'] = $product->getProductDetail3() : null;
+        self::notEmptyOrNull($product->getProductDetail4()) ? $product_detail['4'] = $product->getProductDetail4() : null;
+        self::notEmptyOrNull($product->getProductDetail5()) ? $product_detail['5'] = $product->getProductDetail5() : null;
+        self::notEmptyOrNull($product->getProductDetail6()) ? $product_detail['6'] = $product->getProductDetail6() : null;
+        self::notEmptyOrNull($product->getProductDetail7()) ? $product_detail['7'] = $product->getProductDetail7() : null;
+        self::notEmptyOrNull($product->getProductDetail8()) ? $product_detail['8'] = $product->getProductDetail8() : null;
+        self::notEmptyOrNull($product->getProductDetail9()) ? $product_detail['9'] = $product->getProductDetail9() : null;
+        self::notEmptyOrNull($product->getProductDetail10()) ? $product_detail['10'] = $product->getProductDetail10() : null;
+        self::notEmptyOrNull($product->getProductDetail11()) ? $product_detail['11'] = $product->getProductDetail11() : null;
+        self::notEmptyOrNull($product->getProductDetail12()) ? $product_detail['12'] = $product->getProductDetail12() : null;
+        self::notEmptyOrNull($product->getProductDetail13()) ? $product_detail['13'] = $product->getProductDetail13() : null;
+        self::notEmptyOrNull($product->getProductDetail14()) ? $product_detail['14'] = $product->getProductDetail14() : null;
+        self::notEmptyOrNull($product->getProductDetail15()) ? $product_detail['15'] = $product->getProductDetail15() : null;
+        self::notEmptyOrNull($product->getProductDetail16()) ? $product_detail['16'] = $product->getProductDetail16() : null;
+        self::notEmptyOrNull($product->getProductDetail17()) ? $product_detail['17'] = $product->getProductDetail17() : null;
+        self::notEmptyOrNull($product->getProductDetail18()) ? $product_detail['18'] = $product->getProductDetail18() : null;
+        self::notEmptyOrNull($product->getProductDetail19()) ? $product_detail['19'] = $product->getProductDetail19() : null;
+        self::notEmptyOrNull($product->getProductDetail20()) ? $product_detail['20'] = $product->getProductDetail20() : null;
+        self::notEmptyOrNull($product->getProductDetail21()) ? $product_detail['21'] = $product->getProductDetail21() : null;
+        self::notEmptyOrNull($product->getProductDetail22()) ? $product_detail['22'] = $product->getProductDetail22() : null;
+        self::notEmptyOrNull($product->getProductDetail23()) ? $product_detail['23'] = $product->getProductDetail23() : null;
+        self::notEmptyOrNull($product->getProductDetail24()) ? $product_detail['24'] = $product->getProductDetail24() : null;
+
         $product_info = array(
-            //'id' => $product->getId(),
-            //'n' => $product->getTitle(),
-            //'pr' => $product->getPrice(),
-            //'m_o' => $product->getMinOrderQuantity(),
-            //'port' => $product->getPort(),
-            //'pay' => $product->getPaymentTerms(),
-            //'d' => $mapping_helper->mapping_products_in_category($product)
+            'id' => $product->getId(),
+            'cat_id' => $product->getCategoryId(),
+            'n' => $product->getTitle(),
+            'pr' => $product->getPriceOrigin(),
+            'm_o' => $product->getMinOrder(),
+            'port' => $product->getPort(),
+            'pay' => $product->getPaymentTerms(),
+            'cmt' => $product->getComment() == null ? array() : ($product->getComment() == "" ? array() : array($product->getComment())),
+            'pic' => $image_helper->generate_image_url($product->getPicture()),//$product->getPicture(),
+            'd' => $product_detail
         );
+        $product_info['json'] = json_encode($product_info);
+        $product_info['spec'] = $product->getSpecification();
+        $product_info['s_a'] = $product->getSupplyAbility() != null ? ($product->getSupplyAbility() + " " + $product->getSupplyAbilityUnit() + '/' + $product->getSupplyAbilityUnit()) : null;
+
         return $this->render('AseagleBundle:Product:show.html.twig', $product_info);
     }
 
+    public static function notEmptyOrNull($value){
+        if(isset($value) && trim($value) != "") return true ;
+        return false;
+    }
 
     public function editAction()
     {

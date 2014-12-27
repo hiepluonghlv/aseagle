@@ -88,7 +88,7 @@ class UploadHandler
             'max_file_size' => 1000000,
             'min_file_size' => 1,
             // The maximum number of files for the upload directory:
-            'max_number_of_files' => 5,
+            'max_number_of_files' => 10,
             // Defines which files are handled as image files:
             'image_file_types' => '/\.(gif|jpe?g|png)$/i',
             // Use exif_imagetype on all files to correct file extensions:
@@ -129,12 +129,12 @@ class UploadHandler
                     'auto_orient' => true
                 ),
                 // Uncomment the following to create medium sized images:
-                /*
-                'medium' => array(
-                    'max_width' => 800,
-                    'max_height' => 600
+
+                'small' => array(
+                    'max_width' => 350,
+                    'max_height' => 350
                 ),
-                */
+
                 'thumbnail' => array(
                     // Uncomment the following to use a defined directory for the thumbnails
                     // instead of a subdirectory based on the version identifier.
@@ -146,8 +146,8 @@ class UploadHandler
                     // Uncomment the following to force the max
                     // dimensions and e.g. create square thumbnails:
                     //'crop' => true,
-                    'max_width' => 80,
-                    'max_height' => 80
+                    'max_width' => 140,
+                    'max_height' => 140
                 )
             )
         );

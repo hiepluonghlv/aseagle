@@ -115,5 +115,5 @@ _AsgUtil.HeaderNavbar = ( function() {
 		});
 
 	}
-	return pub;
+	return pub;d
 })();
