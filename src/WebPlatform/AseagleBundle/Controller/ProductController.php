@@ -20,11 +20,15 @@ class ProductController extends Controller
             );
     }
 
-    public function uploadAction(Request $request)
+    public function uploadAction()
+    {
+        return $this->render('AseagleBundle:Product:upload.html.twig');
+    }
+
+    public function createAction(Request $request)
     {
         // $_POST parameters
         $cat_id = $request->request->get('category_id');
-
         //get current user
         $user = $this->getUser();
         //$id = $user->getId();
@@ -34,8 +38,7 @@ class ProductController extends Controller
         $owner = $em->getRepository('AseagleBundle:User')->find(1);
 
         //$string_col = 'owner_id,';
-        //$string_val = '1,';
-        //foreach ($_POST as $key=>$value){
+        //$string_val = '1,';        //foreach ($_POST as $key=>$value){
         //    if (!empty($value) && !is_array($value)){
         //        $string_col .= $key.',';
         //        $string_val .= '"'.$value.'",';

@@ -80,7 +80,7 @@
 			</div>
 			<div class="row">
 				<div class="col-sx-12 col-sm-12 col-md-12">
-					<form class="form-horizontal" id="upload-product-form" action="{{path('upload_product')}}" method="post">
+					<form class="form-horizontal" id="upload-product-form" action="{{path('create_product')}}" method="post">
 						<fieldset>
 						<input id="category_id" type="text" name="category_id" value="">
 						
@@ -294,6 +294,49 @@
 
                     return true;
                 });
+
+                $.ajax({
+                    type: "POST",
+                    url: "/messagecenter/list_sent",
+                    dataType: "json"
+                }).done(function( msg ) {
+                            console.log(msg);
+                        });
+
+                $.ajax({
+                    type: "POST",
+                    url: "/messagecenter/open_sent/1",
+                    dataType: "json"
+                }).done(function( msg ) {
+                            console.log(msg);
+                        });
+                /*
+                $.ajax({
+                    type: "POST",
+                    url: "/messagecenter/list/2?search_str=&is_read=false&is_star=false&is_task=&sender=&sort_by_sender=&sort_by_date=&page=",
+                    dataType: "json"
+                }).done(function( msg ) {
+                            console.log(msg);
+                        });
+
+                $.ajax({
+                    type: "POST",
+                    url: "/messagecenter/open/2",
+                    dataType: "json"
+                }).done(function( msg ) {
+                            console.log(msg);
+                        });
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "messagecenter/send",
+                    data: { received_ids : "2,3", subject : "abc abc", body : "123 abc 123"},
+                    dataType: "json"
+                }).done(function( msg ) {
+                            console.log(msg);
+                        });
+                */
             });
         </script>
     {% endblock %}

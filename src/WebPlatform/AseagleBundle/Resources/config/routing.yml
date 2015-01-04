@@ -31,9 +31,14 @@ get_list_product_search:
     requirements:
                 _method:  GET
 
+# product routing
 show_product:
     path:     /product/show/{id}
     defaults: { _controller: AseagleBundle:Product:show }
+
+create_product:
+    path:     /product/create
+    defaults: { _controller: AseagleBundle:Product:create }
 
 upload_product:
     path:     /product/upload
@@ -57,6 +62,38 @@ getToken:
     requirements:
                 _method:  GET
 
+#message routing
+message:
+    path:     /messagecenter
+    defaults: { _controller: AseagleBundle:Message:index }
+
+sending:
+    path:     /messagecenter/send
+    defaults: { _controller: AseagleBundle:Message:sending }
+    requirements:
+               _method:  POST
+
+list_mail:
+    path:     /messagecenter/list/{receiver_id}
+    defaults: { _controller: AseagleBundle:Message:listMail }
+
+open_mail:
+    path:     /messagecenter/open/{message_id}
+    defaults: { _controller: AseagleBundle:Message:openMail }
+
+list_sent_mail:
+    path:     /messagecenter/list_sent
+    defaults: { _controller: AseagleBundle:Message:listSentMail }
+
+open_sent_mail:
+    path:     /messagecenter/open_sent/{message_id}
+    defaults: { _controller: AseagleBundle:Message:openSentMail }
+
+message_interaction:
+    path:     /messagecenter/update/{message_id}
+    defaults: { _controller: AseagleBundle:Message:messageInteraction }
+
+#membership routing
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 
@@ -75,5 +112,7 @@ fos_user_resetting:
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
+
+
 
 

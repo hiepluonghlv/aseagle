@@ -86,6 +86,21 @@ class User extends BaseUser
      */
     protected $followed_trader_follows;
 
+    /**
+     * @ORM\OneToMany(targetEntity="SentMessage", mappedBy="sender")
+     */
+    protected $sent_messages;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ReceivedMessage", mappedBy="receiver")
+     */
+    protected $received_messages;
+
+    /**
+     * @ORM\OneToMany(targetEntity="ReceivedMessage", mappedBy="author")
+     */
+    protected $author_messages;
+
     public function __construct()
     {
         parent::__construct();
@@ -96,6 +111,9 @@ class User extends BaseUser
         $this->seller_transactions = new ArrayCollection();
         $this->follower_follows = new ArrayCollection();
         $this->followed_trader_follows = new ArrayCollection();
+        $this->sent_messages = new ArrayCollection();
+        $this->received_messages = new ArrayCollection();
+        $this->author_messages = new ArrayCollection();
     }
 
     /**
@@ -434,4 +452,103 @@ class User extends BaseUser
     }
 
 
+
+    /**
+     * Add sent_messages
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\SentMessage $sentMessages
+     * @return User
+     */
+    public function addSentMessage(\WebPlatform\AseagleBundle\Entity\SentMessage $sentMessages)
+    {
+        $this->sent_messages[] = $sentMessages;
+
+        return $this;
+    }
+
+    /**
+     * Remove sent_messages
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\SentMessage $sentMessages
+     */
+    public function removeSentMessage(\WebPlatform\AseagleBundle\Entity\SentMessage $sentMessages)
+    {
+        $this->sent_messages->removeElement($sentMessages);
+    }
+
+    /**
+     * Get sent_messages
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSentMessages()
+    {
+        return $this->sent_messages;
+    }
+
+    /**
+     * Add received_messages
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\ReceivedMessage $receivedMessages
+     * @return User
+     */
+    public function addReceivedMessage(\WebPlatform\AseagleBundle\Entity\ReceivedMessage $receivedMessages)
+    {
+        $this->received_messages[] = $receivedMessages;
+
+        return $this;
+    }
+
+    /**
+     * Remove received_messages
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\ReceivedMessage $receivedMessages
+     */
+    public function removeReceivedMessage(\WebPlatform\AseagleBundle\Entity\ReceivedMessage $receivedMessages)
+    {
+        $this->received_messages->removeElement($receivedMessages);
+    }
+
+    /**
+     * Get received_messages
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getReceivedMessages()
+    {
+        return $this->received_messages;
+    }
+
+    /**
+     * Add author_messages
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\ReceivedMessage $authorMessages
+     * @return User
+     */
+    public function addAuthorMessage(\WebPlatform\AseagleBundle\Entity\ReceivedMessage $authorMessages)
+    {
+        $this->author_messages[] = $authorMessages;
+
+        return $this;
+    }
+
+    /**
+     * Remove author_messages
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\ReceivedMessage $authorMessages
+     */
+    public function removeAuthorMessage(\WebPlatform\AseagleBundle\Entity\ReceivedMessage $authorMessages)
+    {
+        $this->author_messages->removeElement($authorMessages);
+    }
+
+    /**
+     * Get author_messages
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAuthorMessages()
+    {
+        return $this->author_messages;
+    }
 }

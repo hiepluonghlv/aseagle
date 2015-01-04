@@ -12,12 +12,13 @@ namespace WebPlatform\AseagleBundle\Services;
 class ImageHelper {
     public function generate_image_url($str_images) {
         $result = array();
-        if($str_images)
-        $images = explode(" ", $str_images);
-        foreach ($images as &$image) {
-            $filename = basename($image);
-            $dirname = dirname($image);
-            
+        if(isset($str_images) && $str_images != ""){
+            $images = explode(";", $str_images);
+            foreach ($images as &$image) {
+                $filename = basename($image);
+                $dirname = dirname($image);
+
+            }
         }
         return array("abc","cdf");
     }
