@@ -112,7 +112,7 @@
 						</div>
 						        
 				        <div class="div-file-upload-content">
-				            {% include 'AseagleBundle::file_upload.html.twig' %}
+				            {% include 'AseagleBundle::_file_upload.html.twig' %}
                             <input type="hidden" id="hid-list-file-upload" name="hid-list-file-upload">
 				        </div>
 						
@@ -295,6 +295,16 @@
                     return true;
                 });
 
+                $(function(){
+                    _AsgDashboard.Upload.set_form_upload_product();
+                });
+
+                $.ajax({url:"main/filter/3",async:false, type: "GET",success:function(result){
+                    console.log(JSON.stringify(result));
+                    //_ajax_product_list_json = result;
+                }});
+
+                /*
                 $.ajax({
                     type: "POST",
                     url: "/messagecenter/list_sent",
@@ -310,7 +320,7 @@
                 }).done(function( msg ) {
                             console.log(msg);
                         });
-                /*
+
                 $.ajax({
                     type: "POST",
                     url: "/messagecenter/list/2?search_str=&is_read=false&is_star=false&is_task=&sender=&sort_by_sender=&sort_by_date=&page=",
@@ -336,7 +346,25 @@
                 }).done(function( msg ) {
                             console.log(msg);
                         });
-                */
+
+
+                var result1 = {files: [
+                    {
+                        name:"BacSon1.jpg",
+                        size:346952,
+                        type:"image/jpeg",
+                        url:"http://localhost:8000/files/1/2015-01-03/BacSon1.jpg",
+                        smallUrl:"http://localhost:8000/files/1/2015-01-03/small/BacSon1.jpg",
+                        thumbnailUrl:"http://localhost:8000/files/1/2015-01-03/thumbnail/BacSon1.jpg",
+                        deleteUrl:"http://localhost:8000/files/1/2015-01-03/BacSon1.jpg",
+                        deleteType:"DELETE"
+                    }
+                ]};
+
+                // Load existing files:
+                $('#fileupload').fileupload('option', 'done')
+                        .call($('#fileupload'), $.Event('done'), {result: result1});
+                 */
             });
         </script>
     {% endblock %}

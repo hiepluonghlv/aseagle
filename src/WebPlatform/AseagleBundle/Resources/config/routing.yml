@@ -44,6 +44,14 @@ upload_product:
     path:     /product/upload
     defaults: { _controller: AseagleBundle:Product:upload }
 
+edit_product:
+    path:     /product/edit/{id}
+    defaults: { _controller: AseagleBundle:Product:edit }
+
+update_product:
+    path:     /product/update/{id}
+    defaults: { _controller: AseagleBundle:Product:update }
+
 upload_file:
     path:     /upload_file
     defaults: { _controller: AseagleBundle:Default:upload_file }
@@ -52,7 +60,7 @@ upload_file:
 
 delete_file:
     path:     /delete_file
-    defaults: { _controller: AseagleBundle:Default:upload_file }
+    defaults: { _controller: AseagleBundle:Default:delete_file }
     requirements:
                 _method:  DELETE
 
@@ -114,5 +122,66 @@ fos_user_change_password:
     prefix: /profile
 
 
+#seller profile
+new_seller:
+    path:     /seller/new
+    defaults: { _controller: AseagleBundle:Seller:new }
 
+edit_seller:
+    path:     /seller/{id}/edit
+    defaults: { _controller: AseagleBundle:Seller:edit }
 
+show_seller:
+    path:     /seller/{id}/show
+    defaults: { _controller: AseagleBundle:Seller:show }
+
+#seller company_customer
+seller_company_customer_index:
+    path:     seller/{seller_id}/company_customer
+    defaults: { _controller: AseagleBundle:CompanyCustomer:index }
+
+seller_company_customer_new:
+    path:     seller/{seller_id}/company_customer/new
+    defaults: { _controller: AseagleBundle:CompanyCustomer:new }
+
+seller_company_customer_edit:
+   path:     seller/{seller_id}/company_customer/{id}/edit
+   defaults: { _controller: AseagleBundle:CompanyCustomer:edit }
+
+seller_company_customer_destroy:
+   path:     seller/{seller_id}/company_customer/{id}/destroy
+   defaults: { _controller: AseagleBundle:CompanyCustomer:destroy }
+
+#seller company_oversea_office
+seller_company_oversea_office_index:
+    path:     seller/{seller_id}/company_oversea_office
+    defaults: { _controller: AseagleBundle:CompanyOverseaOffice:index }
+
+seller_company_oversea_office_new:
+    path:     seller/{seller_id}/company_oversea_office/new
+    defaults: { _controller: AseagleBundle:CompanyOverseaOffice:new }
+
+seller_company_oversea_office_edit:
+    path:     seller/{seller_id}/company_oversea_office/{id}/edit
+    defaults: { _controller: AseagleBundle:CompanyOverseaOffice:edit }
+
+seller_company_oversea_office_destroy:
+    path:     seller/{seller_id}/company_oversea_office/{id}/destroy
+    defaults: { _controller: AseagleBundle:CompanyOverseaOffice:destroy }
+
+#seller company_factory
+seller_company_factory_index:
+    path:     seller/{seller_id}/company_factory
+    defaults: { _controller: AseagleBundle:CompanyFactory:index }
+
+seller_company_factory_new:
+    path:     seller/{seller_id}/company_factory/new
+    defaults: { _controller: AseagleBundle:CompanyFactory:new }
+
+seller_company_factory_edit:
+    path:     seller/{seller_id}/company_factory/{id}/edit
+    defaults: { _controller: AseagleBundle:CompanyFactory:edit }
+
+seller_company_factory_destroy:
+    path:     seller/{seller_id}/company_factory/{id}/destroy
+    defaults: { _controller: AseagleBundle:CompanyFactory:destroy }

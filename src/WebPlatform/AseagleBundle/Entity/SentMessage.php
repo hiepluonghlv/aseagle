@@ -57,6 +57,13 @@ class SentMessage
     private $date;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_draft", type="boolean")
+     */
+    private $is_draft;
+
+    /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="sent_messages")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
@@ -209,5 +216,28 @@ class SentMessage
     public function getSender()
     {
         return $this->sender;
+    }
+
+    /**
+     * Set is_draft
+     *
+     * @param boolean $isDraft
+     * @return SentMessage
+     */
+    public function setIsDraft($isDraft)
+    {
+        $this->is_draft = $isDraft;
+
+        return $this;
+    }
+
+    /**
+     * Get is_draft
+     *
+     * @return boolean 
+     */
+    public function getIsDraft()
+    {
+        return $this->is_draft;
     }
 }

@@ -175,6 +175,27 @@ class Product
      */
     private $rating = null;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="state", type="integer", nullable=true)
+     */
+    private $state = null;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="pub_date", type="datetime", nullable=true)
+     */
+    private $pub_date = null;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="create_date", type="datetime", nullable=true)
+     */
+    private $create_date = null;
+
      /**
      * @var string
      *
@@ -2093,4 +2114,73 @@ class Product
         return $this->transactions;
     }
 
+
+    /**
+     * Set state
+     *
+     * @param integer $state
+     * @return Product
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+
+        return $this;
+    }
+
+    /**
+     * Get state
+     *
+     * @return integer 
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * Set pub_date
+     *
+     * @param \DateTime $pubDate
+     * @return Product
+     */
+    public function setPubDate($pubDate)
+    {
+        $this->pub_date = $pubDate;
+
+        return $this;
+    }
+
+    /**
+     * Get pub_date
+     *
+     * @return \DateTime 
+     */
+    public function getPubDate()
+    {
+        return $this->pub_date;
+    }
+
+    /**
+     * Set create_date
+     *
+     * @param \DateTime $createDate
+     * @return Product
+     */
+    public function setCreateDate($createDate)
+    {
+        $this->create_date = $createDate;
+
+        return $this;
+    }
+
+    /**
+     * Get create_date
+     *
+     * @return \DateTime 
+     */
+    public function getCreateDate()
+    {
+        return $this->create_date;
+    }
 }

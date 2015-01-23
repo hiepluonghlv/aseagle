@@ -52,12 +52,12 @@ _AsgDashboard.Upload = ( function() {
     } 
     
     
-    function __build_textbox(cat_id, col_id) {
+    function __build_textbox(cat_id, col_id, value) {
     	var temp = 
     			'<div class="form-group">'+
 				  '<label class="col-md-4 control-label" for="textinput">'+_AsgUtil.Mapping.getColumnName(cat_id, col_id)+'</label>'  +
 				  '<div class="col-md-6">'+
-				  '<input id="textinput" name="product_detail_'+_AsgUtil.Mapping.getColumnId(cat_id, col_id) +'" type="text" placeholder="'+_AsgUtil.Mapping.getColumnName(cat_id, col_id)+'" class="form-control input-md" ' + (_AsgUtil.Mapping.getColumnRequired(cat_id, col_id)? "required" : "") +'>'+
+				  '<input id="textinput" name="product_detail_'+_AsgUtil.Mapping.getColumnId(cat_id, col_id) +'" ' + (value != null ? (' value="'+value+'"') : "") + ' type="text" placeholder="'+_AsgUtil.Mapping.getColumnName(cat_id, col_id)+'" class="form-control input-md" ' + (_AsgUtil.Mapping.getColumnRequired(cat_id, col_id)? "required" : "") +'>'+
 				  '</div>'+
 				'</div>';
     	var product_details = $(".product-detail-fields");
@@ -65,7 +65,7 @@ _AsgDashboard.Upload = ( function() {
     	$(temp).appendTo(product_details);
     }
     
-    function __build_select_box(cat_id, col_id) {
+    function __build_select_box(cat_id, col_id, value) {
     	var default_values = _AsgUtil.Mapping.getDefaultValueArray(cat_id, col_id);
     	var temp = 
 			'<div class="form-group">'+
@@ -74,7 +74,7 @@ _AsgDashboard.Upload = ( function() {
     	temp += '<select id="selectbasic" name="product_detail_'+_AsgUtil.Mapping.getColumnId(cat_id, col_id) +'" class="form-control" style="padding: 3px">';
     	
     	$.each(default_values, function(i) {
-    		temp += '<option value="1">'+_AsgUtil.Mapping.getDefaultValue(default_values[i])+'</option>';
+    		temp += '<option value="'+i+'" ' + (value != null ? (value == i ? ' selected=true ' : '') : "") + '>'+_AsgUtil.Mapping.getDefaultValue(default_values[i])+'</option>';
     	});
     	temp += '</select>';
     	temp += '</div>';
@@ -84,7 +84,7 @@ _AsgDashboard.Upload = ( function() {
     	$(temp).appendTo(product_details);
     }
     
-    function __build_select_box_place_of_origin(cat_id, col_id, place_of_origin) {
+    function __build_select_box_place_of_origin(cat_id, col_id, place_of_origin, value) {
     	var temp = 
 			'<div class="form-group">'+
 			  '<label class="col-md-4 control-label" for="textinput">'+_AsgUtil.Mapping.getColumnName(cat_id, col_id)+'</label>'  +
@@ -92,7 +92,7 @@ _AsgDashboard.Upload = ( function() {
     	temp += '<select id="selectbasic" name="product_detail_'+_AsgUtil.Mapping.getColumnId(cat_id, col_id) +'" class="form-control" style="padding: 3px">';
     	
     	for(place_id in place_of_origin) {
-    		temp += '<option value="'+place_id+'">'+_AsgUtil.Mapping.getCountryName(place_id)+'</option>';
+    		temp += '<option value="'+place_id+'" '+ (value != null ? (value == place_id ? ' selected=true ' : '') : "") +'>'+_AsgUtil.Mapping.getCountryName(place_id)+'</option>';
     	}
     	temp += '</select>';
     	temp += '</div>';
@@ -100,6 +100,9 @@ _AsgDashboard.Upload = ( function() {
     	
     	var product_details = $(".product-detail-fields");
     	$(temp).appendTo(product_details);
+        if(value != null){
+            $(temp).find("#selectbasic").val(value);
+        }
     }
     
     function _build_product_detail(cat_id) {
@@ -111,17 +114,35 @@ _AsgDashboard.Upload = ( function() {
     	//$(".product-detail-fields").empty();
     	$.each(current_product_detail_list, function(i) {
     		if(current_product_detail_list[i].n === "Place of Origin") {
-    			__build_select_box_place_of_origin(cat_id, i, country_mapping);
+    			__build_select_box_place_of_origin(cat_id, i, country_mapping, null);
     		} else if (current_product_detail_list[i].def_v.length > 0){
-    			__build_select_box(cat_id, i);
+    			__build_select_box(cat_id, i, null);
     		} else {
-    			__build_textbox(cat_id, i);
+    			__build_textbox(cat_id, i, null);
     		}
     	}); 
     }
-    
+
+    function _build_product_detail_edit(cat_id, value_list) {
+        var current_product_detail_list = cat_col_mapping[cat_id];
+
+        $("#category_id").val(cat_id);
+        $("#category_id").text(cat_id);
+
+        //$(".product-detail-fields").empty();
+        $.each(current_product_detail_list, function(i) {
+            if(current_product_detail_list[i].n === "Place of Origin") {
+                __build_select_box_place_of_origin(cat_id, i, country_mapping, value_list[i]);
+            } else if (current_product_detail_list[i].def_v.length > 0){
+                __build_select_box(cat_id, i, value_list[i]);
+            } else {
+                __build_textbox(cat_id, i, value_list[i]);
+            }
+        });
+    }
+
 	return {
-		init : function() {
+		set_form_upload_product : function() {
 			// build list of Unit Type
 			$(".dropdown-menu-unit-type").each(function() {
 				_build_unit_type_dropdown($(this));
@@ -143,13 +164,28 @@ _AsgDashboard.Upload = ( function() {
 			
 			 _build_cat_list(0, 1, cat_structure);
 		},
-		
+
+        set_form_edit_product : function(cat_id, value_list) {
+            // build list of Unit Type
+            $(".dropdown-menu-unit-type").each(function() {
+                _build_unit_type_dropdown($(this));
+            });
+
+            // handle click for Unit Type to store to hidden input text.
+            $(".dropdown-menu").on('click', 'li a', function(e){
+                e.preventDefault();
+                $(this).parent().parent().parent().children("input").val($(this).text());
+                $(this).parent().parent().parent().children("button").text($(this).text());
+                $(this).parent().parent().parent().children("button").val($(this).text());
+            });
+
+            _build_product_detail_edit(cat_id, value_list);
+        },
+
 		build : function (ajax_json) {
 
 		}
 	}; 
 })();
 
-$(function(){
-	_AsgDashboard.Upload.init();
-});
+

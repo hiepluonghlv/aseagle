@@ -21,20 +21,13 @@
                     <div class="trading-info table-div-full">
                         <div class="col-md-5">
                             <div id="show_gallery">
-                                <img id="image_zoom" src="{{ asset('files/1/2014-12-26/small/image1.png') }}" data-zoom-image="{{ asset('files/1/2014-12-26/large/image1.jpg') }}"/>
+                                <img id="image_zoom" src="{{ pic[0].smallUrl }}" data-zoom-image="{{ pic[0].url }}"/>
                                 <div id="gallery">
-                                    <a href="#" data-image="{{ asset('files/1/2014-12-26/small/image1.png') }}" data-zoom-image="{{ asset('files/1/2014-12-26/large/image1.jpg') }}">
-                                        <img id="image_zoom" src="{{ asset('files/1/2014-12-26/thumb/image1.jpg') }}" />
-                                    </a>
-                                    <a href="#" data-image="{{ asset('files/1/2014-12-26/small/image2.png') }}" data-zoom-image="{{ asset('files/1/2014-12-26/large/image2.jpg') }}">
-                                        <img id="image_zoom" src="{{ asset('files/1/2014-12-26/thumb/image2.jpg') }}" />
-                                    </a>
-                                    <a href="#" data-image="{{ asset('files/1/2014-12-26/small/image3.png') }}" data-zoom-image="{{ asset('files/1/2014-12-26/large/image3.jpg') }}">
-                                        <img id="image_zoom" src="{{ asset('files/1/2014-12-26/thumb/image3.jpg') }}" />
-                                    </a>
-                                    <a href="#" data-image="{{ asset('files/1/2014-12-26/small/image4.png') }}" data-zoom-image="{{ asset('files/1/2014-12-26/large/image4.jpg') }}">
-                                        <img id="image_zoom" src="{{ asset('files/1/2014-12-26/thumb/image4.jpg') }}" />
-                                    </a>
+                                    {% for p in pic %}
+                                        <a href="#" data-image="{{ p.smallUrl }}" data-zoom-image="{{ p.url }}">
+                                            <img id="image_zoom" src="{{  p.thumbnailUrl }}" />
+                                        </a>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>

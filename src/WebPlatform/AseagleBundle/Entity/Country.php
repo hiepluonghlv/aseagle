@@ -48,10 +48,39 @@ class Country
      */
     protected $products;
 
+    /**
+     * @ORM\OneToMany(targetEntity="CompanyProfile", mappedBy="reg_country")
+     */
+    protected $reg_companies;
+
+    /**
+     * @ORM\OneToMany(targetEntity="CompanyProfile", mappedBy="ops_country")
+     */
+    protected $ops_companies;
+
+    /**
+     * @ORM\OneToMany(targetEntity="CompanyCustomer", mappedBy="country")
+     */
+    protected $company_customers;
+
+    /**
+     * @ORM\OneToMany(targetEntity="CompanyOverseaOffice", mappedBy="country")
+     */
+    protected $company_oversea_offices;
+
+    /**
+     * @ORM\OneToMany(targetEntity="CompanyFactory", mappedBy="country")
+     */
+    protected $company_factories;
 
     public function __construct()
     {
         $this->$products = new ArrayCollection();
+        $this->$reg_companies = new ArrayCollection();
+        $this->$ops_companies = new ArrayCollection();
+        $this->$company_customers = new ArrayCollection();
+        $this->$company_oversea_offices = new ArrayCollection();
+        $this->$company_factories = new ArrayCollection();
     }
 
     /**
@@ -165,5 +194,175 @@ class Country
     public function getRegionId()
     {
         return $this->region_id;
+    }
+
+    /**
+     * Add reg_companies
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\CompanyProfile $regCompanies
+     * @return Country
+     */
+    public function addRegCompany(\WebPlatform\AseagleBundle\Entity\CompanyProfile $regCompanies)
+    {
+        $this->reg_companies[] = $regCompanies;
+
+        return $this;
+    }
+
+    /**
+     * Remove reg_companies
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\CompanyProfile $regCompanies
+     */
+    public function removeRegCompany(\WebPlatform\AseagleBundle\Entity\CompanyProfile $regCompanies)
+    {
+        $this->reg_companies->removeElement($regCompanies);
+    }
+
+    /**
+     * Get reg_companies
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRegCompanies()
+    {
+        return $this->reg_companies;
+    }
+
+    /**
+     * Add ops_companies
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\CompanyProfile $opsCompanies
+     * @return Country
+     */
+    public function addOpsCompany(\WebPlatform\AseagleBundle\Entity\CompanyProfile $opsCompanies)
+    {
+        $this->ops_companies[] = $opsCompanies;
+
+        return $this;
+    }
+
+    /**
+     * Remove ops_companies
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\CompanyProfile $opsCompanies
+     */
+    public function removeOpsCompany(\WebPlatform\AseagleBundle\Entity\CompanyProfile $opsCompanies)
+    {
+        $this->ops_companies->removeElement($opsCompanies);
+    }
+
+    /**
+     * Get ops_companies
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getOpsCompanies()
+    {
+        return $this->ops_companies;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Add company_customers
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\CompanyCustomer $companyCustomers
+     * @return Country
+     */
+    public function addCompanyCustomer(\WebPlatform\AseagleBundle\Entity\CompanyCustomer $companyCustomers)
+    {
+        $this->company_customers[] = $companyCustomers;
+
+        return $this;
+    }
+
+    /**
+     * Remove company_customers
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\CompanyCustomer $companyCustomers
+     */
+    public function removeCompanyCustomer(\WebPlatform\AseagleBundle\Entity\CompanyCustomer $companyCustomers)
+    {
+        $this->company_customers->removeElement($companyCustomers);
+    }
+
+    /**
+     * Get company_customers
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCompanyCustomers()
+    {
+        return $this->company_customers;
+    }
+
+    /**
+     * Add company_oversea_offices
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\CompanyOverseaOffice $companyOverseaOffices
+     * @return Country
+     */
+    public function addCompanyOverseaOffice(\WebPlatform\AseagleBundle\Entity\CompanyOverseaOffice $companyOverseaOffices)
+    {
+        $this->company_oversea_offices[] = $companyOverseaOffices;
+
+        return $this;
+    }
+
+    /**
+     * Remove company_oversea_offices
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\CompanyOverseaOffice $companyOverseaOffices
+     */
+    public function removeCompanyOverseaOffice(\WebPlatform\AseagleBundle\Entity\CompanyOverseaOffice $companyOverseaOffices)
+    {
+        $this->company_oversea_offices->removeElement($companyOverseaOffices);
+    }
+
+    /**
+     * Get company_oversea_offices
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCompanyOverseaOffices()
+    {
+        return $this->company_oversea_offices;
+    }
+
+    /**
+     * Add company_factories
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\CompanyFactory $companyFactories
+     * @return Country
+     */
+    public function addCompanyFactory(\WebPlatform\AseagleBundle\Entity\CompanyFactory $companyFactories)
+    {
+        $this->company_factories[] = $companyFactories;
+
+        return $this;
+    }
+
+    /**
+     * Remove company_factories
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\CompanyFactory $companyFactories
+     */
+    public function removeCompanyFactory(\WebPlatform\AseagleBundle\Entity\CompanyFactory $companyFactories)
+    {
+        $this->company_factories->removeElement($companyFactories);
+    }
+
+    /**
+     * Get company_factories
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCompanyFactories()
+    {
+        return $this->company_factories;
     }
 }
