@@ -120,7 +120,7 @@
                         </td>
                         <td>
                             {% if (file.deleteUrl) { %}
-                                <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{% endraw %}{{path('delete_file')}}{% raw %}{%=('?file=' + file.name)%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
+                                <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{% endraw %}{{path('delete_file')}}{% raw %}{%=('?file=' + file.name + '&dir=' + file.dir)%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
                                     <i class="glyphicon glyphicon-trash"></i>
                                     <span>Delete</span>
                                 </button>
@@ -158,5 +158,27 @@
 </div>
 
 <script>
-    $('#fileupload').fileupload({url: "{{path('upload_file')}}", method:"POST"});
+    /*
+    var files = [
+        {
+            "name":"BacSon1 (2).jpg",
+            "size":346952,
+            "type":"image/jpeg",
+            "url":"http://localhost:8000/files/1/2015-01-03/BacSon1%20%282%29.jpg",
+            "smallUrl":"http://localhost:8000/files/1/2015-01-03/small/BacSon1%20%282%29.jpg",
+            "thumbnailUrl":"http://localhost:8000/files/1/2015-01-03/thumbnail/BacSon1%20%282%29.jpg",
+            "deleteUrl":"http://localhost:8000/files/1/2015-01-03/BacSon1%20%282%29.jpg",
+            "deleteType":"DELETE"
+        }
+    ];
+
+    $('#fileupload').fileupload();
+    $('#fileupload').fileupload({url: "{{path('upload_file')}}", type: "POST", dataType: "json" });
+    $(document).ready(function() {
+
+
+        //$('#fileupload').fileupload({url: "", method:"POST"});
+
+    });
+    */
 </script>

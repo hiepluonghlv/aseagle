@@ -451,7 +451,7 @@ _AsgMainBuilder.MainContent = ( function() {
 			var product_head_image_row_product_detail = $('<div/>')
 			 .addClass('col-xs-8 col-sm-7 card-heading-header').appendTo(product_head_image_row);
 			
-				var product_head_image_row_product_detail_image = $('<img src="/bundles/framework/img/'+product_json.id+'.jpg" rel="popover">')
+				var product_head_image_row_product_detail_image = $('<img src="'+product_json.img+'" rel="popover">')
 				 .appendTo(product_head_image_row_product_detail);	
 				$('<h3 class="title" data-toggle="tooltip" data-placement="bottom" title="'+product_json.n+'"><strong>'+product_json.n+'</strong></h3>').appendTo(product_head_image_row_product_detail);
 				$('<h3>FOB Price: <strong>US$'+product_json.pr+'</strong></h3>').appendTo(product_head_image_row_product_detail);
@@ -468,8 +468,8 @@ _AsgMainBuilder.MainContent = ( function() {
 			// ------ product_head_image_row_seller_detail
 			var product_head_image_row_seller_detail = $('<div/>')
 			 .addClass('col-xs-4 col-sm-5 card-heading-header').appendTo(product_head_image_row);
-				$('<h3><a class="company-hover-label" href="">INTERIMEX VIET NAM IMPORT EXPORT JOINT STOCK COMPANY<div style="display:none;">asdasdasdasd</div></a></h3>').appendTo(product_head_image_row_seller_detail);
-				$('<h3>(Vietnam)</h3>').appendTo(product_head_image_row_seller_detail);
+				$('<h3><a class="company-hover-label" href="">'+product_json.sup.n+'<div style="display:none;">asdasdasdasd</div></a></h3>').appendTo(product_head_image_row_seller_detail);
+				$('<h3>('+_AsgUtil.Mapping.getCountryName(product_json.sup.c)+')</h3>').appendTo(product_head_image_row_seller_detail);
 		
 
 		// -- product short description			

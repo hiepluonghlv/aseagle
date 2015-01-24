@@ -126,16 +126,24 @@ class MainController extends Controller
                 '9' => $product->getProductDetail9()
             );
 
+            $image_helper = $this->get('image_helper');
+            $root = "http://localhost:8000/files/";
             array_push($mapped_products_info, array(
                 'id' => $product->getId(),
                 'cat_id' => $product->getCategoryId(),
                 'n' => $product->getTitle(),
-                'pr' => $product->getPriceOrigin(),
-                'm_o' => $product->getMinOrder(),
+                'pl' => $product->getPlaceOfOrigin(),
+                'img' => $image_helper->generate_thumb_image_url($product->getPicture(),$root),
+                'pr' => $product->getPriceCurrency().$product->getPriceOrigin().'/'.$product->getPriceUnitType(),
+                'm_o' => $product->getMinOrder().' '.$product->getMinOrderUnitType(),
                 'port' => $product->getPort(),
                 'pay' => $product->getPaymentTerms(),
+                'sup' => array('c-id' => $product->getOwner()->getCompany()->getId(),
+                    'lo' => $product->getOwner()->getCompany()->getLogo(),
+                    'n' => $product->getOwner()->getCompany()->getName(),
+                    'c' => $product->getOwner()->getCompany()->getRegCountryId()
+                    ),
                 'cmt' => $product->getComment() == null ? array() : ($product->getComment() == "" ? array() : array($product->getComment())),
-                'pic' => $product->getPicture(),
                 'd' => $product_detail
             ));
         }
@@ -203,10 +211,14 @@ class MainController extends Controller
             	'40' => $product->getProductDetail40(),
             );
 
+            $image_helper = $this->get('image_helper');
+            $root = "http://localhost:8000/files/";
             array_push($mapped_products_info, array(
                 'id' => $product->getId(),
                 'cat_id' => $product->getCategoryId(),
                 'n' => $product->getTitle(),
+                'pl' => $product->getPlaceOfOrigin(),
+                'img' => $image_helper->generate_image_url($product->getPicture(),$root),
                 'pr' => $product->getPriceOrigin(),
                 'm_o' => $product->getMinOrderQuantity(),
                 'port' => $product->getPort(),

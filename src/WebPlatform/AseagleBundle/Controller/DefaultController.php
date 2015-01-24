@@ -31,6 +31,28 @@ class DefaultController extends Controller
         return $response;
     }
 
+    public function delete_fileAction(Request $request)
+    {
+        $path = $request->query->get('dir')."/";
+
+        //get current user
+        $user = $this->getUser();
+        return self::handleFile($path, $user);
+    }
+
+    public static function handleFile($path, $user)
+    {
+        error_reporting(E_ALL | E_STRICT);
+        require('bundles/framework/js/jquery-file-upload/server/php/UploadHandler.php');
+
+        $today = date('Y-m-d');
+        $upload_handler = new UploadHandler(null, true, null,$path);
+
+        $response = new Response();
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
     public static function processImage(UploadedFile $uploaded_file)
     {
         $path = 'pictures/artist/';

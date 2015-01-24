@@ -52,6 +52,27 @@ class User extends BaseUser
     protected $seller_info_1 = null;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="company_id", type="integer", nullable=true)
+     */
+    private $company_id = null;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_verified_buyer", type="boolean", nullable=true)
+     */
+    private $is_verified_buyer = null;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_verified_seller", type="boolean", nullable=true)
+     */
+    private $is_verified_seller = null;
+
+    /**
      * @ORM\OneToMany(targetEntity="Product", mappedBy="owner")
      */
     protected $products;
@@ -100,6 +121,12 @@ class User extends BaseUser
      * @ORM\OneToMany(targetEntity="ReceivedMessage", mappedBy="author")
      */
     protected $author_messages;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="CompanyProfile", inversedBy="staffs")
+     * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
+     */
+    protected $company;
 
     public function __construct()
     {
@@ -550,5 +577,97 @@ class User extends BaseUser
     public function getAuthorMessages()
     {
         return $this->author_messages;
+    }
+
+    /**
+     * Set company_id
+     *
+     * @param integer $companyId
+     * @return User
+     */
+    public function setCompanyId($companyId)
+    {
+        $this->company_id = $companyId;
+
+        return $this;
+    }
+
+    /**
+     * Get company_id
+     *
+     * @return integer 
+     */
+    public function getCompanyId()
+    {
+        return $this->company_id;
+    }
+
+    /**
+     * Set company
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\CompanyProfile $company
+     * @return User
+     */
+    public function setCompany(\WebPlatform\AseagleBundle\Entity\CompanyProfile $company = null)
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * Get company
+     *
+     * @return \WebPlatform\AseagleBundle\Entity\CompanyProfile 
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * Set is_verified_buyer
+     *
+     * @param boolean $isVerifiedBuyer
+     * @return User
+     */
+    public function setIsVerifiedBuyer($isVerifiedBuyer)
+    {
+        $this->is_verified_buyer = $isVerifiedBuyer;
+
+        return $this;
+    }
+
+    /**
+     * Get is_verified_buyer
+     *
+     * @return boolean 
+     */
+    public function getIsVerifiedBuyer()
+    {
+        return $this->is_verified_buyer;
+    }
+
+    /**
+     * Set is_verified_seller
+     *
+     * @param boolean $isVerifiedSeller
+     * @return User
+     */
+    public function setIsVerifiedSeller($isVerifiedSeller)
+    {
+        $this->is_verified_seller = $isVerifiedSeller;
+
+        return $this;
+    }
+
+    /**
+     * Get is_verified_seller
+     *
+     * @return boolean 
+     */
+    public function getIsVerifiedSeller()
+    {
+        return $this->is_verified_seller;
     }
 }

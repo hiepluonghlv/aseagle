@@ -1,7 +1,102 @@
-{% extends "::base.html.twig" %}
+{% extends 'AseagleBundle::dashboard-layout.html.twig' %}
 
-{% block title %}AseagleBundle:Product:index{% endblock %}
+    {% block dashboard_content %}
+	
+<style type="text/css">
 
-{% block body %}
-<h1>Welcome to the Product:index page</h1>
-{% endblock %}
+
+input {
+ display: block;
+ margin: 0px;
+ width: auto;
+ font-family: serif;
+}
+.input-text-quick-edit {
+	display: block;
+	height: 34px;
+	font-size: 14px;
+	color: #555;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #ccc;
+	-webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+	transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.hover-btn {
+  display: none;
+}
+
+tbody:hover tr:hover{
+	background-color: #fffff0;
+}
+tr:hover .hover-btn {
+  display: block;
+}
+
+</style>
+
+
+	<table id="myTable" class="table">
+		<thead>
+			<tr>
+				<th class="col-xs-1"></th>
+				<th class="col-xs-1"></th>
+				<th class="col-xs-3">Product Title</th>
+				<th class="col-xs-3">Trading Info</th>
+				<th class="col-xs-2">Category</th>
+				<th class="col-xs-1">State</th>
+				<th class="col-xs-1"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><input type="checkbox" /></td>
+				<td><img src="1.jpg" width="50" height="50" class="img-rounded" rel="popover"></td>
+				<td>Best price Vietnamese rice</td>
+				<td>
+					US$<strong>10</strong> <em>per</em> Ton(s) - <span>FOB</span><br>
+					<strong>10</strong> Ton(s) - <span>Min Order<span>
+				</td>
+				<td><a href="filter_category">Grain</a></td>
+				<td>Approved</td>
+				<td>  
+				  <button type="button" class="btn btn-primary btn-xs btn-block hover-btn">Edit</button>	
+					<button type="button" class="btn btn-default btn-xs btn-block hover-btn">Delete</button>
+				</td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" /></td>
+				<td><img src="1.jpg" width="50" height="50" class="img-rounded" rel="popover"></td>
+				<td>Best price rice</td>
+				<td>    
+					US$<strong>10</strong> <em>per</em> Ton(s) - <span>FOB</span><br>
+					<strong>10</strong> Ton(s) - <span>Min Order<span>
+				</td>
+				<td><a href="filter_category">Grain</a></td>
+				<td>Approved</td>
+				<td>  
+				  <button type="button" class="btn btn-primary btn-xs btn-block hover-btn" >Edit</button>	
+					<button type="button" class="btn btn-default btn-xs btn-block hover-btn">Delete</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	
+		<script>
+			  $(document).ready(function() {
+				  $(".img-rounded").popover({
+					trigger: 'hover',
+					  placement : 'right', //placement of the popover. also can use top, bottom, left or right
+					  title : '<div style="text-align:center; color:red; text-decoration:underline; font-size:14px;"> </div>', //this is the top title bar of the popover. add some basic css
+					  html: 'true', //needed to show html of course
+					  content : function () {
+							return '<div id="popOverBox"><img src="'+$(this)[0].src + '" width="251" height="201" /></div>' //this is the content of the html box. add the image here or anything you want really.
+						}
+				
+				});
+				function resizeInput() {
+					$(this).attr('size', $(this).val().length);
+				}
+		</script>	
+    {% endblock %}

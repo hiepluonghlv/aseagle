@@ -1,0 +1,11 @@
+{% extends 'AseagleBundle::layout.html.twig' %}
+{% block title %}Edit Customer{% endblock %}
+{% block content_header '' %}
+
+    {% block content %}
+        <h1>Edit Customer</h1>
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    {% endblock %}
