@@ -31,9 +31,9 @@ class CompanyPatent
     /**
      * @var integer
      *
-     * @ORM\Column(name="country", type="integer")
+     * @ORM\Column(name="country_id", type="integer")
      */
-    private $country;
+    private $country_id;
 
     /**
      * @var string
@@ -62,7 +62,11 @@ class CompanyPatent
      */
     protected $company;
 
-
+    /**
+     * @ORM\ManyToOne(targetEntity="Country", inversedBy="company_patents")
+     * @ORM\JoinColumn(name="country_id", referencedColumnName="id")
+     */
+    protected $country;
 
     /**
      * Get id
@@ -95,29 +99,6 @@ class CompanyPatent
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Set country
-     *
-     * @param integer $country
-     * @return CompanyPatent
-     */
-    public function setCountry($country)
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
-    /**
-     * Get country
-     *
-     * @return integer 
-     */
-    public function getCountry()
-    {
-        return $this->country;
     }
 
     /**
@@ -212,5 +193,51 @@ class CompanyPatent
     public function getCompany()
     {
         return $this->company;
+    }
+
+    /**
+     * Set country_id
+     *
+     * @param integer $countryId
+     * @return CompanyPatent
+     */
+    public function setCountryId($countryId)
+    {
+        $this->country_id = $countryId;
+
+        return $this;
+    }
+
+    /**
+     * Get country_id
+     *
+     * @return integer 
+     */
+    public function getCountryId()
+    {
+        return $this->country_id;
+    }
+
+    /**
+     * Set country
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\Country $country
+     * @return CompanyPatent
+     */
+    public function setCountry(\WebPlatform\AseagleBundle\Entity\Country $country = null)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
+     * Get country
+     *
+     * @return \WebPlatform\AseagleBundle\Entity\Country 
+     */
+    public function getCountry()
+    {
+        return $this->country;
     }
 }

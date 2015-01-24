@@ -73,6 +73,11 @@ class Country
      */
     protected $company_factories;
 
+    /**
+     * @ORM\OneToMany(targetEntity="CompanyPatent", mappedBy="country")
+     */
+    protected $company_patents;
+
     public function __construct()
     {
         $this->$products = new ArrayCollection();
@@ -81,6 +86,7 @@ class Country
         $this->$company_customers = new ArrayCollection();
         $this->$company_oversea_offices = new ArrayCollection();
         $this->$company_factories = new ArrayCollection();
+        $this->$company_patents = new ArrayCollection();
     }
 
     /**
@@ -364,5 +370,38 @@ class Country
     public function getCompanyFactories()
     {
         return $this->company_factories;
+    }
+
+    /**
+     * Add company_patents
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\CompanyPatent $companyPatents
+     * @return Country
+     */
+    public function addCompanyPatent(\WebPlatform\AseagleBundle\Entity\CompanyPatent $companyPatents)
+    {
+        $this->company_patents[] = $companyPatents;
+
+        return $this;
+    }
+
+    /**
+     * Remove company_patents
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\CompanyPatent $companyPatents
+     */
+    public function removeCompanyPatent(\WebPlatform\AseagleBundle\Entity\CompanyPatent $companyPatents)
+    {
+        $this->company_patents->removeElement($companyPatents);
+    }
+
+    /**
+     * Get company_patents
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCompanyPatents()
+    {
+        return $this->company_patents;
     }
 }
