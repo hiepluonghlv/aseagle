@@ -1,0 +1,11 @@
+{% extends 'AseagleBundle::layout.html.twig' %}
+{% block title %}New Patent{% endblock %}
+{% block content_header '' %}
+
+    {% block content %}
+        <h1>New Patent</h1>
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    {% endblock %}

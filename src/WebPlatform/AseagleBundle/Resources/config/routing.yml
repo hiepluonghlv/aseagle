@@ -185,3 +185,71 @@ seller_company_factory_edit:
 seller_company_factory_destroy:
     path:     seller/{seller_id}/company_factory/{id}/destroy
     defaults: { _controller: AseagleBundle:CompanyFactory:destroy }
+
+#seller company_certification
+seller_company_certification_index:
+    path:     seller/{seller_id}/company_certification
+    defaults: { _controller: AseagleBundle:CompanyCertification:index }
+
+seller_company_certification_new:
+    path:     seller/{seller_id}/company_certification/new
+    defaults: { _controller: AseagleBundle:CompanyCertification:new }
+
+seller_company_certification_edit:
+    path:     seller/{seller_id}/company_certification/{id}/edit
+    defaults: { _controller: AseagleBundle:CompanyCertification:edit }
+
+seller_company_certification_destroy:
+    path:     seller/{seller_id}/company_certification/{id}/destroy
+    defaults: { _controller: AseagleBundle:CompanyCertification:destroy }
+
+#seller company_honor_award
+seller_company_honor_award_index:
+    path:     seller/{seller_id}/company_honor_award
+    defaults: { _controller: AseagleBundle:CompanyHonorAward:index }
+
+seller_company_honor_award_new:
+    path:     seller/{seller_id}/company_honor_award/new
+    defaults: { _controller: AseagleBundle:CompanyHonorAward:new }
+
+seller_company_honor_award_edit:
+    path:     seller/{seller_id}/company_honor_award/{id}/edit
+    defaults: { _controller: AseagleBundle:CompanyHonorAward:edit }
+
+seller_company_honor_award_destroy:
+    path:     seller/{seller_id}/company_honor_award/{id}/destroy
+    defaults: { _controller: AseagleBundle:CompanyHonorAward:destroy }
+
+#seller company_trademark
+seller_company_trademark_index:
+    path:     seller/{seller_id}/company_trademark
+    defaults: { _controller: AseagleBundle:CompanyTrademark:index }
+
+seller_company_trademark_new:
+    path:     seller/{seller_id}/company_trademark/new
+    defaults: { _controller: AseagleBundle:CompanyTrademark:new }
+
+seller_company_trademark_edit:
+    path:     seller/{seller_id}/company_trademark/{id}/edit
+    defaults: { _controller: AseagleBundle:CompanyTrademark:edit }
+
+seller_company_trademark_destroy:
+    path:     seller/{seller_id}/company_trademark/{id}/destroy
+    defaults: { _controller: AseagleBundle:CompanyTrademark:destroy }
+
+#seller company_patent
+seller_company_patent_index:
+    path:     seller/{seller_id}/company_patent
+    defaults: { _controller: AseagleBundle:CompanyPatent:index }
+
+seller_company_patent_new:
+    path:     seller/{seller_id}/company_patent/new
+    defaults: { _controller: AseagleBundle:CompanyPatent:new }
+
+seller_company_patent_edit:
+    path:     seller/{seller_id}/company_patent/{id}/edit
+    defaults: { _controller: AseagleBundle:CompanyPatent:edit }
+
+seller_company_patent_destroy:
+    path:     seller/{seller_id}/company_patent/{id}/destroy
+    defaults: { _controller: AseagleBundle:CompanyPatent:destroy }
