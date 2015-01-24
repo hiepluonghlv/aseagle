@@ -6,6 +6,10 @@ _AsgUtil.Mapping = ( function() {
 	var pub = {};
 	
 	pub.getColumnName = function (cat_id, c_id) {
+		c_id = ""+c_id;
+		if(c_id.indexOf("_") == -1) {
+			c_id = "_"+c_id;
+		}
 		if(cat_col_mapping[cat_id][c_id] != null) 
 			return cat_col_mapping[cat_id][c_id].n;
 		return false;		

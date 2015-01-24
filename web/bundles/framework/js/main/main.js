@@ -438,11 +438,11 @@ _AsgMainBuilder.MainContent = ( function() {
 	function _buildCardProduct(ajax_json, div_main_area) {
 		var product_json = ajax_json;
 		var product = $('<div/>')
-	    .addClass('card').appendTo(div_main_area);
+	    .addClass('my-card').appendTo(div_main_area);
 		
 		// -- product header
-		var product_head = $('<h5/>')
-	    .addClass('card-title').text(product_json.n).appendTo(product);
+		//var product_head = $('<h5/>');
+	    //.addClass('card-title').text(product_json.n).appendTo(product);
 		
 		// -- product head image row. 	
 		var product_head_image_row = $('<div/>')
@@ -451,8 +451,9 @@ _AsgMainBuilder.MainContent = ( function() {
 			var product_head_image_row_product_detail = $('<div/>')
 			 .addClass('col-xs-8 col-sm-7 card-heading-header').appendTo(product_head_image_row);
 			
-				var product_head_image_row_product_detail_image = $('<img src="img/'+product_json.id+'.jpg" alt="46x46" data-src="holder.js/46x46">')
+				var product_head_image_row_product_detail_image = $('<img src="/bundles/framework/img/'+product_json.id+'.jpg" rel="popover">')
 				 .appendTo(product_head_image_row_product_detail);	
+				$('<h3 class="title" data-toggle="tooltip" data-placement="bottom" title="'+product_json.n+'"><strong>'+product_json.n+'</strong></h3>').appendTo(product_head_image_row_product_detail);
 				$('<h3>FOB Price: <strong>US$'+product_json.pr+'</strong></h3>').appendTo(product_head_image_row_product_detail);
 				$('<h3>Min. order: <strong>'+product_json.m_o+'</strong> (kg)</h3>').appendTo(product_head_image_row_product_detail);
 				
@@ -467,16 +468,16 @@ _AsgMainBuilder.MainContent = ( function() {
 			// ------ product_head_image_row_seller_detail
 			var product_head_image_row_seller_detail = $('<div/>')
 			 .addClass('col-xs-4 col-sm-5 card-heading-header').appendTo(product_head_image_row);
-				$('<h3><a href="">INTERIMEX VIET NAM IMPORT EXPORT JOINT STOCK COMPANY</a></h3>').appendTo(product_head_image_row_seller_detail);
+				$('<h3><a class="company-hover-label" href="">INTERIMEX VIET NAM IMPORT EXPORT JOINT STOCK COMPANY<div style="display:none;">asdasdasdasd</div></a></h3>').appendTo(product_head_image_row_seller_detail);
 				$('<h3>(Vietnam)</h3>').appendTo(product_head_image_row_seller_detail);
 		
 
 		// -- product short description			
-		var product_body = $('<div/>')
-	    .addClass('card-body').text(product_json.des).appendTo(product);
+		//var product_body = $('<div/>')
+	    //.addClass('card-body').text(product_json.des).appendTo(product);
 		
 		// -- product comments (user interact with product)
-		var product_comment = $('<div/>')
+		/*var product_comment = $('<div/>')
 	    .addClass('card-comments').appendTo(product);
 		
 			var product_comments_collapse_toggle= $('<div/>')
@@ -494,7 +495,7 @@ _AsgMainBuilder.MainContent = ( function() {
 				$(tmp).appendTo(product_comments_collapse);
 			}
 			
-			_buildCommentForm(product_comments_collapse);
+			_buildCommentForm(product_comments_collapse);*/
 			
 			
 	}
@@ -518,4 +519,26 @@ $(document).ready(function(){
 	_AsgMainBuilder.MainContent.build(_ajax_product_list_json);
 
 	_AsgUtil.HeaderNavbar.build();
+	
+	$("img[rel='popover']").popover({
+		trigger: 'hover',
+		placement : 'right', //placement of the popover. also can use top, bottom, left or right
+		//title : '<div style="text-align:center; color:red; text-decoration:underline; font-size:14px;"> </div>', //this is the top title bar of the popover. add some basic css
+		html: 'true', //needed to show html of course
+		content : function () {
+			return '<div id="popOverBox"><img class="reset-this" src="'+$(this)[0].src + '" /></div>' //this is the content of the html box. add the image here or anything you want really.
+		}
+	});
+	
+	var hoverHTMLDemoBasic = '<div class="hover-card-popup"></div>';
+	
+	$(".company-hover-label").hovercard({
+		detailsHTML: hoverHTMLDemoBasic,
+		width: 400,
+		onHoverIn: function () {
+			//alert($(this).children('label').children('div').html());
+			$('.hover-card-popup').html($(this).children('a').children('div').html());
+		}
+	});
+
 });

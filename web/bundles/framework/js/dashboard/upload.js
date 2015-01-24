@@ -57,7 +57,7 @@ _AsgDashboard.Upload = ( function() {
     			'<div class="form-group">'+
 				  '<label class="col-md-4 control-label" for="textinput">'+_AsgUtil.Mapping.getColumnName(cat_id, col_id)+'</label>'  +
 				  '<div class="col-md-6">'+
-				  '<input id="textinput" name="product_detail_'+_AsgUtil.Mapping.getColumnId(cat_id, col_id) +'" type="text" placeholder="'+_AsgUtil.Mapping.getColumnName(cat_id, col_id)+'" class="form-control input-md" ' + (_AsgUtil.Mapping.getColumnRequired(cat_id, col_id)? "required" : "") +'>'+
+				  '<input id="textinput" name="product_detail'+col_id+'" type="text" placeholder="'+_AsgUtil.Mapping.getColumnName(cat_id, col_id)+'" class="form-control input-md" ' + (_AsgUtil.Mapping.getColumnRequired(cat_id, col_id)? "required" : "") +'>'+
 				  '</div>'+
 				'</div>';
     	var product_details = $(".product-detail-fields");
@@ -71,10 +71,10 @@ _AsgDashboard.Upload = ( function() {
 			'<div class="form-group">'+
 			  '<label class="col-md-4 control-label" for="textinput">'+_AsgUtil.Mapping.getColumnName(cat_id, col_id)+'</label>'  +
 			  '<div class="col-md-6">';
-    	temp += '<select id="selectbasic" name="product_detail_'+_AsgUtil.Mapping.getColumnId(cat_id, col_id) +'" class="form-control" style="padding: 3px">';
+    	temp += '<select id="selectbasic" name="product_detail'+col_id +'" class="form-control" style="padding: 3px">';
     	
     	$.each(default_values, function(i) {
-    		temp += '<option value="1">'+_AsgUtil.Mapping.getDefaultValue(default_values[i])+'</option>';
+    		temp += '<option value="'+(i+1)+'">'+_AsgUtil.Mapping.getDefaultValue(default_values[i])+'</option>';
     	});
     	temp += '</select>';
     	temp += '</div>';
@@ -84,12 +84,12 @@ _AsgDashboard.Upload = ( function() {
     	$(temp).appendTo(product_details);
     }
     
-    function __build_select_box_place_of_origin(cat_id, col_id, place_of_origin) {
+    function __build_select_box_place_of_origin(place_of_origin) {
     	var temp = 
 			'<div class="form-group">'+
-			  '<label class="col-md-4 control-label" for="textinput">'+_AsgUtil.Mapping.getColumnName(cat_id, col_id)+'</label>'  +
+			  '<label class="col-md-4 control-label" for="textinput">Place of Origin</label>'  +
 			  '<div class="col-md-6">';
-    	temp += '<select id="selectbasic" name="product_detail_'+_AsgUtil.Mapping.getColumnId(cat_id, col_id) +'" class="form-control" style="padding: 3px">';
+    	temp += '<select id="selectbasic" name="place_of_origin" class="form-control" style="padding: 3px">';
     	
     	for(place_id in place_of_origin) {
     		temp += '<option value="'+place_id+'">'+_AsgUtil.Mapping.getCountryName(place_id)+'</option>';
@@ -109,7 +109,8 @@ _AsgDashboard.Upload = ( function() {
     	$("#category_id").text(cat_id);
     	
     	//$(".product-detail-fields").empty();
-    	$.each(current_product_detail_list, function(i) {
+		__build_select_box_place_of_origin(country_mapping);
+    	$.each(current_product_detail_list, function(i) {			
     		if(current_product_detail_list[i].n === "Place of Origin") {
     			__build_select_box_place_of_origin(cat_id, i, country_mapping);
     		} else if (current_product_detail_list[i].def_v.length > 0){

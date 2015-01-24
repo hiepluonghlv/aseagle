@@ -14,7 +14,28 @@
         <p class="pull-left visible-xs">
             <button type="button" class="btn btn-primary btn-xs btn-sm" data-toggle="offcanvas">Toggle nav</button>
         </p>
-
+		  <div class="row">
+			<div class="col-xs-6">
+				<ul class="breadcrumb">
+						  <li><a href="#">Agriculture</a></li>
+						  <li><a href="#">Grain</a></li>
+						  <li class="active" ><input type="text" size="5"/> <button type="button" class="btn btn-primary btn-xs">Submit</button></li> 
+				</ul>
+			</div>
+			<div class="col-xs-6">
+			<!-- Multiple Checkboxes (inline) -->
+			<div class="form-group pull-right">
+				<label class="checkbox-inline" for="checkboxes-0">
+				  <input type="checkbox" name="checkboxes" id="checkboxes-0" value="1">
+				  Gold member
+				</label>
+				<label class="checkbox-inline" for="checkboxes-1">
+				  <input type="checkbox" name="checkboxes" id="checkboxes-1" value="2">
+				  Verified Member
+				</label>
+			</div>
+			</div>
+		  </div>
 
         </div><!--/main area-->
 
@@ -56,5 +77,6 @@
 
             });
         </script>
+		<script src="{{ asset('bundles/framework/vendor/hovercard/js/jquery.hovercard.min.js') }}"></script>
         <script src="{{ asset('bundles/framework/js/main/main.js') }}"></script>
     {% endblock %}
