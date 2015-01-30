@@ -16,7 +16,7 @@ body {
 footer {
   padding-left: 15px;
   padding-right: 15px;
-  background-color: #fff;
+  background-color: #f5f5f5;
 }
 
 html{
@@ -118,100 +118,50 @@ body {
 	              <li><a href="">Another nav item</a></li>
 	            </ul-->
 	          		<ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                            </div>
-                            <!-- /input-group -->
-                        </li>
                         <li>
-                            <a class="active" href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
+                            <a class="active" href="#"><i class="fa fa-dashboard fa-fw"></i> Dashboard<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level collapse">
-                                <li>
-                                    <a href="flot.html">Flot Charts</a>
-                                </li>
-                                <li>
-                                    <a href="morris.html">Morris.js Charts</a>
-                                </li>
+                                <li><a href="#">Member's Updates</a></li>
+                                <li><a href="#">Weekly Activities</a></li>
+                                <li><a href="#">Recommended Services</a></li>
                             </ul>
-                            <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
-                        </li>
-                        <li>
-                            <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-bars fa-fw"></i> Purchase Management<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level collapse">
-                                <li>
-                                    <a href="panels-wells.html">Panels and Wells</a>
-                                </li>
-                                <li>
-                                    <a href="buttons.html">Buttons</a>
-                                </li>
-                                <li>
-                                    <a href="notifications.html">Notifications</a>
-                                </li>
-                                <li>
-                                    <a href="typography.html">Typography</a>
-                                </li>
-                                <li>
-                                    <a href="grid.html">Grid</a>
-                                </li>
+                                <li><a href="#">Quotations</a></li>
+                                <li><a href="#">Favorite Products</a></li>
+                                <li><a href="#">Manage Deals</a></li>
                             </ul>
-                            <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-building-o fa-fw"></i> Company Profile<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level collapse">
-                                <li>
-                                    <a href="#">Second Level Item</a>
-                                </li>
-                                <li>
-                                    <a href="#">Second Level Item</a>
-                                </li>
-                                <li>
-                                    <a href="#">Third Level <span class="fa arrow"></span></a>
-                                    <ul class="nav nav-third-level collapse">
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                    </ul>
-                                    <!-- /.nav-third-level -->
-                                </li>
+                                <li><a href="{{path('edit_seller',{'id' : 2})}}">General Information</a></li>
+                                <li><a href="{{path('seller_company_customer_index',{'seller_id' : 2})}}">Customers</a></li>
+                                <li><a href="{{path('seller_company_factory_index',{'seller_id' : 2})}}">Factories</a></li>
+                                <li><a href="{{path('seller_company_certification_index',{'seller_id' : 2})}}">Certifications</a></li>
+                                <li><a href="{{path('seller_company_oversea_office_index',{'seller_id' : 2})}}">Oversea Offices</a></li>
+                                <li><a href="{{path('seller_company_trademark_index',{'seller_id' : 2})}}">Trademarks</a></li>
+                                <li><a href="{{path('seller_company_honor_award_index',{'seller_id' : 2})}}">Honor Awards</a></li>
+                                <li><a href="{{path('seller_company_patent_index',{'seller_id' : 2})}}">Patents</a></li>
                             </ul>
-                            <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-edit fa-fw"></i> Product Management<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level collapse">
-                                <li>
-                                    <a href="blank.html">Blank Page</a>
-                                </li>
-                                <li>
-                                    <a href="login.html">Login Page</a>
-                                </li>
+                                <li><a href="{{path('upload_product')}}">Create Product</a></li>
+                                <li><a href="{{path('list_product')}}">Product List</a></li>
+                                <li><a href="#">Make Groups</a></li>
                             </ul>
-                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-cog fa-fw"></i> Account Settings<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level collapse">
+                                <li><a href="#">Security Settings</a></li>
+                                <li><a href="#">Personal Information</a></li>
+                                <li><a href="#">My Preferences</a></li>
+                            </ul>
                         </li>
                     </ul>
                 
@@ -224,13 +174,7 @@ body {
 	          <p class="visible-xs">
 	            <button type="button" class="btn btn-primary btn-xs btn-sm" data-toggle="offcanvas">Toggle nav</button>
 	          </p>
-	          
-			  <h1 class="page-header">
-	            Dashboard
-	            <p class="lead">(with off-canvas sidebar)</p>
-	          </h1>
-	
-	          <h2 class="sub-header">Section title</h2>
+
 				{% block dashboard_content %}{% endblock %}
 
 		     </div>

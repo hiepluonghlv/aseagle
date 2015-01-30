@@ -1,8 +1,6 @@
-{% extends 'AseagleBundle::layout.html.twig' %}
-{% block title %}New Factory{% endblock %}
-{% block content_header '' %}
+{% extends 'AseagleBundle::dashboard-layout.html.twig' %}
 
-    {% block content %}
+    {% block dashboard_content %}
         <h1>New Factory</h1>
         {{ form_start(form) }}
         {{ form_errors(form) }}

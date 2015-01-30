@@ -158,9 +158,7 @@ class MainController extends Controller
         $sort_by = $request->query->get('sort_by');
 
         $products = $this->getDoctrine()->getRepository('AseagleBundle:Product')->createQueryBuilder('p')
-            ->where('p.category_id = :category_id')
-            ->andWhere('p.title LIKE :search_string')
-            ->setParameter('category_id', $category_id)
+            ->where('p.title LIKE :search_string')
             ->setParameter('search_string', '%'.$search_string.'%')
             ->getQuery()
             ->getResult();
@@ -218,18 +216,22 @@ class MainController extends Controller
                 'cat_id' => $product->getCategoryId(),
                 'n' => $product->getTitle(),
                 'pl' => $product->getPlaceOfOrigin(),
-                'img' => $image_helper->generate_image_url($product->getPicture(),$root),
-                'pr' => $product->getPriceOrigin(),
-                'm_o' => $product->getMinOrderQuantity(),
+                'img' => $image_helper->generate_thumb_image_url($product->getPicture(),$root),
+                'pr' => $product->getPriceCurrency().$product->getPriceOrigin().'/'.$product->getPriceUnitType(),
+                'm_o' => $product->getMinOrder().' '.$product->getMinOrderUnitType(),
                 'port' => $product->getPort(),
                 'pay' => $product->getPaymentTerms(),
-                'cmt' => array($product->getComment()),
-                'pic' => $product->getPicture(),
+                'sup' => array('c-id' => $product->getOwner()->getCompany()->getId(),
+                    'lo' => $product->getOwner()->getCompany()->getLogo(),
+                    'n' => $product->getOwner()->getCompany()->getName(),
+                    'c' => $product->getOwner()->getCompany()->getRegCountryId()
+                ),
+                'cmt' => $product->getComment() == null ? array() : ($product->getComment() == "" ? array() : array($product->getComment())),
                 'd' => $product_detail
             ));
         }
 
-        return new Response(json_encode($mapped_products_info),200,array('Content-Type'=>'application/json'));
+        return $this->render('AseagleBundle:Search:index.html.twig', array('search_result_lists' => json_encode($mapped_products_info)));
     }
 
     public function getTokenAction()

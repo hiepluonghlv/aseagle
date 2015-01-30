@@ -515,7 +515,9 @@ _AsgMainBuilder.MainContent = ( function() {
 })();
 
 $(document).ready(function(){
-	_AsgMainBuilder.LeftSideBar.build(_ajax_cat_filter_json);
+    if(_ajax_cat_filter_json){
+	    _AsgMainBuilder.LeftSideBar.build(_ajax_cat_filter_json);
+    }
 	_AsgMainBuilder.MainContent.build(_ajax_product_list_json);
 
 	_AsgUtil.HeaderNavbar.build();

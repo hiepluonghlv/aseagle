@@ -15,9 +15,8 @@ class ProductController extends Controller
 {
     public function indexAction()
     {
-        return array(
-                // ...
-            );
+
+        return $this->render('AseagleBundle:Product:index.html.twig');
     }
 
     public function uploadAction()

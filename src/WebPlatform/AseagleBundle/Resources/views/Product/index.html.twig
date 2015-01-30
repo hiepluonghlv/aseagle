@@ -3,13 +3,13 @@
 {% block dashboard_content %}
 	
 <style type="text/css">
-    input {
+    .product-list input {
      display: block;
      margin: 0px;
      width: auto;
      font-family: serif;
     }
-    .input-text-quick-edit {
+    .product-list.input-text-quick-edit {
         display: block;
         height: 34px;
         font-size: 14px;
@@ -21,20 +21,20 @@
         transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     }
 
-    .hover-btn {
+    .product-list .hover-btn {
       display: none;
     }
 
-    tbody:hover tr:hover{
+    .product-list tbody:hover tr:hover{
         background-color: #fffff0;
     }
-    tr:hover .hover-btn {
+    .product-list tr:hover .hover-btn {
       display: block;
     }
 </style>
 
 
-	<table id="myTable" class="table">
+	<table id="myTable" class="product-list table">
 		<thead>
 			<tr>
 				<th class="col-xs-1"></th>
@@ -88,12 +88,13 @@
 					  title : '<div style="text-align:center; color:red; text-decoration:underline; font-size:14px;"> </div>', //this is the top title bar of the popover. add some basic css
 					  html: 'true', //needed to show html of course
 					  content : function () {
-							return '<div id="popOverBox"><img src="'+$(this)[0].src + '" width="251" height="201" /></div>' //this is the content of the html box. add the image here or anything you want really.
+							return '<div id="popOverBox"><img src="'+$(this)[0].src + '" width="251" height="201" /></div>';//this is the content of the html box. add the image here or anything you want really.
 						}
 				
 				});
 				function resizeInput() {
 					$(this).attr('size', $(this).val().length);
 				}
+              });
 		</script>	
     {% endblock %}
