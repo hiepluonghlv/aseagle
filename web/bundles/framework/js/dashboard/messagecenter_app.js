@@ -28,6 +28,10 @@ angular.module('msgcenter', [
 		url: '/mail', // list
 		templateUrl: 'mail.html',
 		controller: 'MailController'
+	}).state('sent', {
+		url: '/sent', // list
+		templateUrl: 'mail.html',
+		controller: 'SentController'
 	}).state('open', {
 		url: '/open/:id', // list
 		templateUrl: 'open.html',
@@ -47,6 +51,22 @@ angular.module('msgcenter', [
 
 .controller('MailController', function ($scope,  $http) {
 	$http.get('/messagecenter/list/3').success(function(data) {
+		$scope.mails = data;
+	});
+
+	//$scope.mails = _json_listmail;
+	
+	$scope.is_read = function(read) {
+		var ret;
+		if(read) {
+			return "read";
+		} else {
+			return "unread";
+		}
+	};
+})
+.controller('SentController', function ($scope,  $http) {
+	$http.get('/messagecenter/list_sent').success(function(data) {
 		$scope.mails = data;
 	});
 
@@ -92,7 +112,7 @@ angular.module('msgcenter', [
 	});	
 	
 	$scope.Send = function(){
-		alert("test send:" + $('#emailbody').code());
+		alert("send to:" + $scope.Receivers);
 		$http({
 		  method  : 'POST',
 		  url     : '/messagecenter/send',
@@ -145,7 +165,38 @@ angular.module('msgcenter', [
 		
 	};
 })
+.directive('tagInput', function() {
+    return {
+		restrict: 'A',
+        link: function(scope, element, attrs) {
+        	var contact = new Bloodhound({
+			  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+			  queryTokenizer: Bloodhound.tokenizers.whitespace,
+			  prefetch: '/bundles/framework/assets/contact.json'
+			});
+			contact.initialize();
 
+			var elt = $(element);
+			elt.tagsinput({
+			  tagClass: function(item) {
+				if (item.c == true) {
+					return 'label label-primary';
+				} else {
+					return 'label label-default';
+				}
+			  },
+			  itemValue: 'id',
+			  itemText: 'name',
+			  typeaheadjs: {
+				name: 'contact',
+				displayKey: 'name',
+				source: contact.ttAdapter()
+			  }
+			});
+
+        }
+    };
+})
 .directive('wysiHtml5', function() {
     return {
 		restrict: 'A',
