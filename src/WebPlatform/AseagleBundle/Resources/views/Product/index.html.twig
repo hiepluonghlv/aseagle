@@ -1,39 +1,36 @@
 {% extends 'AseagleBundle::dashboard-layout.html.twig' %}
 
-    {% block dashboard_content %}
+{% block dashboard_content %}
 	
 <style type="text/css">
+    input {
+     display: block;
+     margin: 0px;
+     width: auto;
+     font-family: serif;
+    }
+    .input-text-quick-edit {
+        display: block;
+        height: 34px;
+        font-size: 14px;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    }
 
+    .hover-btn {
+      display: none;
+    }
 
-input {
- display: block;
- margin: 0px;
- width: auto;
- font-family: serif;
-}
-.input-text-quick-edit {
-	display: block;
-	height: 34px;
-	font-size: 14px;
-	color: #555;
-	background-color: #fff;
-	background-image: none;
-	border: 1px solid #ccc;
-	-webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-	transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-}
-
-.hover-btn {
-  display: none;
-}
-
-tbody:hover tr:hover{
-	background-color: #fffff0;
-}
-tr:hover .hover-btn {
-  display: block;
-}
-
+    tbody:hover tr:hover{
+        background-color: #fffff0;
+    }
+    tr:hover .hover-btn {
+      display: block;
+    }
 </style>
 
 
