@@ -15,8 +15,14 @@ class ProductController extends Controller
 {
     public function indexAction()
     {
-
-        return $this->render('AseagleBundle:Product:index.html.twig');
+        $products = $this->getUser()->getProducts();
+        $image_helper = $this->get('image_helper');
+        $root = "http://localhost:8000/files/";
+        foreach($products as $product)
+        {
+            $product->setPicture($image_helper->generate_thumb_image_url($product->getPicture(),$root));
+        }
+        return $this->render('AseagleBundle:Product:index.html.twig', array('products' => $products));
     }
 
     public function uploadAction()
@@ -35,21 +41,6 @@ class ProductController extends Controller
         $em = $this->getDoctrine()->getManager();
         $cat = $em->getRepository('AseagleBundle:Category')->find($cat_id);
         $owner = $em->getRepository('AseagleBundle:User')->find($user->getId());
-
-        //$string_col = 'owner_id,';
-        //$string_val = '1,';        //foreach ($_POST as $key=>$value){
-        //    if (!empty($value) && !is_array($value)){
-        //        $string_col .= $key.',';
-        //        $string_val .= '"'.$value.'",';
-        //    }
-        //}
-        //if (!empty($string_col)){
-        //    $string_col = substr($string_col,0,strlen($string_col)-1);
-        //    $string_val = substr($string_val,0,strlen($string_val)-1);
-        //}
-        //$temp = "INSERT INTO product(".$string_col.") values(".$string_val.")";
-        //$query = $em->createQuery($temp);
-        //$products = $query->getResult();
 
         $product = new Product();
         $product->setCategory($cat);
@@ -515,5 +506,15 @@ class ProductController extends Controller
         $em->flush();
 
         return new Response(json_encode(array('result'=>'ok')),200,array('Content-Type'=>'application/json'));
+    }
+
+    public function destroyAction($id)
+    {
+        $product = $this->getDoctrine()->getRepository('AseagleBundle:Product')->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($product);
+        $em->flush();
+        return $this->redirect($this->generateUrl('list_product'));
+        //TODO: Delete physical picture files
     }
 }

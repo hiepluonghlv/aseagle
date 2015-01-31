@@ -59,6 +59,12 @@ update_product:
     path:     /product/update/{id}
     defaults: { _controller: AseagleBundle:Product:update }
 
+destroy_product:
+    path:     /product/destroy/{id}
+    defaults: { _controller: AseagleBundle:Product:destroy }
+    requirements:
+                    _method:  DELETE
+
 upload_file:
     path:     /upload_file
     defaults: { _controller: AseagleBundle:Default:upload_file }
