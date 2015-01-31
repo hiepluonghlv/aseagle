@@ -73,6 +73,11 @@ class Category
     protected $user_categories;
 
     /**
+     * @ORM\OneToMany(targetEntity="SupplierCategory", mappedBy="category")
+     */
+    protected $category_companies;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Category", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      */
@@ -89,6 +94,7 @@ class Category
         $this->buy_requests = new ArrayCollection();
         $this->user_categories = new ArrayCollection();
         $this->chidren = new ArrayCollection();
+        $this->$category_companies = new ArrayCollection();
     }
 
     /**
@@ -371,5 +377,38 @@ class Category
     public function getChildren()
     {
         return $this->children;
+    }
+
+    /**
+     * Add category_companies
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\SupplierCategory $categoryCompanies
+     * @return Category
+     */
+    public function addCategoryCompany(\WebPlatform\AseagleBundle\Entity\SupplierCategory $categoryCompanies)
+    {
+        $this->category_companies[] = $categoryCompanies;
+
+        return $this;
+    }
+
+    /**
+     * Remove category_companies
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\SupplierCategory $categoryCompanies
+     */
+    public function removeCategoryCompany(\WebPlatform\AseagleBundle\Entity\SupplierCategory $categoryCompanies)
+    {
+        $this->category_companies->removeElement($categoryCompanies);
+    }
+
+    /**
+     * Get category_companies
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCategoryCompanies()
+    {
+        return $this->category_companies;
     }
 }

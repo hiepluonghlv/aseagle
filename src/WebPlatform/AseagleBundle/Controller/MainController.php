@@ -101,7 +101,7 @@ class MainController extends Controller
 
         //$mapping_helper = $this->get('mapping_helper');
         $category_id = $request->get('category_id');
-        $page = $request->query->get('page');
+        $last_index = $request->query->get('last_id');
         $search_string = $request->query->get('search_string');
         $country_id = $request->query->get('country');
 
@@ -138,10 +138,15 @@ class MainController extends Controller
                 'm_o' => $product->getMinOrder().' '.$product->getMinOrderUnitType(),
                 'port' => $product->getPort(),
                 'pay' => $product->getPaymentTerms(),
-                'sup' => array('c-id' => $product->getOwner()->getCompany()->getId(),
+                'sup' => array(
+                    'c-id' => $product->getOwner()->getCompany()->getId(),
                     'lo' => $product->getOwner()->getCompany()->getLogo(),
                     'n' => $product->getOwner()->getCompany()->getName(),
-                    'c' => $product->getOwner()->getCompany()->getRegCountryId()
+                    'c' => $product->getOwner()->getCompany()->getRegCountryId(),
+                    'v' => $product->getOwner()->getCompany()->getIsVerified(),
+                    'm' => $product->getOwner()->getCompany()->getMemberType(),
+                    'm_m' => $product->getOwner()->getCompany()->getMainMarketsDistribution(),
+                    'm_p' => array_map(create_function('$o', 'return $o->getCategoryId();'), $product->getOwner()->getCompany()->getCompanyCategories()->toArray())
                     ),
                 'cmt' => $product->getComment() == null ? array() : ($product->getComment() == "" ? array() : array($product->getComment())),
                 'd' => $product_detail
