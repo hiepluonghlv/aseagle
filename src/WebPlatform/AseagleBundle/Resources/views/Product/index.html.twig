@@ -3,13 +3,13 @@
 {% block dashboard_content %}
 	
 <style type="text/css">
-    input {
+    .product-list input {
      display: block;
      margin: 0px;
      width: auto;
      font-family: serif;
     }
-    .input-text-quick-edit {
+    .product-list.input-text-quick-edit {
         display: block;
         height: 34px;
         font-size: 14px;
@@ -21,20 +21,19 @@
         transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     }
 
-    .hover-btn {
+    .product-list .hover-btn {
       display: none;
     }
 
-    tbody:hover tr:hover{
+    .product-list tbody:hover tr:hover{
         background-color: #fffff0;
     }
-    tr:hover .hover-btn {
+    .product-list tr:hover .hover-btn {
       display: block;
     }
 </style>
 
-
-	<table id="myTable" class="table">
+	<table id="myTable" class="product-list table">
 		<thead>
 			<tr>
 				<th class="col-xs-1"></th>
@@ -47,36 +46,18 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td><input type="checkbox" /></td>
-				<td><img src="1.jpg" width="50" height="50" class="img-rounded" rel="popover"></td>
-				<td>Best price Vietnamese rice</td>
-				<td>
-					US$<strong>10</strong> <em>per</em> Ton(s) - <span>FOB</span><br>
-					<strong>10</strong> Ton(s) - <span>Min Order<span>
-				</td>
-				<td><a href="filter_category">Grain</a></td>
-				<td>Approved</td>
-				<td>  
-				  <button type="button" class="btn btn-primary btn-xs btn-block hover-btn">Edit</button>	
-					<button type="button" class="btn btn-default btn-xs btn-block hover-btn">Delete</button>
-				</td>
-			</tr>
-			<tr>
-				<td><input type="checkbox" /></td>
-				<td><img src="1.jpg" width="50" height="50" class="img-rounded" rel="popover"></td>
-				<td>Best price rice</td>
-				<td>    
-					US$<strong>10</strong> <em>per</em> Ton(s) - <span>FOB</span><br>
-					<strong>10</strong> Ton(s) - <span>Min Order<span>
-				</td>
-				<td><a href="filter_category">Grain</a></td>
-				<td>Approved</td>
-				<td>  
-				  <button type="button" class="btn btn-primary btn-xs btn-block hover-btn" >Edit</button>	
-					<button type="button" class="btn btn-default btn-xs btn-block hover-btn">Delete</button>
-				</td>
-			</tr>
+            {% for product in products %}
+                <tr>
+                    <td><input type="checkbox" /></td>
+                    <td><img src="{{ product.picture }}" width="50" height="50" class="img-rounded" rel="popover"></td>
+                    <td>{{ product.title }}</td>
+                    <td>{{ product.priceOrigin }}</td>
+                    <td>{{ product.category.name }}</td>
+                    <td>{% if product.state == 1 %}Approved{% else %}Pending{% endif %}</td>
+                    <td><a href="{{ path('edit_product', {'id': product.id}) }}" class="btn btn-primary btn-xs btn-block hover-btn"><span class="glyphicon glyphicon-pencil"></span>Edit</a>
+                        <a href="{{ path('destroy_product', {'id': product.id}) }}" class="btn btn-danger btn-xs btn-block hover-btn"><span class="glyphicon glyphicon-trash"></span>Delete</a></td>
+                </tr>
+            {% endfor %}
 		</tbody>
 	</table>
 	
@@ -88,12 +69,13 @@
 					  title : '<div style="text-align:center; color:red; text-decoration:underline; font-size:14px;"> </div>', //this is the top title bar of the popover. add some basic css
 					  html: 'true', //needed to show html of course
 					  content : function () {
-							return '<div id="popOverBox"><img src="'+$(this)[0].src + '" width="251" height="201" /></div>' //this is the content of the html box. add the image here or anything you want really.
+							return '<div id="popOverBox"><img src="'+$(this)[0].src + '" width="251" height="201" /></div>';//this is the content of the html box. add the image here or anything you want really.
 						}
 				
 				});
 				function resizeInput() {
 					$(this).attr('size', $(this).val().length);
 				}
+              });
 		</script>	
     {% endblock %}

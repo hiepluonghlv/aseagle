@@ -2,6 +2,7 @@ parameters:
 #    aseagle.example.class: WebPlatform\AseagleBundle\Example
      mapping_helper.class: WebPlatform\AseagleBundle\Services\MappingHelper
      image_helper.class: WebPlatform\AseagleBundle\Services\ImageHelper
+     global_helper.class: WebPlatform\AseagleBundle\Services\GlobalHelper
 services:
 #    aseagle.example:
 #        class: %aseagle.example.class%
@@ -10,3 +11,5 @@ services:
          class: "%mapping_helper.class%"
      image_helper:
          class: "%image_helper.class%"
+     global_helper:
+         class: "%global_helper.class%"

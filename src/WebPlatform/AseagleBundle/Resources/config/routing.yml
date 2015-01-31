@@ -1,8 +1,12 @@
-aseagle_homepage:
-    path:     /welcome
+aseagle_test:
+    path:     /test
     defaults: { _controller: AseagleBundle:Default:index }
 
-aseagle_main:
+welcome:
+    path:     /welcome
+    defaults: { _controller: AseagleBundle:Static:welcome }
+
+main:
     path:     /main/{category_id}
     defaults: { _controller: AseagleBundle:Main:index }
 
@@ -18,12 +22,11 @@ main_filter:
     requirements:
                     _method:  GET
 
-main_search:
-    path:     /main/search
+search:
+    path:     /search
     defaults: { _controller: AseagleBundle:Main:search }
     requirements:
                 _method:  GET
-
 
 get_list_product_search:
     path:     /search/get_list_product_search
@@ -32,6 +35,10 @@ get_list_product_search:
                 _method:  GET
 
 # product routing
+list_product:
+    path:     /product
+    defaults: { _controller: AseagleBundle:Product:index }
+
 show_product:
     path:     /product/show/{id}
     defaults: { _controller: AseagleBundle:Product:show }
@@ -51,6 +58,12 @@ edit_product:
 update_product:
     path:     /product/update/{id}
     defaults: { _controller: AseagleBundle:Product:update }
+
+destroy_product:
+    path:     /product/destroy/{id}
+    defaults: { _controller: AseagleBundle:Product:destroy }
+    requirements:
+                    _method:  DELETE
 
 upload_file:
     path:     /upload_file
@@ -253,3 +266,5 @@ seller_company_patent_edit:
 seller_company_patent_destroy:
     path:     seller/{seller_id}/company_patent/{id}/destroy
     defaults: { _controller: AseagleBundle:CompanyPatent:destroy }
+
+

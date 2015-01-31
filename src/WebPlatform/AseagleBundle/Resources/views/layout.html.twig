@@ -54,7 +54,31 @@
                     </ul>
                 </li>
             </ul>
-
+            <div class="nav navbar-nav div-search" style="margin-top: 8px">
+                <form class="form-inline" style="margin: 0" role="search" action="{{path('search')}}">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    Product
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Product</a></li>
+                                    <li><a href="#">Seller</a></li>
+                                    <li><a href="#">Buyer</a></li>
+                                </ul>
+                            </div><!-- /btn-group -->
+                            <div class="input-group-btn">
+                            <input type="text" class="form-control" style="width:400px" placeholder="Search" name="search_string" id="search_string">
+                            </div>
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit">&nbsp<span class="glyphicon glyphicon-search"></span>&nbsp</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
             <div style="float: right">
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                     {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
@@ -76,6 +100,7 @@
                     </form>
                 {% endif %}
             </div>
+
         </div>
 
         <!--/div-->

@@ -239,6 +239,20 @@ class CompanyProfile
     private $representative_id;
 
     /**
+     * @var integer
+     *
+     * @ORM\Column(name="member_type", type="integer")
+     */
+    private $member_type;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_verified", type="boolean")
+     */
+    private $is_verified;
+
+    /**
      * @ORM\OneToMany(targetEntity="CompanyCustomer", mappedBy="company")
      */
     protected $company_customers;
@@ -279,6 +293,11 @@ class CompanyProfile
     protected $staffs;
 
     /**
+     * @ORM\OneToMany(targetEntity="SupplierCategory", mappedBy="company")
+     */
+    protected $company_categories;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Country", inversedBy="reg_companies")
      * @ORM\JoinColumn(name="reg_country_id", referencedColumnName="id")
      */
@@ -300,6 +319,7 @@ class CompanyProfile
         $this->company_patents = new ArrayCollection();
         $this->company_trademarks = new ArrayCollection();
         $this->staffs = new ArrayCollection();
+        $this->$company_categories = new ArrayCollection();
     }
 
     /**
@@ -1336,5 +1356,84 @@ class CompanyProfile
     public function getRepresentativeId()
     {
         return $this->representative_id;
+    }
+
+    /**
+     * Set member_type
+     *
+     * @param integer $memberType
+     * @return CompanyProfile
+     */
+    public function setMemberType($memberType)
+    {
+        $this->member_type = $memberType;
+
+        return $this;
+    }
+
+    /**
+     * Get member_type
+     *
+     * @return integer 
+     */
+    public function getMemberType()
+    {
+        return $this->member_type;
+    }
+
+    /**
+     * Add company_categories
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\SupplierCategory $companyCategories
+     * @return CompanyProfile
+     */
+    public function addCompanyCategory(\WebPlatform\AseagleBundle\Entity\SupplierCategory $companyCategories)
+    {
+        $this->company_categories[] = $companyCategories;
+
+        return $this;
+    }
+
+    /**
+     * Remove company_categories
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\SupplierCategory $companyCategories
+     */
+    public function removeCompanyCategory(\WebPlatform\AseagleBundle\Entity\SupplierCategory $companyCategories)
+    {
+        $this->company_categories->removeElement($companyCategories);
+    }
+
+    /**
+     * Get company_categories
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCompanyCategories()
+    {
+        return $this->company_categories;
+    }
+
+    /**
+     * Set is_verified
+     *
+     * @param boolean $isVerified
+     * @return CompanyProfile
+     */
+    public function setIsVerified($isVerified)
+    {
+        $this->is_verified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * Get is_verified
+     *
+     * @return boolean 
+     */
+    public function getIsVerified()
+    {
+        return $this->is_verified;
     }
 }
