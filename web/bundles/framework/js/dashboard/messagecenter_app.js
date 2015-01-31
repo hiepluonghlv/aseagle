@@ -30,12 +30,16 @@ angular.module('msgcenter', [
 		controller: 'MailController'
 	}).state('sent', {
 		url: '/sent', // list
-		templateUrl: 'mail.html',
+		templateUrl: 'sent_mail.html',
 		controller: 'SentController'
 	}).state('open', {
 		url: '/open/:id', // list
 		templateUrl: 'open.html',
 		controller: 'OpenController'
+	}).state('open_sent', {
+		url: '/open_sent/:id', // list
+		templateUrl: 'open.html',
+		controller: 'OpenSentController'
 	}).state('compose', {
 		url: '/compose',
 		templateUrl: 'compose.html',
@@ -100,6 +104,25 @@ angular.module('msgcenter', [
 		$location.path('/reply');
 	}
 })
+.controller('OpenSentController', function ($scope, $http, $stateParams, $location, $sce, OpenMessage) {
+	$http.get('/messagecenter/open_sent/'+$stateParams.id).success(function(data) {
+		$scope.mail = data;
+		OpenMessage.updatecurrent(data);
+			if(typeof $scope.mail.body !== 'undefined') {
+				//$scope.mail.body = $sce.trustAsHtml($scope.mail.body);
+			}
+	});
+	
+	//$scope.mail = _json_openmail;
+	//OpenMessage.updatecurrent(_json_openmail);
+	//if(typeof $scope.mail.body !== 'undefined') {
+		//$scope.mail.body = $sce.trustAsHtml($scope.mail.body);
+	//}
+	
+	$scope.Reply = function() {
+		$location.path('/reply');
+	}
+})
 .controller('ComposeController', function ($scope, $location, $http, OpenMessage) {
 	//$("#emailbody").wysihtml5();
 	$scope.SenderId;
@@ -145,16 +168,15 @@ angular.module('msgcenter', [
 	});	
 	
 	$scope.Send = function(){
-		alert("test send:" + $('#emailbody').code());
+		alert("send to:" + $scope.Receivers);
 		$http({
 		  method  : 'POST',
-		  url     : 'process.php',
-		  data    : $.param($scope.formData),  // pass in data as strings
-		  headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
+		  url     : '/messagecenter/send',
+		  data    : $.param({ received_ids : $scope.Receivers, subject : $scope.Subject, body : $('#emailbody').code()}),  // pass in data as strings	
+		  headers : { 'Content-Type': 'application/x-www-form-urlencoded' }
 		 }).success(function(data) {
 				$location.path('/mail');
 		  });
-		
 	};
 	
 	$scope.Cancel = function(){

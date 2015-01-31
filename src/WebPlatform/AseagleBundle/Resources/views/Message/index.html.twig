@@ -114,7 +114,20 @@
    
    </ng-view>
 </script>
-
+<script id="sent_mail.html" type="text/ng-template">
+   <ng-view title="Mail">
+   <table class="table table-mailbox">
+   <tr class="{[{is_read(mail.r)}]}" ng-repeat="mail in mails">
+   <td class="small-col"><input type="checkbox" /></td>
+   <td class="small-col"><i class="fa fa-star"></i></td>
+   <td class="name"><a href="#/open_sent/{[{mail.id}]}">To: {[{mail.receivers[0].fname}]}</a></td>
+   <td class="subject"><a href="#/open_sent/{[{mail.id}]}"">{[{mail.subj}]}<span>{[{mail.body}]}</span></a></td>
+   <td class="time">{[{mail.date}]}</td>
+   </tr>
+   </table>
+   
+   </ng-view>
+</script>
 
 <script id="open.html" type="text/ng-template">
     <ng-view title="Open">

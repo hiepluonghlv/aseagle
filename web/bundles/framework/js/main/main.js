@@ -449,7 +449,7 @@ _AsgMainBuilder.MainContent = ( function() {
 	    .addClass('card-heading image row').appendTo(product);
 			// ------  product_head_image_row_product_detail
 			var product_head_image_row_product_detail = $('<div/>')
-			 .addClass('col-xs-8 col-sm-7 card-heading-header').appendTo(product_head_image_row);
+			 .addClass('col-xs-8 col-sm-8 card-heading-header').appendTo(product_head_image_row);
 			
 				var product_head_image_row_product_detail_image = $('<img src="'+product_json.img+'" rel="popover">')
 				 .appendTo(product_head_image_row_product_detail);	
@@ -467,10 +467,16 @@ _AsgMainBuilder.MainContent = ( function() {
 				var product_head_image_row_product_detail = $(h3_prop).appendTo(product_head_image_row_product_detail);
 			// ------ product_head_image_row_seller_detail
 			var product_head_image_row_seller_detail = $('<div/>')
-			 .addClass('col-xs-4 col-sm-5 card-heading-header').appendTo(product_head_image_row);
-				$('<h3><a class="company-hover-label" href="">'+product_json.sup.n+'<div style="display:none;">asdasdasdasd</div></a></h3>').appendTo(product_head_image_row_seller_detail);
+			 .addClass('col-xs-4 col-sm-4 card-heading-header').appendTo(product_head_image_row);
+				$('<h3><a class="company-hover-label" href="">'+product_json.sup.n+'<div style="display:none;">asdasdasdasd</div></a>   <span class="glyphicon glyphicon-check" aria-hidden="true"></span></h3>').appendTo(product_head_image_row_seller_detail);
 				$('<h3>('+_AsgUtil.Mapping.getCountryName(product_json.sup.c)+')</h3>').appendTo(product_head_image_row_seller_detail);
-		
+				$('<h3>('+_AsgUtil.Mapping.getCountryName(product_json.sup.c)+')</h3>').appendTo(product_head_image_row_seller_detail);
+				$('<h3>('+_AsgUtil.Mapping.getCountryName(product_json.sup.c)+')</h3>').appendTo(product_head_image_row_seller_detail);
+				$('<h3></h3>').appendTo(product_head_image_row_seller_detail);
+				var product_head_image_row_seller_detail_button = $('<div/>');
+				product_head_image_row_seller_detail_button.appendTo(product_head_image_row_seller_detail);
+					$('<button type="button" class="btn btn-primary btn-xs hover-btn" onclick="myFunction()">Request Quotation</button>').appendTo(product_head_image_row_seller_detail_button);
+					
 
 		// -- product short description			
 		//var product_body = $('<div/>')
