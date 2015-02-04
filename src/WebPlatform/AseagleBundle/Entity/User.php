@@ -123,6 +123,11 @@ class User extends BaseUser
     protected $author_messages;
 
     /**
+     * @ORM\OneToMany(targetEntity="ContactList", mappedBy="user")
+     */
+    protected $contact_list;
+
+    /**
      * @ORM\ManyToOne(targetEntity="CompanyProfile", inversedBy="staffs")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
      */
@@ -141,6 +146,7 @@ class User extends BaseUser
         $this->sent_messages = new ArrayCollection();
         $this->received_messages = new ArrayCollection();
         $this->author_messages = new ArrayCollection();
+        $this->contact_list = new ArrayCollection();
     }
 
     /**
@@ -669,5 +675,38 @@ class User extends BaseUser
     public function getIsVerifiedSeller()
     {
         return $this->is_verified_seller;
+    }
+
+    /**
+     * Add contact_list
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\ContactList $contactList
+     * @return User
+     */
+    public function addContactList(\WebPlatform\AseagleBundle\Entity\ContactList $contactList)
+    {
+        $this->contact_list[] = $contactList;
+
+        return $this;
+    }
+
+    /**
+     * Remove contact_list
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\ContactList $contactList
+     */
+    public function removeContactList(\WebPlatform\AseagleBundle\Entity\ContactList $contactList)
+    {
+        $this->contact_list->removeElement($contactList);
+    }
+
+    /**
+     * Get contact_list
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getContactList()
+    {
+        return $this->contact_list;
     }
 }

@@ -94,7 +94,7 @@ class Category
         $this->buy_requests = new ArrayCollection();
         $this->user_categories = new ArrayCollection();
         $this->chidren = new ArrayCollection();
-        $this->$category_companies = new ArrayCollection();
+        $this->category_companies = new ArrayCollection();
     }
 
     /**

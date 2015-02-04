@@ -319,7 +319,7 @@ class CompanyProfile
         $this->company_patents = new ArrayCollection();
         $this->company_trademarks = new ArrayCollection();
         $this->staffs = new ArrayCollection();
-        $this->$company_categories = new ArrayCollection();
+        $this->company_categories = new ArrayCollection();
     }
 
     /**

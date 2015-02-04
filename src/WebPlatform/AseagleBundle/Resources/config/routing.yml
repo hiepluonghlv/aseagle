@@ -114,6 +114,14 @@ message_interaction:
     path:     /messagecenter/update/{message_id}
     defaults: { _controller: AseagleBundle:Message:messageInteraction }
 
+list_draft_mail:
+    path:     /messagecenter/list_draft
+    defaults: { _controller: AseagleBundle:Message:listDraft }
+
+list_contact:
+    path:     /messagecenter/list_contact
+    defaults: { _controller: AseagleBundle:Message:listContact }
+
 #membership routing
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
