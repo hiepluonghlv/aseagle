@@ -13,6 +13,7 @@ class DefaultController extends Controller
 {
     public function indexAction(Request $request)
     {
+        $a = 1;
         return $this->render('AseagleBundle:Default:index.html.twig', array('name' => 'Aseagle','status'=>'index', 'uploadedURL'=>'index'));
     }
 
