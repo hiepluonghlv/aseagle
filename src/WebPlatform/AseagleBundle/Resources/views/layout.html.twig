@@ -32,7 +32,7 @@
     <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
     <!-- Navigation -->
-    <div class="navbar yamm navbar-default navbar-fixed-top" style="box-shadow: none">
+    <div class="navbar yamm navbar-default navbar-fixed-top">
         <!--div class="container"-->
         <div class="navbar-header">
             <button type="button" data-toggle="collapse" data-target="#navbar-collapse-1" class="navbar-toggle collapsed">
@@ -41,7 +41,44 @@
                 <span class="icon-bar"></span>
             </button><a href="#" class="navbar-brand"><img src="{{ asset('bundles/framework/img/logo.png') }}" style="width: 130px; height: 25px"></a>
         </div>
-        <div id="navbar-collapse-1" class="navbar-collapse collapse">
+        <div id="navbar-collapse-1" class="navbar-collapse collapse" style="height: 1px;">
+            <ul class="nav navbar-nav">
+                <!-- Grid 12 Menu -->
+                <li class="dropdown yamm-fw"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Menu<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li class="grid-demo">
+                            <div class="row" id="aseagle-navbar" style="padding: 30px">
+                                
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="nav navbar-nav div-search" style="margin-top: 8px">
+                <form class="form-inline" style="margin: 0" role="search" action="{{path('search')}}">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                    Product
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Product</a></li>
+                                    <li><a href="#">Seller</a></li>
+                                    <li><a href="#">Buyer</a></li>
+                                </ul>
+                            </div><!-- /btn-group -->
+                            <div class="input-group-btn">
+                            <input type="text" class="form-control" style="width:400px" placeholder="Search" name="search_string" id="search_string">
+                            </div>
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit">&nbsp<span class="glyphicon glyphicon-search"></span>&nbsp</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
             <div style="float: right">
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                     {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
@@ -63,74 +100,15 @@
                     </form>
                 {% endif %}
             </div>
+
         </div>
+
         <!--/div-->
     </div>
-    <div class="navbar yamm navbar-default navbar-fixed-top" style="background-image: none; box-shadow: none; margin-top: 51px">
-        <div class="navbar-collapse collapse" style="padding-left: 60px;">
-            <ul class="nav navbar-nav">
-                <!-- Grid 12 Menu -->
-                <li class="dropdown yamm-fw"><a href="#" data-toggle="dropdown" class="dropdown-toggle">Menu<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li class="grid-demo">
-                            <div class="row" id="aseagle-navbar" style="padding: 30px">
-
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <form class="navbar-form navbar-left" role="search" action="{{path('search')}}">
-                <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-btn">
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                Product
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Product</a></li>
-                                <li><a href="#">Seller</a></li>
-                                <li><a href="#">Buyer</a></li>
-                            </ul>
-                        </div><!-- /btn-group -->
-                        <div class="input-group-btn">
-                            <input type="text" class="form-control" style="width:400px" placeholder="Search" name="search_string" id="search_string">
-                        </div>
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" type="submit">&nbsp<span class="glyphicon glyphicon-search"></span>&nbsp</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-            <ul class="nav navbar-nav" style="padding-left: 240px">
-                <li><a href="{{path('upload_product')}}">Dashboard</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">For Buyer <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">For Seller <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
 
 
-    <div class="block" style="padding-top: 30px;">
+
+    <div class="block">
         {% block content %}{% endblock %}
     </div>
 
