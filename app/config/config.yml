@@ -58,6 +58,7 @@ doctrine:
 
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
+        default_entity_manager: default
         auto_mapping: true
 
 # Swiftmailer Configuration
