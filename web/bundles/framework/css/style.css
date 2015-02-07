@@ -1,0 +1,27 @@
+td, th {
+    line-height: 1.5;
+}
+
+th.lh20, td.lh20 {
+    line-height: 2.0;
+}
+
+td.col-name{
+    color: #666;
+}
+
+.w11{
+    width: 11%;
+}
+
+.w22{
+    width: 22%;
+}
+
+.w25{
+    width: 25%;
+}
+
+.w100{
+    width: 100%;
+}
