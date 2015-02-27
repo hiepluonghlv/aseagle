@@ -92,7 +92,8 @@ class MessageController extends Controller
             $received_ids = explode(",", $request->request->get('received_ids'));
             foreach ($received_ids as $value) {
                 if(strpos($value,'c') !== false){
-                    $com = $em->getRepository('AseagleBundle:CompanyProfile')->find(explode("_", $value)[1]);
+                    $rec_sep = explode("_", $value);
+                    $com = $em->getRepository('AseagleBundle:CompanyProfile')->find($rec_sep[1]);
                     foreach ($com->getStaffs() as $s) {
                         $received_message = new ReceivedMessage();
                         $received_message->setAuthor($sender);
@@ -242,7 +243,8 @@ class MessageController extends Controller
             $reuserids = explode(",", $message->getReceiverIds());
             foreach($reuserids as $reuserid){
                 if(strpos($reuserid,'c') !== false){
-                    $com = $this->getDoctrine()->getRepository('AseagleBundle:CompanyProfile')->find(explode("_", $reuserid)[1]);
+                    $rec_sep = explode("_", $reuserid);
+                    $com = $this->getDoctrine()->getRepository('AseagleBundle:CompanyProfile')->find($rec_sep[1]);
                     array_push($receivers, array( 'id' => $com->getId(), 'fname' => 'Company '.$com->getName()));
                 }else{
                     $reuser = $this->getDoctrine()->getRepository('AseagleBundle:User')->find($reuserid);
@@ -303,7 +305,8 @@ class MessageController extends Controller
             $reuserids = explode(",", $message->getReceiverIds());
             foreach($reuserids as $reuserid){
                 if(strpos($reuserid,'c') !== false){
-                    $com = $this->getDoctrine()->getRepository('AseagleBundle:CompanyProfile')->find(explode("_", $reuserid)[1]);
+                    $rec_sep = explode("_", $reuserid);
+                    $com = $this->getDoctrine()->getRepository('AseagleBundle:CompanyProfile')->find($rec_sep[1]);
                     array_push($receivers, array( 'id' => $com->getId(), 'fname' => 'Company '.$com->getName()));
                 }else{
                     $reuser = $this->getDoctrine()->getRepository('AseagleBundle:User')->find($reuserid);
