@@ -14,6 +14,9 @@
         body {
             padding-bottom: 20px;
         }
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
     </style>
 	
 	<!-- local libs -->
@@ -104,7 +107,7 @@
                 </div>
             </form>
             <ul class="nav navbar-nav" style="padding-left: 200px">
-                <li><a href="{{path('upload_product')}}">Dashboard</a></li>
+                <li><a href="{{path('upload_product')}}">My Aseagle</a></li>
                 <li><a href="{{path('message')}}">Message Center</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">For Buyer <span class="caret"></span></a>
