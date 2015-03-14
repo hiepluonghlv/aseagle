@@ -297,12 +297,41 @@
 
                 $.ajax({
                     type: "POST",
+                    url: "purchase/query_my_buying_request",
+                    data: {},
+                    dataType: "json"
+                }).done(function( msg ) {
+                            console.log(msg);
+                        });
+
+                /*
+                $.ajax({
+                    type: "POST",
+                    url: "purchase/create_quotation",
+                    data: { pr_id : "9",product_id : "21",expired_date: "2015-10-10 19:00:00", quote_message : "abc abc",price: "25", quantity : "3", quantity_type: "bag", payment_term:"cash", deliver_time:"7 days"},
+                    dataType: "json"
+                }).done(function( msg ) {
+                            console.log(msg);
+                        });
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "purchase/create_buying_request",
+                    data: { category_id : "3", title : "rare rice",expired_date : "2015-10-10 19:00:00", buying_request_message : "abc abc", quantity : "3", quantity_type: "bag"},
+                    dataType: "json"
+                }).done(function( msg ) {
+                            console.log(msg);
+                        });
+
+                $.ajax({
+                    type: "POST",
                     url: "/messagecenter/list_sent",
                     dataType: "json"
                 }).done(function( msg ) {
                             console.log(msg);
                         });
-                /*
+
                 $.ajax({
                     type: "POST",
                     url: "/messagecenter/list_contact",
@@ -347,7 +376,7 @@
                 $.ajax({
                     type: "POST",
                     url: "messagecenter/send",
-                    data: { received_ids : "c_2,7", subject : "abc abc", body : "123 abc 123"},
+                    data: { category_id : "3", received_ids : "c_2,7", subject : "abc abc", body : "123 abc 123"},
                     dataType: "json"
                 }).done(function( msg ) {
                             console.log(msg);

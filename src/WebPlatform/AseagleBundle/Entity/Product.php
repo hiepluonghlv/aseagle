@@ -512,10 +512,22 @@ class Product
      */
     protected $transactions;
 
+    /**
+     * @ORM\OneToMany(targetEntity="BuyingRequest", mappedBy="product")
+     */
+    protected $buying_requests;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Quotation", mappedBy="product")
+     */
+    protected $quotations;
+
     public function __construct()
     {
         //$this->$product_tags = new ArrayCollection();
         $this->transactions = new ArrayCollection();
+        $this->buying_requests = new ArrayCollection();
+        $this->quotations = new ArrayCollection();
     }
 
     /**
@@ -2182,5 +2194,71 @@ class Product
     public function getCreateDate()
     {
         return $this->create_date;
+    }
+
+    /**
+     * Add buying_requests
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\BuyingRequest $buyingRequests
+     * @return Product
+     */
+    public function addBuyingRequest(\WebPlatform\AseagleBundle\Entity\BuyingRequest $buyingRequests)
+    {
+        $this->buying_requests[] = $buyingRequests;
+
+        return $this;
+    }
+
+    /**
+     * Remove buying_requests
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\BuyingRequest $buyingRequests
+     */
+    public function removeBuyingRequest(\WebPlatform\AseagleBundle\Entity\BuyingRequest $buyingRequests)
+    {
+        $this->buying_requests->removeElement($buyingRequests);
+    }
+
+    /**
+     * Get buying_requests
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBuyingRequests()
+    {
+        return $this->buying_requests;
+    }
+
+    /**
+     * Add quotations
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\Quotation $quotations
+     * @return Product
+     */
+    public function addQuotation(\WebPlatform\AseagleBundle\Entity\Quotation $quotations)
+    {
+        $this->quotations[] = $quotations;
+
+        return $this;
+    }
+
+    /**
+     * Remove quotations
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\Quotation $quotations
+     */
+    public function removeQuotation(\WebPlatform\AseagleBundle\Entity\Quotation $quotations)
+    {
+        $this->quotations->removeElement($quotations);
+    }
+
+    /**
+     * Get quotations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getQuotations()
+    {
+        return $this->quotations;
     }
 }

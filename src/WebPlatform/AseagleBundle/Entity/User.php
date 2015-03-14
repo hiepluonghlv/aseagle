@@ -78,9 +78,9 @@ class User extends BaseUser
     protected $products;
 
     /**
-     * @ORM\OneToMany(targetEntity="BuyRequest", mappedBy="buyer")
+     * @ORM\OneToMany(targetEntity="BuyingRequest", mappedBy="buyer")
      */
-    protected $buy_requests;
+    protected $buying_requests;
 
     /**
      * @ORM\OneToMany(targetEntity="UserCategory", mappedBy="seller")
@@ -137,7 +137,7 @@ class User extends BaseUser
     {
         parent::__construct();
         $this->products = new ArrayCollection();
-        $this->buy_requests = new ArrayCollection();
+        $this->buying_requests = new ArrayCollection();
         $this->user_categories = new ArrayCollection();
         $this->buyer_transactions = new ArrayCollection();
         $this->seller_transactions = new ArrayCollection();
@@ -708,5 +708,38 @@ class User extends BaseUser
     public function getContactList()
     {
         return $this->contact_list;
+    }
+
+    /**
+     * Add buying_requests
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\BuyingRequest $buyingRequests
+     * @return User
+     */
+    public function addBuyingRequest(\WebPlatform\AseagleBundle\Entity\BuyingRequest $buyingRequests)
+    {
+        $this->buying_requests[] = $buyingRequests;
+
+        return $this;
+    }
+
+    /**
+     * Remove buying_requests
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\BuyingRequest $buyingRequests
+     */
+    public function removeBuyingRequest(\WebPlatform\AseagleBundle\Entity\BuyingRequest $buyingRequests)
+    {
+        $this->buying_requests->removeElement($buyingRequests);
+    }
+
+    /**
+     * Get buying_requests
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBuyingRequests()
+    {
+        return $this->buying_requests;
     }
 }

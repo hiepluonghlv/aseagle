@@ -309,6 +309,16 @@ class CompanyProfile
      */
     protected $ops_country;
 
+    /**
+     * @ORM\OneToMany(targetEntity="PurchaseManagement", mappedBy="company")
+     */
+    protected $purchase_managements;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Quotation", mappedBy="company")
+     */
+    protected $quotations;
+
     public function __construct()
     {
         $this->company_customers = new ArrayCollection();
@@ -320,6 +330,8 @@ class CompanyProfile
         $this->company_trademarks = new ArrayCollection();
         $this->staffs = new ArrayCollection();
         $this->company_categories = new ArrayCollection();
+        $this->purchase_managements = new ArrayCollection();
+        $this->quotations = new ArrayCollection();
     }
 
     /**
@@ -1435,5 +1447,71 @@ class CompanyProfile
     public function getIsVerified()
     {
         return $this->is_verified;
+    }
+
+    /**
+     * Add purchase_managements
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\PurchaseManagement $purchaseManagements
+     * @return CompanyProfile
+     */
+    public function addPurchaseManagement(\WebPlatform\AseagleBundle\Entity\PurchaseManagement $purchaseManagements)
+    {
+        $this->purchase_managements[] = $purchaseManagements;
+
+        return $this;
+    }
+
+    /**
+     * Remove purchase_managements
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\PurchaseManagement $purchaseManagements
+     */
+    public function removePurchaseManagement(\WebPlatform\AseagleBundle\Entity\PurchaseManagement $purchaseManagements)
+    {
+        $this->purchase_managements->removeElement($purchaseManagements);
+    }
+
+    /**
+     * Get purchase_managements
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPurchaseManagements()
+    {
+        return $this->purchase_managements;
+    }
+
+    /**
+     * Add quotations
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\Quotation $quotations
+     * @return CompanyProfile
+     */
+    public function addQuotation(\WebPlatform\AseagleBundle\Entity\Quotation $quotations)
+    {
+        $this->quotations[] = $quotations;
+
+        return $this;
+    }
+
+    /**
+     * Remove quotations
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\Quotation $quotations
+     */
+    public function removeQuotation(\WebPlatform\AseagleBundle\Entity\Quotation $quotations)
+    {
+        $this->quotations->removeElement($quotations);
+    }
+
+    /**
+     * Get quotations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getQuotations()
+    {
+        return $this->quotations;
     }
 }
