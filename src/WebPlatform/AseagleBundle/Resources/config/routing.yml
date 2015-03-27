@@ -1,7 +1,9 @@
+#just for test
 aseagle_test:
     path:     /test
     defaults: { _controller: AseagleBundle:Default:index }
 
+#the portal
 welcome:
     path:     /welcome
     defaults: { _controller: AseagleBundle:Static:welcome }
@@ -77,12 +79,6 @@ delete_file:
     requirements:
                 _method:  DELETE
 
-getToken:
-    path:     Main:getToken
-    defaults: { _controller: AseagleBundle:Main:getToken }
-    requirements:
-                _method:  GET
-
 #message routing
 message:
     path:     /messagecenter
@@ -142,6 +138,11 @@ fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
 
+getToken:
+    path:     Main:getToken
+    defaults: { _controller: AseagleBundle:Main:getToken }
+    requirements:
+                _method:  GET
 
 #seller profile
 new_seller:

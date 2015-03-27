@@ -120,30 +120,30 @@ class PurchaseController extends Controller
         //get current user
         $user = $this->getUser();
 
-        $prs_info = array();
-        foreach($user->getBuyingRequests() as $pr)
+        $brs_info = array();
+        foreach($user->getBuyingRequests() as $br)
         {
-            array_push($prs_info, array(
-                'id' => $pr->getId(),
-                'g_id' => $pr->getGroupId(),
-                'c_id' => $pr->getCategoryId(),
-                'co_id' => $pr->getCompanyId(),
-                't' => $pr->getTitle(),
-                'ex_d' => $pr->getExpiredDate(),
-                'a' => $pr->getStatus(),
-                'q' => $pr->getQuantity(),
-                'q_t' => $pr->getQuantityType(),
-                'quotes' => self::getQuotes($pr)
+            array_push($brs_info, array(
+                'id' => $br->getId(),
+                'g_id' => $br->getGroupId(),
+                'c_id' => $br->getCategoryId(),
+                'co_id' => $br->getCompanyId(),
+                't' => $br->getTitle(),
+                'ex_d' => $br->getExpiredDate(),
+                'a' => $br->getStatus(),
+                'q' => $br->getQuantity(),
+                'q_t' => $br->getQuantityType(),
+                'quotes' => self::getQuotes($br)
             ));
         }
-        return new Response(json_encode($prs_info),200,array('Content-Type'=>'application/json'));
+        return new Response(json_encode($brs_info),200,array('Content-Type'=>'application/json'));
     }
 
-    public static function getQuotes($pr)
+    public static function getQuotes($br)
     {
 
         $quotes_info = array();
-        foreach($pr->getQuotations() as $quote)
+        foreach($br->getQuotations() as $quote)
         {
             array_push($quotes_info, array(
                 'id' => $quote->getId(),

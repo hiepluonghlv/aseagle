@@ -286,38 +286,7 @@ class User extends BaseUser
         return $this->products;
     }
 
-    /**
-     * Add buy_requests
-     *
-     * @param \WebPlatform\AseagleBundle\Entity\BuyRequest $buyRequests
-     * @return User
-     */
-    public function addBuyRequest(\WebPlatform\AseagleBundle\Entity\BuyRequest $buyRequests)
-    {
-        $this->buy_requests[] = $buyRequests;
-
-        return $this;
-    }
-
-    /**
-     * Remove buy_requests
-     *
-     * @param \WebPlatform\AseagleBundle\Entity\BuyRequest $buyRequests
-     */
-    public function removeBuyRequest(\WebPlatform\AseagleBundle\Entity\BuyRequest $buyRequests)
-    {
-        $this->buy_requests->removeElement($buyRequests);
-    }
-
-    /**
-     * Get buy_requests
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getBuyRequests()
-    {
-        return $this->buy_requests;
-    }
+    
 
     /**
      * Add user_categories

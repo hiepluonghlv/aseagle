@@ -1,38 +1,9 @@
 {% extends 'AseagleBundle::dashboard-layout.html.twig' %}
+{% block dashboard_local_css %}
+    <link rel="stylesheet" href="{{ asset('bundles/framework/css/product.css') }}" />
+{% endblock %}
 
 {% block dashboard_content %}
-	
-<style type="text/css">
-    .product-list input {
-     display: block;
-     margin: 0px;
-     width: auto;
-     font-family: serif;
-    }
-    .product-list.input-text-quick-edit {
-        display: block;
-        height: 34px;
-        font-size: 14px;
-        color: #555;
-        background-color: #fff;
-        background-image: none;
-        border: 1px solid #ccc;
-        -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-    }
-
-    .product-list .hover-btn {
-      display: none;
-    }
-
-    .product-list tbody:hover tr:hover{
-        background-color: #fffff0;
-    }
-    .product-list tr:hover .hover-btn {
-      display: block;
-    }
-</style>
-
 	<table id="myTable" class="product-list table">
 		<thead>
 			<tr>
@@ -61,21 +32,21 @@
 		</tbody>
 	</table>
 	
-		<script>
-			  $(document).ready(function() {
-				  $(".img-rounded").popover({
-					trigger: 'hover',
-					  placement : 'right', //placement of the popover. also can use top, bottom, left or right
-					  title : '<div style="text-align:center; color:red; text-decoration:underline; font-size:14px;"> </div>', //this is the top title bar of the popover. add some basic css
-					  html: 'true', //needed to show html of course
-					  content : function () {
-							return '<div id="popOverBox"><img src="'+$(this)[0].src + '" width="251" height="201" /></div>';//this is the content of the html box. add the image here or anything you want really.
-						}
-				
-				});
-				function resizeInput() {
-					$(this).attr('size', $(this).val().length);
-				}
-              });
-		</script>	
+    <script>
+          $(document).ready(function() {
+              $(".img-rounded").popover({
+                trigger: 'hover',
+                  placement : 'right', //placement of the popover. also can use top, bottom, left or right
+                  title : '<div style="text-align:center; color:red; text-decoration:underline; font-size:14px;"> </div>', //this is the top title bar of the popover. add some basic css
+                  html: 'true', //needed to show html of course
+                  content : function () {
+                        return '<div id="popOverBox"><img src="'+$(this)[0].src + '" width="251" height="201" /></div>';//this is the content of the html box. add the image here or anything you want really.
+                    }
+
+            });
+            function resizeInput() {
+                $(this).attr('size', $(this).val().length);
+            }
+          });
+    </script>
     {% endblock %}

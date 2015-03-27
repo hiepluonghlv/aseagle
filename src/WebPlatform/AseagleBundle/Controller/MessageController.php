@@ -44,18 +44,6 @@ class MessageController extends Controller
         $sort_by_date = $request->query->get('sort_by_date');
         $page = $request->query->get('page');
 
-        /*
-        $messages = $this->getDoctrine()->getRepository('AseagleBundle:ReceivedMessage')->createQueryBuilder('m')
-            ->where("m.user_id = ".$receiver_id." ".($sender != "" ? " and m.author_id = ".$sender : "")
-                .($search_str != "" ? " and m.subject LIKE '%".$search_str."%'" : "")
-                .($is_read != "" ? ( $is_read == "true" ? " and m.is_read = 1" : " and m.is_read = 0") : "" )
-                .($is_star != "" ? ( $is_star == "true" ? " and m.is_star = 1" : " and m.is_star = 0") : "" )
-                .($is_task != "" ? ( $is_task == "true" ? " and m.is_task is not null" : "and m.is_task is null") : "" )
-            )
-            ->orderBy("m.date" ,"desc")
-            ->getQuery()
-            ->getResult();
-        */
         $orderbysender = $sort_by_sender != "" ? ( $sort_by_sender == "1" ? " m.author_id ASC" : " m.author_id DESC") : "";
         $orderbydate = $sort_by_date != "" ? ( $sort_by_date == "1" ? " m.date ASC" : " m.date DESC") : "";
         $orderby = ($orderbysender != "" ? $orderbysender.($orderbydate != "" ? ",".$orderbydate : "") : ($orderbydate != "" ? $orderbydate : ""));

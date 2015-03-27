@@ -1,3 +1,11 @@
+body {
+    padding-top: 102px;
+    padding-bottom: 20px;
+}
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
 td, th {
     line-height: 1.5;
 }
