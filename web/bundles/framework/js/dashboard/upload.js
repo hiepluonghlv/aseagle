@@ -57,7 +57,7 @@ _AsgDashboard.Upload = ( function() {
     			'<div class="form-group">'+
 				  '<label class="col-md-4 control-label" for="textinput">'+_AsgUtil.Mapping.getColumnName(cat_id, col_id)+'</label>'  +
 				  '<div class="col-md-6">'+
-				  '<input id="textinput" name="product_detail_'+ col_id +'" ' + (value != null ? (' value="'+value+'"') : "") + ' type="text" placeholder="'+_AsgUtil.Mapping.getColumnName(cat_id, col_id)+'" class="form-control input-md" ' + (_AsgUtil.Mapping.getColumnRequired(cat_id, col_id)? "required" : "") +'>'+
+				  '<input id="textinput" name="product_detail'+ col_id +'" ' + (value != null ? (' value="'+value+'"') : "") + ' type="text" placeholder="'+_AsgUtil.Mapping.getColumnName(cat_id, col_id)+'" class="form-control input-md" ' + (_AsgUtil.Mapping.getColumnRequired(cat_id, col_id)? "required" : "") +'>'+
 				  '</div>'+
 				'</div>';
     	var product_details = $(".product-detail-fields");
@@ -112,7 +112,7 @@ _AsgDashboard.Upload = ( function() {
     	$("#category_id").text(cat_id);
     	
     	//$(".product-detail-fields").empty();
-		__build_select_box_place_of_origin(country_mapping);
+		__build_select_box_place_of_origin(cat_id,null,country_mapping,null);
     	$.each(current_product_detail_list, function(i) {			
     		if(current_product_detail_list[i].n === "Place of Origin") {
     			__build_select_box_place_of_origin(cat_id, i, country_mapping, null);

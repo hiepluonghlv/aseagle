@@ -63,9 +63,9 @@ class Category
     protected $products;
 
     /**
-     * @ORM\OneToMany(targetEntity="BuyRequest", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="BuyingRequest", mappedBy="category")
      */
-    protected $buy_requests;
+    protected $buying_requests;
 
     /**
      * @ORM\OneToMany(targetEntity="UserCategory", mappedBy="category")
@@ -91,7 +91,7 @@ class Category
     public function __construct()
     {
         $this->products = new ArrayCollection();
-        $this->buy_requests = new ArrayCollection();
+        $this->buying_requests = new ArrayCollection();
         $this->user_categories = new ArrayCollection();
         $this->chidren = new ArrayCollection();
         $this->category_companies = new ArrayCollection();
@@ -161,39 +161,6 @@ class Category
     public function getProducts()
     {
         return $this->products;
-    }
-
-    /**
-     * Add buy_requests
-     *
-     * @param \WebPlatform\AseagleBundle\Entity\BuyRequest $buyRequests
-     * @return Category
-     */
-    public function addBuyRequest(\WebPlatform\AseagleBundle\Entity\BuyRequest $buyRequests)
-    {
-        $this->buy_requests[] = $buyRequests;
-
-        return $this;
-    }
-
-    /**
-     * Remove buy_requests
-     *
-     * @param \WebPlatform\AseagleBundle\Entity\BuyRequest $buyRequests
-     */
-    public function removeBuyRequest(\WebPlatform\AseagleBundle\Entity\BuyRequest $buyRequests)
-    {
-        $this->buy_requests->removeElement($buyRequests);
-    }
-
-    /**
-     * Get buy_requests
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getBuyRequests()
-    {
-        return $this->buy_requests;
     }
 
     /**
@@ -410,5 +377,38 @@ class Category
     public function getCategoryCompanies()
     {
         return $this->category_companies;
+    }
+
+    /**
+     * Add buying_requests
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\BuyingRequest $buyingRequests
+     * @return Category
+     */
+    public function addBuyingRequest(\WebPlatform\AseagleBundle\Entity\BuyingRequest $buyingRequests)
+    {
+        $this->buying_requests[] = $buyingRequests;
+
+        return $this;
+    }
+
+    /**
+     * Remove buying_requests
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\BuyingRequest $buyingRequests
+     */
+    public function removeBuyingRequest(\WebPlatform\AseagleBundle\Entity\BuyingRequest $buyingRequests)
+    {
+        $this->buying_requests->removeElement($buyingRequests);
+    }
+
+    /**
+     * Get buying_requests
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getBuyingRequests()
+    {
+        return $this->buying_requests;
     }
 }

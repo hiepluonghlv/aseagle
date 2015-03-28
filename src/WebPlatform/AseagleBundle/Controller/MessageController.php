@@ -18,136 +18,18 @@ class MessageController extends Controller
 
     public function sendingAction(Request $request)
     {
-        // $_POST parameters
-        $cat_id = $request->request->get('category_id');
         //get current user
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
         $sender = $em->getRepository('AseagleBundle:User')->find($user->getId());
 
-        //create & save sentmessage
-        $sent_message = new SentMessage();
-        $sent_message->setSender($sender);
-
-        $receivers_in_cat = null;
-        if(!empty($cat_id)){
-            $cat = $em->getRepository('AseagleBundle:Category')->find($cat_id);
-            $receiver_list = '';
-            if($cat != null){
-                $receivers_in_cat = $cat->getCategoryCompanies();
-                foreach ($receivers_in_cat as $com) {
-                    $receiver_list .=  !empty($receiver_list) ? ','.'c_'.$com->getId() : 'c_'.$com->getId();
-                }
-            }
-            $sent_message->setReceiverIds($receiver_list);
-        }else if($request->request->get('received_ids') != ""){
-            $sent_message->setReceiverIds($request->request->get('received_ids'));
-        }
-        if($request->request->get('subject') != ""){
-            $sent_message->setSubject($request->request->get('subject'));
-        }
-        if($request->request->get('body') != ""){
-            $sent_message->setBody($request->request->get('body'));
-        }
-        $sent_message->setDate(new \DateTime('now'));
-        $sent_message->setIsDraft(false);
-        $em->persist($sent_message);
-        $em->flush();
-
-        //add contact list
-        //create & save receivedmessage
-        //send to entire category
-        if(!empty($cat_id)){
-            foreach ($receivers_in_cat as $com) {
-                $staff = $com->getStaffs();
-                foreach ($staff as $s) {
-                    $received_message = new ReceivedMessage();
-                    $received_message->setAuthor($sender);
-                    $received_message->setReceiver($s);
-                    if($request->request->get('subject') != ""){
-                        $received_message->setSubject($request->request->get('subject'));
-                    }
-                    if($request->request->get('body') != ""){
-                        $received_message->setBody($request->request->get('body'));
-                    }
-                    $received_message->setDate(new \DateTime('now'));
-                    $received_message->setIsRead(false);
-                    $received_message->setIsStar(false);
-                    $em->persist($received_message);
-                    $em->flush();
-                }
-                //save Contacts
-                $check = $em->getRepository('AseagleBundle:ContactList')->findOneBy(array('user_id' => $sender->getId() ,'contact_id' => $com->getId(), 'is_company' => true));
-                if($check == null){
-                    $contact = new ContactList();
-                    $contact->setUser($sender);
-                    $contact->setIsCompany(true);
-                    $contact->setContactId($com->getId());
-                    $em->persist($contact);
-                    $em->flush();
-                }
-            }
-        }else{
-            //send to company & user
-            $received_ids = explode(",", $request->request->get('received_ids'));
-            foreach ($received_ids as $value) {
-                if(strpos($value,'c') !== false){
-                    $com = $em->getRepository('AseagleBundle:CompanyProfile')->find(explode("_", $value)[1]);
-                    foreach ($com->getStaffs() as $s) {
-                        $received_message = new ReceivedMessage();
-                        $received_message->setAuthor($sender);
-                        $received_message->setReceiver($s);
-                        if($request->request->get('subject') != ""){
-                            $received_message->setSubject($request->request->get('subject'));
-                        }
-                        if($request->request->get('body') != ""){
-                            $received_message->setBody($request->request->get('body'));
-                        }
-                        $received_message->setDate(new \DateTime('now'));
-                        $received_message->setIsRead(false);
-                        $received_message->setIsStar(false);
-                        $em->persist($received_message);
-                        $em->flush();
-                    }
-                    //save Contacts
-                    $check = $em->getRepository('AseagleBundle:ContactList')->findOneBy(array('user_id' => $sender->getId() ,'contact_id' => $com->getId(), 'is_company' => true));
-                    if($check == null){
-                        $contact = new ContactList();
-                        $contact->setUser($sender);
-                        $contact->setIsCompany(true);
-                        $contact->setContactId($com->getId());
-                        $em->persist($contact);
-                        $em->flush();
-                    }
-                }else{
-                    $receiver = $em->getRepository('AseagleBundle:User')->find(intval($value));
-                    $received_message = new ReceivedMessage();
-                    $received_message->setAuthor($sender);
-                    $received_message->setReceiver($receiver);
-                    if($request->request->get('subject') != ""){
-                        $received_message->setSubject($request->request->get('subject'));
-                    }
-                    if($request->request->get('body') != ""){
-                        $received_message->setBody($request->request->get('body'));
-                    }
-                    $received_message->setDate(new \DateTime('now'));
-                    $received_message->setIsRead(false);
-                    $received_message->setIsStar(false);
-                    $em->persist($received_message);
-                    $em->flush();
-
-                    //save Contacts
-                    $check = $em->getRepository('AseagleBundle:ContactList')->findOneBy(array('user_id' => $sender->getId() ,'contact_id' => $receiver->getId()));
-                    if($check == null){
-                        $contact = new ContactList();
-                        $contact->setUser($sender);
-                        $contact->setContactId($receiver->getId());
-                        $em->persist($contact);
-                        $em->flush();
-                    }
-                }
-            }
-        }
+        // $_POST parameters
+        $cat_id = $request->request->get('category_id');
+        $received_ids = $request->request->get('received_ids');
+        $subject = $request->request->get('subject');
+        $body = $request->request->get('body');
+        $message_helper = $this->get('message_helper');
+        $message_helper->sendMessage($cat_id,$received_ids,$subject,$body, $sender, $em);
         return new Response(json_encode(array("result"=>"success")),200,array('Content-Type'=>'application/json'));
     }
 
@@ -162,18 +44,6 @@ class MessageController extends Controller
         $sort_by_date = $request->query->get('sort_by_date');
         $page = $request->query->get('page');
 
-        /*
-        $messages = $this->getDoctrine()->getRepository('AseagleBundle:ReceivedMessage')->createQueryBuilder('m')
-            ->where("m.user_id = ".$receiver_id." ".($sender != "" ? " and m.author_id = ".$sender : "")
-                .($search_str != "" ? " and m.subject LIKE '%".$search_str."%'" : "")
-                .($is_read != "" ? ( $is_read == "true" ? " and m.is_read = 1" : " and m.is_read = 0") : "" )
-                .($is_star != "" ? ( $is_star == "true" ? " and m.is_star = 1" : " and m.is_star = 0") : "" )
-                .($is_task != "" ? ( $is_task == "true" ? " and m.is_task is not null" : "and m.is_task is null") : "" )
-            )
-            ->orderBy("m.date" ,"desc")
-            ->getQuery()
-            ->getResult();
-        */
         $orderbysender = $sort_by_sender != "" ? ( $sort_by_sender == "1" ? " m.author_id ASC" : " m.author_id DESC") : "";
         $orderbydate = $sort_by_date != "" ? ( $sort_by_date == "1" ? " m.date ASC" : " m.date DESC") : "";
         $orderby = ($orderbysender != "" ? $orderbysender.($orderbydate != "" ? ",".$orderbydate : "") : ($orderbydate != "" ? $orderbydate : ""));
@@ -242,7 +112,8 @@ class MessageController extends Controller
             $reuserids = explode(",", $message->getReceiverIds());
             foreach($reuserids as $reuserid){
                 if(strpos($reuserid,'c') !== false){
-                    $com = $this->getDoctrine()->getRepository('AseagleBundle:CompanyProfile')->find(explode("_", $reuserid)[1]);
+                    $rec_sep = explode("_", $reuserid);
+                    $com = $this->getDoctrine()->getRepository('AseagleBundle:CompanyProfile')->find($rec_sep[1]);
                     array_push($receivers, array( 'id' => $com->getId(), 'fname' => 'Company '.$com->getName()));
                 }else{
                     $reuser = $this->getDoctrine()->getRepository('AseagleBundle:User')->find($reuserid);
@@ -303,7 +174,8 @@ class MessageController extends Controller
             $reuserids = explode(",", $message->getReceiverIds());
             foreach($reuserids as $reuserid){
                 if(strpos($reuserid,'c') !== false){
-                    $com = $this->getDoctrine()->getRepository('AseagleBundle:CompanyProfile')->find(explode("_", $reuserid)[1]);
+                    $rec_sep = explode("_", $reuserid);
+                    $com = $this->getDoctrine()->getRepository('AseagleBundle:CompanyProfile')->find($rec_sep[1]);
                     array_push($receivers, array( 'id' => $com->getId(), 'fname' => 'Company '.$com->getName()));
                 }else{
                     $reuser = $this->getDoctrine()->getRepository('AseagleBundle:User')->find($reuserid);

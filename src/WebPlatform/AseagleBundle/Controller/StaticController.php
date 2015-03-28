@@ -27,7 +27,7 @@ class StaticController extends Controller
                 'm_o' => $product->getMinOrder().' '.$product->getMinOrderUnitType()
             ));
         }
-        return $this->render('AseagleBundle:Static:welcome.html.twig', array('products' => $mapped_products_info));
+        return $this->render('AseagleBundle:Static:portal.html.twig', array('products' => $mapped_products_info));
     }
 
 }

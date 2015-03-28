@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ProductDetailDefaultValue
  *
- * @ORM\Table(name="productdetaildefaultvalue")
+ * @ORM\Table(name="product_detail_default_value")
  * @ORM\Entity
  */
 class ProductDetailDefaultValue

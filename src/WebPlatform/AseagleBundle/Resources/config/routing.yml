@@ -1,7 +1,9 @@
+#just for test
 aseagle_test:
     path:     /test
     defaults: { _controller: AseagleBundle:Default:index }
 
+#the portal
 welcome:
     path:     /welcome
     defaults: { _controller: AseagleBundle:Static:welcome }
@@ -77,12 +79,6 @@ delete_file:
     requirements:
                 _method:  DELETE
 
-getToken:
-    path:     Main:getToken
-    defaults: { _controller: AseagleBundle:Main:getToken }
-    requirements:
-                _method:  GET
-
 #message routing
 message:
     path:     /messagecenter
@@ -142,6 +138,11 @@ fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
 
+getToken:
+    path:     Main:getToken
+    defaults: { _controller: AseagleBundle:Main:getToken }
+    requirements:
+                _method:  GET
 
 #seller profile
 new_seller:
@@ -275,4 +276,35 @@ seller_company_patent_destroy:
     path:     seller/{seller_id}/company_patent/{id}/destroy
     defaults: { _controller: AseagleBundle:CompanyPatent:destroy }
 
+#purchase controller
+create_buying_request:
+    path:     purchase/create_buying_request
+    defaults: { _controller: AseagleBundle:Purchase:create_buying_request }
 
+create_quotation:
+    path:     purchase/create_quotation
+    defaults: { _controller: AseagleBundle:Purchase:create_quotation }
+
+buyer_get_buying_request:
+    path:     purchase/buyer_get_buying_request
+    defaults: { _controller: AseagleBundle:Purchase:buyer_get_buying_request }
+
+seller_get_buying_request:
+    path:     purchase/seller_get_buying_request
+    defaults: { _controller: AseagleBundle:Purchase:seller_get_buying_request }
+
+buyer_get_quotation_detail:
+    path:     purchase/buyer_get_quotation_detail
+    defaults: { _controller: AseagleBundle:Purchase:buyer_get_quotation_detail }
+
+seller_get_quotation_detail:
+    path:     purchase/seller_get_quotation_detail
+    defaults: { _controller: AseagleBundle:Purchase:seller_get_quotation_detail }
+
+buyer_get_buying_request_detail:
+    path:     purchase/buyer_get_buying_request_detail
+    defaults: { _controller: AseagleBundle:Purchase:buyer_get_buying_request_detail }
+
+seller_get_buying_request_detail:
+    path:     purchase/seller_get_buying_request_detail
+    defaults: { _controller: AseagleBundle:Purchase:seller_get_buying_request_detail }

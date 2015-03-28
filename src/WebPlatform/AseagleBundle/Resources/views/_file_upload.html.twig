@@ -1,12 +1,9 @@
-<link rel="stylesheet" href="{{ asset('bundles/framework/js/jquery-file-upload/css/style.css') }}">
-<link rel="stylesheet" href="{{ asset('bundles/framework/js/jquery-file-upload/css/jquery.fileupload.css') }}">
-<link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
 <link rel="stylesheet" href="{{ asset('bundles/framework/js/jquery-file-upload/css/jquery.fileupload.css') }}">
 <link rel="stylesheet" href="{{ asset('bundles/framework/js/jquery-file-upload/css/jquery.fileupload-ui.css') }}">
+<link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
 
 <noscript><link rel="stylesheet" href="{{ asset('bundles/framework/js/jquery-file-upload/css/jquery.fileupload-noscript.css') }}"></noscript>
 <noscript><link rel="stylesheet" href="{{ asset('bundles/framework/js/jquery-file-upload/css/jquery.fileupload-ui-noscript.css') }}"></noscript>
-
 
 <div class="div-file-upload">
     <div id="fileupload" action="{{path('upload_file')}}" method="POST" enctype="multipart/form-data">
@@ -157,28 +154,3 @@
     <![endif]-->
 </div>
 
-<script>
-    /*
-    var files = [
-        {
-            "name":"BacSon1 (2).jpg",
-            "size":346952,
-            "type":"image/jpeg",
-            "url":"http://localhost:8000/files/1/2015-01-03/BacSon1%20%282%29.jpg",
-            "smallUrl":"http://localhost:8000/files/1/2015-01-03/small/BacSon1%20%282%29.jpg",
-            "thumbnailUrl":"http://localhost:8000/files/1/2015-01-03/thumbnail/BacSon1%20%282%29.jpg",
-            "deleteUrl":"http://localhost:8000/files/1/2015-01-03/BacSon1%20%282%29.jpg",
-            "deleteType":"DELETE"
-        }
-    ];
-
-    $('#fileupload').fileupload();
-    $('#fileupload').fileupload({url: "{{path('upload_file')}}", type: "POST", dataType: "json" });
-    $(document).ready(function() {
-
-
-        //$('#fileupload').fileupload({url: "", method:"POST"});
-
-    });
-    */
-</script>
