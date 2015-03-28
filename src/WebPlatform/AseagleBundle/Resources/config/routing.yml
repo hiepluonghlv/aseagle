@@ -308,3 +308,4 @@ buyer_get_buying_request_detail:
 seller_get_buying_request_detail:
     path:     purchase/seller_get_buying_request_detail
     defaults: { _controller: AseagleBundle:Purchase:seller_get_buying_request_detail }
+

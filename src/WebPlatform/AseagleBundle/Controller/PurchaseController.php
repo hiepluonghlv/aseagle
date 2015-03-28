@@ -136,7 +136,7 @@ class PurchaseController extends Controller
                 'quotes' => self::getQuotes($br)
             ));
         }
-        return new Response(json_encode($brs_info),200,array('Content-Type'=>'application/json'));
+        return $this->render('AseagleBundle:Purchase:list_buying_request.html.twig', array('brs_info' => $brs_info));
     }
 
     public static function getQuotes($br)
