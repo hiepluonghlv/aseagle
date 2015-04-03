@@ -24,16 +24,9 @@ class Quotation
     /**
      * @var integer
      *
-     * @ORM\Column(name="buying_request_id", type="integer")
+     * @ORM\Column(name="purchase_management_id", type="integer")
      */
-    private $buying_request_id;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="company_id", type="integer")
-     */
-    private $company_id;
+    private $purchase_management_id;
 
     /**
      * @var integer
@@ -113,22 +106,25 @@ class Quotation
     private $expired_date;
 
     /**
-     * @ORM\ManyToOne(targetEntity="CompanyProfile", inversedBy="quotations")
-     * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
+     * @ORM\OneToOne(targetEntity="PurchaseManagement", inversedBy="quotation")
+     * @ORM\JoinColumn(name="purchase_management_id", referencedColumnName="id")
      */
-    protected $company;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="BuyingRequest", inversedBy="quotations")
-     * @ORM\JoinColumn(name="buying_request_id", referencedColumnName="id")
-     */
-    protected $buying_request;
+    protected $purchase_management;
 
     /**
      * @ORM\ManyToOne(targetEntity="Product", inversedBy="quotations")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      */
     protected $product;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="quotations")
+     * @ORM\JoinColumn(name="seller_id", referencedColumnName="id")
+     */
+    protected $seller;
+
+
+
 
 
     /**
@@ -142,26 +138,26 @@ class Quotation
     }
 
     /**
-     * Set company_id
+     * Set purchase_management_id
      *
-     * @param integer $companyId
+     * @param integer $purchaseManagementId
      * @return Quotation
      */
-    public function setCompanyId($companyId)
+    public function setPurchaseManagementId($purchaseManagementId)
     {
-        $this->company_id = $companyId;
+        $this->purchase_management_id = $purchaseManagementId;
 
         return $this;
     }
 
     /**
-     * Get company_id
+     * Get purchase_management_id
      *
      * @return integer 
      */
-    public function getCompanyId()
+    public function getPurchaseManagementId()
     {
-        return $this->company_id;
+        return $this->purchase_management_id;
     }
 
     /**
@@ -280,6 +276,29 @@ class Quotation
     }
 
     /**
+     * Set currency
+     *
+     * @param string $currency
+     * @return Quotation
+     */
+    public function setCurrency($currency)
+    {
+        $this->currency = $currency;
+
+        return $this;
+    }
+
+    /**
+     * Get currency
+     *
+     * @return string 
+     */
+    public function getCurrency()
+    {
+        return $this->currency;
+    }
+
+    /**
      * Set quantity
      *
      * @param integer $quantity
@@ -325,7 +344,28 @@ class Quotation
         return $this->quantity_type;
     }
 
+    /**
+     * Set payment_term
+     *
+     * @param string $paymentTerm
+     * @return Quotation
+     */
+    public function setPaymentTerm($paymentTerm)
+    {
+        $this->payment_term = $paymentTerm;
 
+        return $this;
+    }
+
+    /**
+     * Get payment_term
+     *
+     * @return string 
+     */
+    public function getPaymentTerm()
+    {
+        return $this->payment_term;
+    }
 
     /**
      * Set deliver_time
@@ -374,49 +414,26 @@ class Quotation
     }
 
     /**
-     * Set company
+     * Set purchase_management
      *
-     * @param \WebPlatform\AseagleBundle\Entity\CompanyProfile $company
+     * @param \WebPlatform\AseagleBundle\Entity\PurchaseManagement $purchaseManagement
      * @return Quotation
      */
-    public function setCompany(\WebPlatform\AseagleBundle\Entity\CompanyProfile $company = null)
+    public function setPurchaseManagement(\WebPlatform\AseagleBundle\Entity\PurchaseManagement $purchaseManagement = null)
     {
-        $this->company = $company;
+        $this->purchase_management = $purchaseManagement;
 
         return $this;
     }
 
     /**
-     * Get company
+     * Get purchase_management
      *
-     * @return \WebPlatform\AseagleBundle\Entity\CompanyProfile 
+     * @return \WebPlatform\AseagleBundle\Entity\PurchaseManagement 
      */
-    public function getCompany()
+    public function getPurchaseManagement()
     {
-        return $this->company;
-    }
-
-    /**
-     * Set buying_request
-     *
-     * @param \WebPlatform\AseagleBundle\Entity\BuyingRequest $buyingRequest
-     * @return Quotation
-     */
-    public function setBuyingRequest(\WebPlatform\AseagleBundle\Entity\BuyingRequest $buyingRequest = null)
-    {
-        $this->buying_request = $buyingRequest;
-
-        return $this;
-    }
-
-    /**
-     * Get buying_request
-     *
-     * @return \WebPlatform\AseagleBundle\Entity\BuyingRequest 
-     */
-    public function getBuyingRequest()
-    {
-        return $this->buying_request;
+        return $this->purchase_management;
     }
 
     /**
@@ -443,71 +460,25 @@ class Quotation
     }
 
     /**
-     * Set payment_term
+     * Set seller
      *
-     * @param string $paymentTerm
+     * @param \WebPlatform\AseagleBundle\Entity\User $seller
      * @return Quotation
      */
-    public function setPaymentTerm($paymentTerm)
+    public function setSeller(\WebPlatform\AseagleBundle\Entity\User $seller = null)
     {
-        $this->payment_term = $paymentTerm;
+        $this->seller = $seller;
 
         return $this;
     }
 
     /**
-     * Get payment_term
+     * Get seller
      *
-     * @return string 
+     * @return \WebPlatform\AseagleBundle\Entity\User 
      */
-    public function getPaymentTerm()
+    public function getSeller()
     {
-        return $this->payment_term;
-    }
-
-    /**
-     * Set buying_request_id
-     *
-     * @param integer $buyingRequestId
-     * @return Quotation
-     */
-    public function setBuyingRequestId($buyingRequestId)
-    {
-        $this->buying_request_id = $buyingRequestId;
-
-        return $this;
-    }
-
-    /**
-     * Get buying_request_id
-     *
-     * @return integer 
-     */
-    public function getBuyingRequestId()
-    {
-        return $this->buying_request_id;
-    }
-
-    /**
-     * Set currency
-     *
-     * @param string $currency
-     * @return Quotation
-     */
-    public function setCurrency($currency)
-    {
-        $this->currency = $currency;
-
-        return $this;
-    }
-
-    /**
-     * Get currency
-     *
-     * @return string 
-     */
-    public function getCurrency()
-    {
-        return $this->currency;
+        return $this->seller;
     }
 }

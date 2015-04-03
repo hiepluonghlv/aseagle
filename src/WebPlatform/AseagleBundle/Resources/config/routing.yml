@@ -282,8 +282,12 @@ create_buying_request:
     defaults: { _controller: AseagleBundle:Purchase:create_buying_request }
 
 create_quotation:
-    path:     purchase/create_quotation
+    path:     purchase/{purchase_id}/create_quotation
     defaults: { _controller: AseagleBundle:Purchase:create_quotation }
+
+edit_quotation:
+    path:     purchase/{purchase_id}/quotation/{id}/edit
+    defaults: { _controller: AseagleBundle:Purchase:edit_quotation }
 
 buyer_get_buying_request:
     path:     purchase/buyer_get_buying_request

@@ -97,6 +97,11 @@ class Category
         $this->category_companies = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     /**
      * Get id
      *
@@ -411,4 +416,6 @@ class Category
     {
         return $this->buying_requests;
     }
+
+
 }

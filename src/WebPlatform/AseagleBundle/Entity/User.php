@@ -128,6 +128,11 @@ class User extends BaseUser
     protected $contact_list;
 
     /**
+     * @ORM\OneToMany(targetEntity="Quotation", mappedBy="seller")
+     */
+    protected $quotations;
+
+    /**
      * @ORM\ManyToOne(targetEntity="CompanyProfile", inversedBy="staffs")
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
      */
@@ -147,6 +152,7 @@ class User extends BaseUser
         $this->received_messages = new ArrayCollection();
         $this->author_messages = new ArrayCollection();
         $this->contact_list = new ArrayCollection();
+        $this->quotations = new ArrayCollection();
     }
 
     /**
@@ -710,5 +716,38 @@ class User extends BaseUser
     public function getBuyingRequests()
     {
         return $this->buying_requests;
+    }
+
+    /**
+     * Add quotations
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\Quotation $quotations
+     * @return User
+     */
+    public function addQuotation(\WebPlatform\AseagleBundle\Entity\Quotation $quotations)
+    {
+        $this->quotations[] = $quotations;
+
+        return $this;
+    }
+
+    /**
+     * Remove quotations
+     *
+     * @param \WebPlatform\AseagleBundle\Entity\Quotation $quotations
+     */
+    public function removeQuotation(\WebPlatform\AseagleBundle\Entity\Quotation $quotations)
+    {
+        $this->quotations->removeElement($quotations);
+    }
+
+    /**
+     * Get quotations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getQuotations()
+    {
+        return $this->quotations;
     }
 }

@@ -3,6 +3,7 @@
 namespace WebPlatform\AseagleBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * PurchaseManagement
@@ -48,6 +49,18 @@ class PurchaseManagement
     protected $buying_request;
 
     /**
+     * @ORM\OneToOne(targetEntity="Quotation", mappedBy="purchase_management")
+     */
+    protected $quotation;
+
+    public function __construct()
+    {
+
+    }
+
+
+
+    /**
      * Get id
      *
      * @return integer 
@@ -56,8 +69,6 @@ class PurchaseManagement
     {
         return $this->id;
     }
-
-
 
     /**
      * Set company_id
@@ -82,7 +93,28 @@ class PurchaseManagement
         return $this->company_id;
     }
 
+    /**
+     * Set buying_request_id
+     *
+     * @param integer $buyingRequestId
+     * @return PurchaseManagement
+     */
+    public function setBuyingRequestId($buyingRequestId)
+    {
+        $this->buying_request_id = $buyingRequestId;
 
+        return $this;
+    }
+
+    /**
+     * Get buying_request_id
+     *
+     * @return integer 
+     */
+    public function getBuyingRequestId()
+    {
+        return $this->buying_request_id;
+    }
 
     /**
      * Set company
@@ -131,25 +163,25 @@ class PurchaseManagement
     }
 
     /**
-     * Set buying_request_id
+     * Set quotation
      *
-     * @param integer $buyingRequestId
+     * @param \WebPlatform\AseagleBundle\Entity\Quotation $quotation
      * @return PurchaseManagement
      */
-    public function setBuyingRequestId($buyingRequestId)
+    public function setQuotation(\WebPlatform\AseagleBundle\Entity\Quotation $quotation = null)
     {
-        $this->buying_request_id = $buyingRequestId;
+        $this->quotation = $quotation;
 
         return $this;
     }
 
     /**
-     * Get buying_request_id
+     * Get quotation
      *
-     * @return integer 
+     * @return \WebPlatform\AseagleBundle\Entity\Quotation 
      */
-    public function getBuyingRequestId()
+    public function getQuotation()
     {
-        return $this->buying_request_id;
+        return $this->quotation;
     }
 }

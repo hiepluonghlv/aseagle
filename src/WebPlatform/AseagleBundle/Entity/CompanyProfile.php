@@ -314,11 +314,6 @@ class CompanyProfile
      */
     protected $purchase_managements;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Quotation", mappedBy="company")
-     */
-    protected $quotations;
-
     public function __construct()
     {
         $this->company_customers = new ArrayCollection();
@@ -331,8 +326,9 @@ class CompanyProfile
         $this->staffs = new ArrayCollection();
         $this->company_categories = new ArrayCollection();
         $this->purchase_managements = new ArrayCollection();
-        $this->quotations = new ArrayCollection();
     }
+
+    
 
     /**
      * Get id
@@ -436,7 +432,28 @@ class CompanyProfile
         return $this->reg_address;
     }
 
+    /**
+     * Set reg_country_id
+     *
+     * @param integer $regCountryId
+     * @return CompanyProfile
+     */
+    public function setRegCountryId($regCountryId)
+    {
+        $this->reg_country_id = $regCountryId;
 
+        return $this;
+    }
+
+    /**
+     * Get reg_country_id
+     *
+     * @return integer 
+     */
+    public function getRegCountryId()
+    {
+        return $this->reg_country_id;
+    }
 
     /**
      * Set ops_address
@@ -484,6 +501,28 @@ class CompanyProfile
         return $this->ops_city;
     }
 
+    /**
+     * Set ops_country_id
+     *
+     * @param integer $opsCountryId
+     * @return CompanyProfile
+     */
+    public function setOpsCountryId($opsCountryId)
+    {
+        $this->ops_country_id = $opsCountryId;
+
+        return $this;
+    }
+
+    /**
+     * Get ops_country_id
+     *
+     * @return integer 
+     */
+    public function getOpsCountryId()
+    {
+        return $this->ops_country_id;
+    }
 
     /**
      * Set ops_zip
@@ -992,6 +1031,75 @@ class CompanyProfile
     }
 
     /**
+     * Set representative_id
+     *
+     * @param integer $representativeId
+     * @return CompanyProfile
+     */
+    public function setRepresentativeId($representativeId)
+    {
+        $this->representative_id = $representativeId;
+
+        return $this;
+    }
+
+    /**
+     * Get representative_id
+     *
+     * @return integer 
+     */
+    public function getRepresentativeId()
+    {
+        return $this->representative_id;
+    }
+
+    /**
+     * Set member_type
+     *
+     * @param integer $memberType
+     * @return CompanyProfile
+     */
+    public function setMemberType($memberType)
+    {
+        $this->member_type = $memberType;
+
+        return $this;
+    }
+
+    /**
+     * Get member_type
+     *
+     * @return integer 
+     */
+    public function getMemberType()
+    {
+        return $this->member_type;
+    }
+
+    /**
+     * Set is_verified
+     *
+     * @param boolean $isVerified
+     * @return CompanyProfile
+     */
+    public function setIsVerified($isVerified)
+    {
+        $this->is_verified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * Get is_verified
+     *
+     * @return boolean 
+     */
+    public function getIsVerified()
+    {
+        return $this->is_verified;
+    }
+
+    /**
      * Add company_customers
      *
      * @param \WebPlatform\AseagleBundle\Entity\CompanyCustomer $companyCustomers
@@ -1256,49 +1364,36 @@ class CompanyProfile
     }
 
     /**
-     * Set reg_country_id
+     * Add company_categories
      *
-     * @param integer $regCountryId
+     * @param \WebPlatform\AseagleBundle\Entity\SupplierCategory $companyCategories
      * @return CompanyProfile
      */
-    public function setRegCountryId($regCountryId)
+    public function addCompanyCategory(\WebPlatform\AseagleBundle\Entity\SupplierCategory $companyCategories)
     {
-        $this->reg_country_id = $regCountryId;
+        $this->company_categories[] = $companyCategories;
 
         return $this;
     }
 
     /**
-     * Get reg_country_id
+     * Remove company_categories
      *
-     * @return integer 
+     * @param \WebPlatform\AseagleBundle\Entity\SupplierCategory $companyCategories
      */
-    public function getRegCountryId()
+    public function removeCompanyCategory(\WebPlatform\AseagleBundle\Entity\SupplierCategory $companyCategories)
     {
-        return $this->reg_country_id;
+        $this->company_categories->removeElement($companyCategories);
     }
 
     /**
-     * Set ops_country_id
+     * Get company_categories
      *
-     * @param integer $opsCountryId
-     * @return CompanyProfile
+     * @return \Doctrine\Common\Collections\Collection 
      */
-    public function setOpsCountryId($opsCountryId)
+    public function getCompanyCategories()
     {
-        $this->ops_country_id = $opsCountryId;
-
-        return $this;
-    }
-
-    /**
-     * Get ops_country_id
-     *
-     * @return integer 
-     */
-    public function getOpsCountryId()
-    {
-        return $this->ops_country_id;
+        return $this->company_categories;
     }
 
     /**
@@ -1348,108 +1443,6 @@ class CompanyProfile
     }
 
     /**
-     * Set representative_id
-     *
-     * @param integer $representativeId
-     * @return CompanyProfile
-     */
-    public function setRepresentativeId($representativeId)
-    {
-        $this->representative_id = $representativeId;
-
-        return $this;
-    }
-
-    /**
-     * Get representative_id
-     *
-     * @return integer 
-     */
-    public function getRepresentativeId()
-    {
-        return $this->representative_id;
-    }
-
-    /**
-     * Set member_type
-     *
-     * @param integer $memberType
-     * @return CompanyProfile
-     */
-    public function setMemberType($memberType)
-    {
-        $this->member_type = $memberType;
-
-        return $this;
-    }
-
-    /**
-     * Get member_type
-     *
-     * @return integer 
-     */
-    public function getMemberType()
-    {
-        return $this->member_type;
-    }
-
-    /**
-     * Add company_categories
-     *
-     * @param \WebPlatform\AseagleBundle\Entity\SupplierCategory $companyCategories
-     * @return CompanyProfile
-     */
-    public function addCompanyCategory(\WebPlatform\AseagleBundle\Entity\SupplierCategory $companyCategories)
-    {
-        $this->company_categories[] = $companyCategories;
-
-        return $this;
-    }
-
-    /**
-     * Remove company_categories
-     *
-     * @param \WebPlatform\AseagleBundle\Entity\SupplierCategory $companyCategories
-     */
-    public function removeCompanyCategory(\WebPlatform\AseagleBundle\Entity\SupplierCategory $companyCategories)
-    {
-        $this->company_categories->removeElement($companyCategories);
-    }
-
-    /**
-     * Get company_categories
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getCompanyCategories()
-    {
-        return $this->company_categories;
-    }
-
-    /**
-     * Set is_verified
-     *
-     * @param boolean $isVerified
-     * @return CompanyProfile
-     */
-    public function setIsVerified($isVerified)
-    {
-        $this->is_verified = $isVerified;
-
-        return $this;
-    }
-
-    /**
-     * Get is_verified
-     *
-     * @return boolean 
-     */
-    public function getIsVerified()
-    {
-        return $this->is_verified;
-    }
-
-    /**
      * Add purchase_managements
      *
      * @param \WebPlatform\AseagleBundle\Entity\PurchaseManagement $purchaseManagements
@@ -1480,38 +1473,5 @@ class CompanyProfile
     public function getPurchaseManagements()
     {
         return $this->purchase_managements;
-    }
-
-    /**
-     * Add quotations
-     *
-     * @param \WebPlatform\AseagleBundle\Entity\Quotation $quotations
-     * @return CompanyProfile
-     */
-    public function addQuotation(\WebPlatform\AseagleBundle\Entity\Quotation $quotations)
-    {
-        $this->quotations[] = $quotations;
-
-        return $this;
-    }
-
-    /**
-     * Remove quotations
-     *
-     * @param \WebPlatform\AseagleBundle\Entity\Quotation $quotations
-     */
-    public function removeQuotation(\WebPlatform\AseagleBundle\Entity\Quotation $quotations)
-    {
-        $this->quotations->removeElement($quotations);
-    }
-
-    /**
-     * Get quotations
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getQuotations()
-    {
-        return $this->quotations;
     }
 }
