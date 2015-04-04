@@ -121,16 +121,13 @@ class BuyingRequest
      */
     protected $purchase_managements;
 
-    /**
-     * @ORM\OneToMany(targetEntity="Quotation", mappedBy="buying_request")
-     */
-    protected $quotations;
 
     public function __construct()
     {
         $this->purchase_managements = new ArrayCollection();
-        $this->quotations = new ArrayCollection();
     }
+
+
 
     /**
      * Get id
@@ -141,8 +138,6 @@ class BuyingRequest
     {
         return $this->id;
     }
-
-
 
     /**
      * Set group_id
@@ -352,6 +347,29 @@ class BuyingRequest
     }
 
     /**
+     * Set expired_date
+     *
+     * @param \DateTime $expiredDate
+     * @return BuyingRequest
+     */
+    public function setExpiredDate($expiredDate)
+    {
+        $this->expired_date = $expiredDate;
+
+        return $this;
+    }
+
+    /**
+     * Get expired_date
+     *
+     * @return \DateTime 
+     */
+    public function getExpiredDate()
+    {
+        return $this->expired_date;
+    }
+
+    /**
      * Set status
      *
      * @param integer $status
@@ -474,61 +492,5 @@ class BuyingRequest
     public function getPurchaseManagements()
     {
         return $this->purchase_managements;
-    }
-
-    /**
-     * Add quotations
-     *
-     * @param \WebPlatform\AseagleBundle\Entity\Quotation $quotations
-     * @return BuyingRequest
-     */
-    public function addQuotation(\WebPlatform\AseagleBundle\Entity\Quotation $quotations)
-    {
-        $this->quotations[] = $quotations;
-
-        return $this;
-    }
-
-    /**
-     * Remove quotations
-     *
-     * @param \WebPlatform\AseagleBundle\Entity\Quotation $quotations
-     */
-    public function removeQuotation(\WebPlatform\AseagleBundle\Entity\Quotation $quotations)
-    {
-        $this->quotations->removeElement($quotations);
-    }
-
-    /**
-     * Get quotations
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getQuotations()
-    {
-        return $this->quotations;
-    }
-
-    /**
-     * Set expired_date
-     *
-     * @param \DateTime $expiredDate
-     * @return BuyingRequest
-     */
-    public function setExpiredDate($expiredDate)
-    {
-        $this->expired_date = $expiredDate;
-
-        return $this;
-    }
-
-    /**
-     * Get expired_date
-     *
-     * @return \DateTime 
-     */
-    public function getExpiredDate()
-    {
-        return $this->expired_date;
     }
 }

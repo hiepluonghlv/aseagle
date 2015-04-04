@@ -9,10 +9,55 @@ use WebPlatform\AseagleBundle\Entity\BuyingRequest;
 use WebPlatform\AseagleBundle\Entity\PurchaseManagement;
 use WebPlatform\AseagleBundle\Entity\Quotation;
 
+
 class PurchaseController extends Controller
 {
     public function create_buying_requestAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $buying_request = new BuyingRequest();
+        $form = $this->createFormBuilder($buying_request)
+            ->add('title', 'text', array('label' => 'Title:'))
+            ->add('buying_request_message', 'textarea', array('label' => 'Detail:') )
+            ->add('category')
+            ->add('quantity', 'number', array('label' => 'Quantity:'))
+            ->add('quantity_type', 'text', array('label' => 'Quantity Type:') )
+            ->add('expired_date', 'date', array('label' => 'Expired Date:') )
+            ->add('save', 'submit', array('label' => 'Save', 'attr' => array('class' => 'btn btn-primary')))
+            ->getForm();
+
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $buying_request->setBuyer($user);
+            $buying_request->setStatus('pending');
+            $em->persist($buying_request);
+            $em->flush();
+
+            //send message
+            $message_helper = $this->get('message_helper');
+            $message_helper->sendMessage($buying_request->getCategory()->getId(),'','[Buying Request] '.$buying_request->getTitle().$buying_request->getExpiredDate()->format('Y-m-d H:i:s'),$buying_request->getBuyingRequestMessage().$buying_request->getQuantity().$buying_request->getQuantityType().$buying_request->getExpiredDate()->format('Y-m-d H:i:s'), $user, $em);
+
+            //insert purchase management
+            if($buying_request->getCategory() !== NULL){
+                $receivers_in_cat = $buying_request->getCategory()->getCategoryCompanies();
+                foreach ($receivers_in_cat as $com) {
+                    $pm = new PurchaseManagement();
+                    $pm->setCompany($com->getCompany());
+                    $pm->setBuyingRequest($buying_request);
+                    $em->persist($pm);
+                    $em->flush();
+                }
+            }
+
+            return $this->redirect($this->generateUrl('create_buying_request',array()));
+        }else{
+            return $this->render('AseagleBundle:Purchase:buying_request.html.twig', array(
+                'form' => $form->createView()
+            ));
+        }
+
+        /*
         //get current user
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
@@ -27,10 +72,6 @@ class PurchaseController extends Controller
         $buying_request_message = $request->request->get('buying_request_message');
         $quantity = $request->request->get('quantity');
         $quantity_type = $request->request->get('quantity_type');
-
-        //send message
-        $message_helper = $this->get('message_helper');
-        $message_helper->sendMessage($cat_id,$received_ids != '' ? 'c_'.$received_ids : $received_ids,'[Buying Request] '.$title.$expired_date,$buying_request_message.$quantity.$quantity_type.$expired_date, $sender, $em);
 
         //insert buying_request
         $br = new BuyingRequest();
@@ -51,68 +92,94 @@ class PurchaseController extends Controller
         $br->setStatus('pending');
         $em->persist($br);
         $em->flush();
+        */
 
-        //insert purchase management
-        if(!empty($cat_id)){
-            $cat = $em->getRepository('AseagleBundle:Category')->find($cat_id);
-            $receivers_in_cat = $cat->getCategoryCompanies();
-            foreach ($receivers_in_cat as $com) {
-                $pm = new PurchaseManagement();
-                $pm->setCompany($com->getCompany());
-                $pm->setBuyingRequest($br);
-                $em->persist($pm);
-                $em->flush();
-            }
-        }
-
-        return new Response(json_encode(array("result"=>"success")),200,array('Content-Type'=>'application/json'));
     }
 
-    public function create_quotationAction(Request $request)
+    public function create_quotationAction(Request $request, $purchase_id)
     {
         //get current user
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
 
-        // $_POST parameters
-        $pr_id = $request->request->get('pr_id');
-        $is_archived = $request->request->get('is_archived');
-        $product_id = $request->request->get('product_id');
-        $expired_date = $request->request->get('expired_date');
-        $quote_message = $request->request->get('quote_message');
-        $price = $request->request->get('price');
-        $currency = $request->request->get('currency');
-        $quantity = $request->request->get('quantity');
-        $quantity_type = $request->request->get('quantity_type');
-        $payment_term = $request->request->get('payment_term');
-        $deliver_time = $request->request->get('deliver_time');
-        $message_helper = $this->get('message_helper');
+        $quotation = new Quotation();
+        $form = $this->createFormBuilder($quotation)
+            ->add('quote_message', 'textarea', array('label' => 'Message:') )
+            ->add('product','entity', array(
+                'class' => 'AseagleBundle:Product',
+                'choices' => $user->getProducts(),
+                'required' => false,
+                'empty_data' => null,
+            ))
+            ->add('price', 'number', array('label' => 'Price:'))
+            ->add('currency', 'text', array('label' => 'Currency:') )
+            ->add('quantity', 'number', array('label' => 'Quantity:'))
+            ->add('quantity_type', 'text', array('label' => 'Quantity Type:') )
+            ->add('payment_term', 'text', array('label' => 'Payment Term:') )
+            ->add('deliver_time', 'text', array('label' => 'Deliver Time:') )
+            ->add('expired_date', 'date', array('label' => 'Expired Date:') )
+            ->add('save', 'submit', array('label' => 'Save', 'attr' => array('class' => 'btn btn-primary')))
+            ->getForm();
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $pm = $em->getRepository('AseagleBundle:PurchaseManagement')->find($purchase_id);
+            $quotation->setSeller($user);
+            $quotation->setPurchaseManagement($pm);
+            $quotation->setIsArchived(0);
+            $em->persist($quotation);
+            $em->flush();
 
-        $pr = $em->getRepository('AseagleBundle:BuyingRequest')->find($pr_id);
-        $message_helper->sendMessage('', $pr->getBuyerId(),'[Quote] '.$pr->getTitle().$pr->getExpiredDate()->format('Y-m-d H:i:s'),$quote_message.$price.$quantity.$quantity_type.$payment_term.$deliver_time , $user, $em);
+            //send message
+            $message_helper = $this->get('message_helper');
+            $message_helper->sendMessage('', $pm->getBuyingRequest()->getBuyerId(),'[Quote] '.$pm->getBuyingRequest()->getTitle().$pm->getBuyingRequest()->getExpiredDate()->format('Y-m-d H:i:s'),$quotation->getQuoteMessage().$quotation->getPrice().$quotation->getQuantity().$quotation->getQuantityType().$quotation->getPaymentTerm().$quotation->getDeliverTime(), $user, $em);
 
-        //insert quotation
-        $q = new Quotation();
-        $q->setBuyingRequest($pr);
-        $q->setSellerId($user->getId());
-        if(!empty($product_id)){
-            $product = $em->getRepository('AseagleBundle:Product')->find($product_id);
-            $q->setProduct($product);
+            return $this->redirect($this->generateUrl('create_quote',array('purchase_id'=>$purchase_id)));
+        }else{
+            return $this->render('AseagleBundle:Purchase:quote.html.twig', array(
+                'form' => $form->createView()
+            ));
         }
-        $q->setCompany($user->getCompany());
-        $q->setIsArchived($is_archived=='1' ? true : false);
-        $q->setExpiredDate(new \DateTime($expired_date));
-        $q->setQuoteMessage($quote_message);
-        $q->setPrice($price);
-        $q->setCurrency($currency);
-        $q->setQuantity($quantity != '' ? $quantity : 0);
-        $q->setQuantityType($quantity_type);
-        $q->setPaymentTerm($payment_term);
-        $q->setDeliverTime($deliver_time);
-        $em->persist($q);
-        $em->flush();
+    }
 
-        return new Response(json_encode(array("result"=>"success")),200,array('Content-Type'=>'application/json'));
+    public function edit_quotationAction(Request $request, $purchase_id, $id)
+    {
+        //get current user
+        $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
+
+        $quotation = $em->getRepository('AseagleBundle:Quotation')->find($id);
+        $form = $this->createFormBuilder($quotation)
+            ->add('quote_message', 'textarea', array('label' => 'Message:') )
+            ->add('product','entity', array(
+                'class' => 'AseagleBundle:Product',
+                'choices' => $user->getProducts(),
+                'required' => false,
+                'empty_data' => null,
+            ))
+            ->add('price', 'number', array('label' => 'Price:'))
+            ->add('currency', 'text', array('label' => 'Currency:') )
+            ->add('quantity', 'number', array('label' => 'Quantity:'))
+            ->add('quantity_type', 'text', array('label' => 'Quantity Type:') )
+            ->add('payment_term', 'text', array('label' => 'Payment Term:') )
+            ->add('deliver_time', 'text', array('label' => 'Deliver Time:') )
+            ->add('expired_date', 'date', array('label' => 'Expired Date:') )
+            ->add('save', 'submit', array('label' => 'Save', 'attr' => array('class' => 'btn btn-primary')))
+            ->getForm();
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $pm = $em->getRepository('AseagleBundle:PurchaseManagement')->find($purchase_id);
+            $em->flush();
+
+            //send message
+            $message_helper = $this->get('message_helper');
+            $message_helper->sendMessage('', $pm->getBuyingRequest()->getBuyerId(),'[Quote] '.$pm->getBuyingRequest()->getTitle().$pm->getBuyingRequest()->getExpiredDate()->format('Y-m-d H:i:s'),$quotation->getQuoteMessage().$quotation->getPrice().$quotation->getQuantity().$quotation->getQuantityType().$quotation->getPaymentTerm().$quotation->getDeliverTime(), $user, $em);
+
+            return $this->redirect($this->generateUrl('create_quote',array('purchase_id'=>$purchase_id)));
+        }else{
+            return $this->render('AseagleBundle:Purchase:quote.html.twig', array(
+                'form' => $form->createView()
+            ));
+        }
     }
 
     public function buyer_get_buying_requestAction(Request $request)
@@ -129,14 +196,15 @@ class PurchaseController extends Controller
                 'c_id' => $br->getCategoryId(),
                 'co_id' => $br->getCompanyId(),
                 't' => $br->getTitle(),
+                'm' => $br->getBuyingRequestMessage(),
                 'ex_d' => $br->getExpiredDate(),
-                'a' => $br->getStatus(),
+                'a' => $br->getStatus() == 0 ? 'pending' : ($br->getStatus() == 1 ? 'approved' : 'rejected'),
                 'q' => $br->getQuantity(),
                 'q_t' => $br->getQuantityType(),
                 'quotes' => self::getQuotes($br)
             ));
         }
-        return $this->render('AseagleBundle:Purchase:list_buying_request.html.twig', array('brs_info' => $brs_info));
+        return $this->render('AseagleBundle:Purchase:list_buying_request.html.twig', array('view' => 'buyer', 'brs_info' => $brs_info));
     }
 
     public static function getQuotes($br)
@@ -166,34 +234,26 @@ class PurchaseController extends Controller
             {
                 array_push($pms_info, array(
                     'id' => $pm->getId(),
-                    'pr_id' => $pm->getPrId(),
+                    'br_id' => $pm->getBuyingRequest()->getId(),
                     't' => $pm->getBuyingRequest()->getTitle(),
+                    'm' => $pm->getBuyingRequest()->getBuyingRequestMessage(),
                     'ex_d' => $pm->getBuyingRequest()->getExpiredDate(),
                     'q' => $pm->getBuyingRequest()->getQuantity(),
                     'q_t' => $pm->getBuyingRequest()->getQuantityType(),
-                    'my_q' => self::getQuotesForSeller($pm, $em)
+                    'my_q' => $pm->getQuotation() != null ? array(
+                        'id' => $pm->getQuotation()->getId(),
+                        'ex_d' => $pm->getQuotation()->getExpiredDate(),
+                        'p_id' => $pm->getQuotation()->getProductId(),
+                        'pr' => $pm->getQuotation()->getPrice(),
+                        'p_t' => $pm->getQuotation()->getPaymentTerm(),
+                        'd_t' => $pm->getQuotation()->getDeliverTime()
+                    ) : null
                 ));
             }
         }
-        return new Response(json_encode($pms_info),200,array('Content-Type'=>'application/json'));
-    }
 
-    public static function getQuotesForSeller($pm, $em)
-    {
-        $quotes = $em->getRepository('AseagleBundle:Quotation')->findBy( array('company_id' => $pm->getCompanyId(), 'pr_id' => $pm->getPrId()));
-        $quotes_info = array();
-        foreach($quotes as $quote)
-        {
-            array_push($quotes_info, array(
-                'id' => $quote->getId(),
-                'ex_d' => $quote->getExpiredDate(),
-                'p_id' => $quote->getProductId(),
-                'pr' => $quote->getPrice(),
-                'p_t' => $quote->getPaymentTerm(),
-                'd_t' => $quote->getDeliverTime()
-            ));
-        }
-        return $quotes_info;
+        return $this->render('AseagleBundle:Purchase:list_buying_request.html.twig', array('view' => 'seller', 'brs_info' => $pms_info));
+        #return new Response(json_encode($pms_info),200,array('Content-Type'=>'application/json'));
     }
 
     public function buyer_get_quotation_detailAction(Request $request)
