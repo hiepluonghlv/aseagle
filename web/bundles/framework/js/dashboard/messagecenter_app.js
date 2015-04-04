@@ -32,6 +32,10 @@ angular.module('msgcenter', [
 		url: '/sent', // list
 		templateUrl: 'sent_mail.html',
 		controller: 'SentController'
+	}).state('draft', {
+		url: '/draft', // list
+		templateUrl: 'sent_mail.html',
+		controller: 'DraftController'
 	}).state('open', {
 		url: '/open/:id', // list
 		templateUrl: 'open.html',
@@ -54,11 +58,14 @@ angular.module('msgcenter', [
 }])
 
 .controller('MailController', function ($scope,  $http) {
-	$http.get('/messagecenter/list/3').success(function(data) {
+	$http.get('/messagecenter/list').success(function(data) {
 		$scope.mails = data;
 	});
 
 	//$scope.mails = _json_listmail;
+	$scope.get_time = function(date) {
+		return date.date;
+	}
 	
 	$scope.is_read = function(read) {
 		var ret;
@@ -75,6 +82,28 @@ angular.module('msgcenter', [
 	});
 
 	//$scope.mails = _json_listmail;
+	$scope.get_time = function(date) {
+		return date.date;
+	}
+	
+	$scope.is_read = function(read) {
+		var ret;
+		if(read) {
+			return "read";
+		} else {
+			return "unread";
+		}
+	};
+})
+.controller('DraftController', function ($scope,  $http) {
+	$http.get('/messagecenter/list_draft').success(function(data) {
+		$scope.mails = data;
+	});
+
+	//$scope.mails = _json_listmail;
+	$scope.get_time = function(date) {
+		return date.date;
+	}
 	
 	$scope.is_read = function(read) {
 		var ret;
@@ -194,7 +223,7 @@ angular.module('msgcenter', [
         	var contact = new Bloodhound({
 			  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
 			  queryTokenizer: Bloodhound.tokenizers.whitespace,
-			  prefetch: '/bundles/framework/assets/contact.json'
+			  prefetch: '/messagecenter/list_contact'
 			});
 			contact.initialize();
 
@@ -224,7 +253,7 @@ angular.module('msgcenter', [
 		restrict: 'A',
         link: function(scope, element, attrs) {
         	
-            $(element).summernote();
+            $(element).summernote({focus: true, height: 80});
         }
     };
 });

@@ -17,7 +17,7 @@ function send_post_message() {
 
 
 $(function(){
-    $(window).bind("load resize", function() {
+    /*$(window).bind("load resize", function() {
         topOffset = 50;
         width = (this.window.innerWidth > 0) ? this.window.innerWidth : this.screen.width;
         if (width < 768) {
@@ -35,9 +35,7 @@ $(function(){
         }
         
         $(".table-responsive").height( $("body").height() - 80 );
-    })
+    })*/
     
-	$(".table-responsive").height( $("body").height() - 80 );
-    
-    //$('#emailbody').summernote({focus: true, height: 325});
+	//$(".table-responsive").height( $("body").height() - 80 );
 });

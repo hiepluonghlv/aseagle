@@ -33,8 +33,11 @@ class MessageController extends Controller
         return new Response(json_encode(array("result"=>"success")),200,array('Content-Type'=>'application/json'));
     }
 
-    public function listMailAction($receiver_id, Request $request)
+    public function listMailAction(Request $request)
     {
+	    //get current user
+		$user = $this->getUser();
+
         $search_str = $request->query->get('search_str');
         $is_read = $request->query->get('is_read');
         $is_star = $request->query->get('is_star');
@@ -50,7 +53,7 @@ class MessageController extends Controller
         $messages = $this->getDoctrine()->getManager()->createQuery(
             "SELECT m
             FROM AseagleBundle:ReceivedMessage m
-            WHERE "."m.user_id = ".$receiver_id." ".($sender != "" ? " and m.author_id = ".$sender : "")
+            WHERE "."m.user_id = ".$user->getId()." ".($sender != "" ? " and m.author_id = ".$sender : "")
             .($search_str != "" ? " and m.subject LIKE '%".$search_str."%'" : "")
             .($is_read != "" ? ( $is_read == "true" ? " and m.is_read = 1" : " and m.is_read = 0") : "" )
             .($is_star != "" ? ( $is_star == "true" ? " and m.is_star = 1" : " and m.is_star = 0") : "" )

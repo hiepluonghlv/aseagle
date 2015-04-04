@@ -38,7 +38,7 @@
             <div style="margin-top: 15px;">
                 <ul class="nav nav-pills nav-stacked">
                     <li class="header">Folders</li>
-                    <li ui-sref-active="active"><a ui-sref="mail" href="#/mail"><i class="fa fa-inbox"></i> Inbox (14)</a></li>
+                    <li ui-sref-active="active"><a ui-sref="mail" href="#/mail"><i class="fa fa-inbox"></i> Inbox</a></li>
                     <li ui-sref-active="active"><a ui-sref="draft" href="#/draft"><i class="fa fa-pencil-square-o"></i> Drafts</a></li>
                     <li ui-sref-active="active"><a ui-sref="sent" href="#/sent"><i class="fa fa-mail-forward"></i> Sent</a></li>
                     <li ui-sref-active="active"><a ui-sref="starred" href="#/starred"><i class="fa fa-star"></i> Starred</a></li>
@@ -97,151 +97,151 @@
 
 
 <script id="mail.html" type="text/ng-template">
-<ng-view title="Mail">
-<table class="table table-mailbox">
-<tr class="{[{is_read(mail.r)}]}" ng-repeat="mail in mails">
-<td class="small-col"><input type="checkbox" /></td>
-<td class="small-col"><i class="fa fa-star"></i></td>
-<td class="name"><a href="#/open/{[{mail.id}]}">{[{mail.author.fname}]}</a></td>
-<td class="subject"><a href="#/open/{[{mail.id}]}"">{[{mail.subj}]}<span>{[{mail.body}]}</span></a></td>
-<td class="time">{[{mail.date}]}</td>
-</tr>
-</table>
-
-</ng-view>
+	<ng-view title="Mail">
+		<table class="table table-mailbox">
+		<tr class="{[{is_read(mail.r)}]}" ng-repeat="mail in mails">
+		<td class="small-col"><input type="checkbox" /></td>
+		<td class="small-col"><i class="fa fa-star"></i></td>
+		<td class="name"><a href="#/open/{[{mail.id}]}">{[{mail.author.fname}]}</a></td>
+		<td class="subject"><a href="#/open/{[{mail.id}]}"">{[{mail.subj}]}<span>{[{mail.body}]}</span></a></td>
+		<td class="time">{[{get_time(mail.date)}]}</td>
+		</tr>
+		</table>
+	</ng-view>
 </script>
-<script id="sent_mail.html" type="text/ng-template">
-<ng-view title="Mail">
-<table class="table table-mailbox">
-<tr class="{[{is_read(mail.r)}]}" ng-repeat="mail in mails">
-<td class="small-col"><input type="checkbox" /></td>
-<td class="small-col"><i class="fa fa-star"></i></td>
-<td class="name"><a href="#/open_sent/{[{mail.id}]}">To: {[{mail.receivers[0].fname}]}</a></td>
-<td class="subject"><a href="#/open_sent/{[{mail.id}]}"">{[{mail.subj}]}<span>{[{mail.body}]}</span></a></td>
-<td class="time">{[{mail.date}]}</td>
-</tr>
-</table>
 
-</ng-view>
+<script id="sent_mail.html" type="text/ng-template">
+	<ng-view title="Mail">
+		<table class="table table-mailbox">
+		<tr class="read" ng-repeat="mail in mails">
+		<td class="small-col"><input type="checkbox" /></td>
+		<td class="small-col"><i class="fa fa-star"></i></td>
+		<td class="name"><a href="#/open_sent/{[{mail.id}]}">To: {[{mail.receivers[0].fname}]}</a></td>
+		<td class="subject"><a href="#/open_sent/{[{mail.id}]}"">{[{mail.subj}]}<span>{[{mail.body}]}</span></a></td>
+		<td class="time">{[{get_time(mail.date)}]}</td>
+		</tr>
+		</table>
+	</ng-view>
 </script>
 
 <script id="open.html" type="text/ng-template">
-<ng-view title="Open">
- <div class="email-open">
-    <h2 class="email-open-header">
-        {[{mail.subj}]}<span class="label txt-color-red">inbox</span>
-        <a href="javascript:void(0);" rel="tooltip" data-placement="left" data-original-title="Print" class="txt-color-darken pull-right"><i class="fa fa-print"></i></a>
-    </h2>
+	<ng-view title="Open">
+		<div class="email-open">
+			<h2 class="email-open-header">
+			{[{mail.subj}]}<span class="label txt-color-red">inbox</span>
+			<a href="javascript:void(0);" rel="tooltip" data-placement="left" data-original-title="Print" class="txt-color-darken pull-right"><i class="fa fa-print"></i></a>
+			</h2>
 
-    <div class="inbox-info-bar">
-        <div class="row">
-            <div class="col-sm-9">
-                <img src="img/avatars/{[{mail.author.id}]}.png" alt="me" class="away">
-                <strong>{[{mail.author.fname}]}</strong>
-                <span class="hidden-mobile">&lt;{[{mail.author.company.name}]}&gt;to <strong>me</strong> on <i>{[{mail.date}]}</i></span>
-            </div>
-            <div class="col-sm-3 text-right">
-                <div class="btn-group text-left">
-                    <button class="btn btn-primary btn-sm replythis" ng-click="Reply()">
-                        <i class="fa fa-reply"></i> Reply
-                    </button>
-                    <button class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-angle-down"></i>
-                    </button>
-                    <ul class="dropdown-menu pull-right">
-                        <li>
-                            <a href="javascript:void(0);" class="replythis"><i class="fa fa-reply"></i> Reply</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);" class="replythis"><i class="fa fa-mail-forward"></i> Forward</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);"><i class="fa fa-print"></i> Print</a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="javascript:void(0);"><i class="fa fa-ban"></i> Mark as spam!</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);"><i class="fa fa-trash-o"></i> Delete forever</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+			<div class="inbox-info-bar">
+				<div class="row">
+					<div class="col-sm-9">
+						<img src="img/avatars/{[{mail.author.id}]}.png" alt="me" class="away">
+						<strong>{[{mail.author.fname}]}</strong>
+						<span class="hidden-mobile">&lt;{[{mail.author.company.name}]}&gt;to <strong>me</strong> on <i>{[{mail.date}]}</i></span>
+					</div>
+					<div class="col-sm-3 text-right">
+						<div class="btn-group text-left">
+							<button class="btn btn-primary btn-sm replythis" ng-click="Reply()">
+								<i class="fa fa-reply"></i> Reply
+							</button>
+							<button class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+								<i class="fa fa-angle-down"></i>
+							</button>
+							<ul class="dropdown-menu pull-right">
+								<li>
+									<a href="javascript:void(0);" class="replythis"><i class="fa fa-reply"></i> Reply</a>
+								</li>
+								<li>
+									<a href="javascript:void(0);" class="replythis"><i class="fa fa-mail-forward"></i> Forward</a>
+								</li>
+								<li>
+									<a href="javascript:void(0);"><i class="fa fa-print"></i> Print</a>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<a href="javascript:void(0);"><i class="fa fa-ban"></i> Mark as spam!</a>
+								</li>
+								<li>
+									<a href="javascript:void(0);"><i class="fa fa-trash-o"></i> Delete forever</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
 
-    <div class="inbox-message" ng-bind-html="mail.body">
+			<div class="inbox-message" ng-bind-html="mail.body">
 
-    </div>
-</div>
-</ng-view>
+			</div>
+		</div>
+	</ng-view>
 </script>
 
 <script id="compose.html" type="text/ng-template">
-<ng-view title="Compose">
-<div class="email-compose">
-<h2 class="email-open-header">
-   Compose New Email <span class="label txt-color-white">DRAFT</span>
-   <a href="javascript:void(0);" rel="tooltip" data-placement="left" data-original-title="Print" class="txt-color-darken pull-right"><i class="fa fa-print"></i></a>
-</h2>
+	<ng-view title="Compose">
+		<div class="email-compose">
+		<h2 class="email-open-header">
+		   Compose New Email <span class="label txt-color-white">DRAFT</span>
+		   <a href="javascript:void(0);" rel="tooltip" data-placement="left" data-original-title="Print" class="txt-color-darken pull-right"><i class="fa fa-print"></i></a>
+		</h2>
 
-<form enctype="multipart/form-data" action="dummy.php" method="POST" class="form-horizontal" id="email-compose-form">
-    <div class="inbox-info-bar no-padding">
-        <div class="row">
-            <div class="form-group">
-                <label class="control-label col-md-1"><strong>To</strong></label>
-                <div class="col-md-11">
-                    <input class="form-control" placeholder="Receiever" type="text" ng-model="Receivers" tag-input>
+		<form enctype="multipart/form-data" action="dummy.php" method="POST" class="form-horizontal" id="email-compose-form">
+			<div class="inbox-info-bar no-padding">
+				<div class="row">
+					<div class="form-group">
+						<label class="control-label col-md-1"><strong>To</strong></label>
+						<div class="col-md-11">
+							<div class="bs-example">
+								<input class="form-control" placeholder="Receiever" type="text" ng-model="Receivers" tag-input>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
-                </div>
-            </div>
-        </div>
-    </div>
+			<div class="inbox-info-bar no-padding">
+				<div class="row">
+					<div class="form-group">
+						<label class="control-label col-md-1"><strong>Subject</strong></label>
+						<div class="col-md-11">
+							<input class="form-control" placeholder="Email Subject" type="text" ng-model="Subject">
+							<em><a href="javascript:void(0);" class="show-next" rel="tooltip" data-placement="bottom" data-original-title="Attachments"><i class="fa fa-paperclip fa-lg"></i></a></em>
+						</div>
+					</div>
+				</div>
+			</div>
 
-    <div class="inbox-info-bar no-padding">
-        <div class="row">
-            <div class="form-group">
-                <label class="control-label col-md-1"><strong>Subject</strong></label>
-                <div class="col-md-11">
-                    <input class="form-control" placeholder="Email Subject" type="text" ng-model="Subject">
-                    <em><a href="javascript:void(0);" class="show-next" rel="tooltip" data-placement="bottom" data-original-title="Attachments"><i class="fa fa-paperclip fa-lg"></i></a></em>
-                </div>
-            </div>
-        </div>
-    </div>
+			<div class="inbox-info-bar no-padding hidden">
+				<div class="row">
+					<div class="form-group">
+						<label class="control-label col-md-1"><strong>Attachments</strong></label>
+						<div class="col-md-11">
+							<input class="form-control fileinput" type="file" multiple="multiple" ng-model="Body" >
+						</div>
+					</div>
+				</div>
+			</div>
 
-    <div class="inbox-info-bar no-padding hidden">
-        <div class="row">
-            <div class="form-group">
-                <label class="control-label col-md-1"><strong>Attachments</strong></label>
-                <div class="col-md-11">
-                    <input class="form-control fileinput" type="file" multiple="multiple" ng-model="Body" >
-                </div>
-            </div>
-        </div>
-    </div>
+			<div class="inbox-message no-padding">
+				<div id="emailbody" wysi-html5>
+						<!--br><br><br><br><br>Thanks,<br><strong>John Doe</strong><br><br><small>CEO - SmartAdmin <br> 231 Ajax Rd, Detroit MI - 48212, USA<br><i class="fa fa-phone"> (313) 647 4761</i></small><br-->
+				</div>
+			</div>
 
-    <div class="inbox-message no-padding">
-        <div id="emailbody" wysi-html5>
-                <!--br><br><br><br><br>Thanks,<br><strong>John Doe</strong><br><br><small>CEO - SmartAdmin <br> 231 Ajax Rd, Detroit MI - 48212, USA<br><i class="fa fa-phone"> (313) 647 4761</i></small><br-->
-        </div>
-    </div>
-
-    <div class="inbox-compose-footer">
-        <button class="btn btn-danger" type="button">
-            Disregard
-        </button>
-        <button class="btn btn-info" type="button">
-            Draft
-        </button>
-        <button ng-click="Send()" data-loading-text="&lt;i class='fa fa-refresh fa-spin'&gt;&lt;/i&gt; &nbsp; Sending..." class="btn btn-primary pull-right" type="button" id="send">
-            Send <i class="fa fa-arrow-circle-right fa-lg"></i>
-        </button>
-    </div>
-</form>
-</div>
-</ng-view>
+			<div class="inbox-compose-footer">
+				<button class="btn btn-danger" type="button">
+					Disregard
+				</button>
+				<button class="btn btn-info" type="button">
+					Draft
+				</button>
+				<button ng-click="Send()" data-loading-text="&lt;i class='fa fa-refresh fa-spin'&gt;&lt;/i&gt; &nbsp; Sending..." class="btn btn-primary pull-right" type="button" id="send">
+					Send <i class="fa fa-arrow-circle-right fa-lg"></i>
+				</button>
+			</div>
+		</form>
+		</div>
+	</ng-view>
 </script>
 
 </div><!-- ./wrapper -->

@@ -91,7 +91,7 @@ sending:
                _method:  POST
 
 list_mail:
-    path:     /messagecenter/list/{receiver_id}
+    path:     /messagecenter/list
     defaults: { _controller: AseagleBundle:Message:listMail }
 
 open_mail:

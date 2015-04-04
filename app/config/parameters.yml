@@ -1,17 +1,11 @@
 # This file is auto-generated during the composer install
 parameters:
     database_driver: pdo_mysql
-    database_host: us-cdbr-iron-east-01.cleardb.net
+    database_host: localhost
     database_port: null
-<<<<<<< HEAD
-    database_name: heroku_08d5d106cc2e59d
-    database_user: b324e91bee88bb
-    database_password: f87b9f17
-=======
     database_name: aseagle
     database_user: root
-    database_password:
->>>>>>> a54d60a3e0bc3e6b0fe66a763ba7db66b67e06ad
+    database_password: password
     mailer_transport: smtp
     mailer_host: 127.0.0.1
     mailer_user: null
