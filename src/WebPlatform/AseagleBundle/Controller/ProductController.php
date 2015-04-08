@@ -22,12 +22,16 @@ class ProductController extends Controller
         {
             $product->setPicture($image_helper->generate_thumb_image_url($product->getPicture(),$root));
         }
-        return $this->render('AseagleBundle:Product:index.html.twig', array('products' => $products));
+        //get current user
+        $user = $this->getUser();
+        return $this->render('AseagleBundle:Product:index.html.twig', array('products' => $products, 'seller_id' => $user->getCompany() != null ? $user->getCompany()->getId() : null));
     }
 
     public function uploadAction()
     {
-        return $this->render('AseagleBundle:Product:upload.html.twig');
+        //get current user
+        $user = $this->getUser();
+        return $this->render('AseagleBundle:Product:upload.html.twig', array('seller_id' => $user->getCompany() != null ? $user->getCompany()->getId() : null));
     }
 
     public function createAction(Request $request)
@@ -325,6 +329,9 @@ class ProductController extends Controller
         $product_info['b_d'] = $product->getBriefDescription();
         $product_info['s_a'] = $product->getSupplyAbility() != null ? ($product->getSupplyAbility() + " " + $product->getSupplyAbilityUnit() + '/' + $product->getSupplyAbilityUnit()) : null;
 
+        //get current user
+        $user = $this->getUser();
+        $product_info['seller_id'] = $user->getCompany() != null ? $user->getCompany()->getId() : null;
         return $this->render('AseagleBundle:Product:edit.html.twig', $product_info);
     }
 

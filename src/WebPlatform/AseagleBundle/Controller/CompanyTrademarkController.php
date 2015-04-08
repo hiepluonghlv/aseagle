@@ -18,11 +18,11 @@ class CompanyTrademarkController extends Controller
     {
         $company_trademark = new CompanyTrademark();
         $form = $this->createFormBuilder($company_trademark)
-            ->add('name', 'text', array('label' => 'Certification Name:'))
-            ->add('registration_number', 'text', array('label' => 'Registration Number:'))
+            ->add('name', 'text', array('label' => 'Certification Name:', 'attr' => array('class'=>'form-control input-md', 'placeholder' => 'Give a name')))
+            ->add('registration_number', 'text', array('label' => 'Registration Number:', 'attr'=> array('class'=>'form-control input-md')))
             ->add('start_date', 'date', array('label' => 'Start Date:') )
             ->add('end_date', 'date', array('label' => 'End Date:') )
-            ->add('approved_goods', 'text', array('label' => 'Approved Goods:') )
+            ->add('approved_goods', 'text', array('label' => 'Approved Goods:', 'attr'=> array('class'=>'form-control input-md')) )
             ->add('save', 'submit', array('label' => 'Save', 'attr' => array('class' => 'btn btn-primary')))
             ->getForm();
 
@@ -38,7 +38,7 @@ class CompanyTrademarkController extends Controller
             return $this->redirect($this->generateUrl('seller_company_trademark_index',array('seller_id' => $seller_id)));
         }else{
             return $this->render('AseagleBundle:CompanyTrademark:new.html.twig', array(
-                'form' => $form->createView(),
+                'form' => $form->createView(),'seller_id' => $seller_id
             ));
         }
     }
@@ -47,11 +47,11 @@ class CompanyTrademarkController extends Controller
     {
         $company_trademark = $this->getDoctrine()->getRepository('AseagleBundle:CompanyTrademark')->find($id);
         $form = $this->createFormBuilder($company_trademark)
-            ->add('name', 'text', array('label' => 'Certification Name:'))
-            ->add('registration_number', 'text', array('label' => 'Registration Number:'))
+            ->add('name', 'text', array('label' => 'Certification Name:', 'attr' => array('class'=>'form-control input-md', 'placeholder' => 'Give a name')))
+            ->add('registration_number', 'text', array('label' => 'Registration Number:', 'attr'=> array('class'=>'form-control input-md')))
             ->add('start_date', 'date', array('label' => 'Start Date:') )
             ->add('end_date', 'date', array('label' => 'End Date:') )
-            ->add('approved_goods', 'text', array('label' => 'Approved Goods:') )
+            ->add('approved_goods', 'text', array('label' => 'Approved Goods:', 'attr'=> array('class'=>'form-control input-md')) )
             ->add('save', 'submit', array('label' => 'Save', 'attr' => array('class' => 'btn btn-primary')))
             ->getForm();
 
@@ -63,7 +63,7 @@ class CompanyTrademarkController extends Controller
             return $this->redirect($this->generateUrl('seller_company_trademark_index',array('seller_id' => $seller_id)));
         }else{
             return $this->render('AseagleBundle:CompanyTrademark:edit.html.twig', array(
-                'form' => $form->createView(),
+                'form' => $form->createView(),'seller_id' => $seller_id
             ));
         }
     }

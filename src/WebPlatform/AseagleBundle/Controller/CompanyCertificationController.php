@@ -18,12 +18,12 @@ class CompanyCertificationController extends Controller
     {
         $company_certification = new CompanyCertification();
         $form = $this->createFormBuilder($company_certification)
-            ->add('name', 'text', array('label' => 'Certification Name:'))
-            ->add('type', 'number', array('label' => 'Type:'))
-            ->add('issued_by', 'date', array('label' => 'Issued By:') )
-            ->add('start_date', 'date', array('label' => 'Start Date:') )
-            ->add('end_date', 'date', array('label' => 'End Date:') )
-            ->add('scope', 'text', array('label' => 'Scope:') )
+            ->add('name', 'text', array('label' => 'Certification Name:', 'attr' => array('class'=>'form-control input-md', 'placeholder' => 'Give certification a name')))
+            ->add('type', 'integer', array('label' => 'Type:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('issued_by', 'date', array('label' => 'Issued By:'))
+            ->add('start_date', 'date', array('label' => 'Start Date:'))
+            ->add('end_date', 'date', array('label' => 'End Date:'))
+            ->add('scope', 'text', array('label' => 'Scope:', 'attr'=> array('class'=>'form-control input-md')))
             ->add('save', 'submit', array('label' => 'Save', 'attr' => array('class' => 'btn btn-primary')))
             ->getForm();
 
@@ -39,7 +39,7 @@ class CompanyCertificationController extends Controller
             return $this->redirect($this->generateUrl('seller_company_certification_index',array('seller_id' => $seller_id)));
         }else{
             return $this->render('AseagleBundle:CompanyCertification:new.html.twig', array(
-                'form' => $form->createView(),
+                'form' => $form->createView(),'seller_id' => $seller_id
             ));
         }
     }
@@ -48,12 +48,12 @@ class CompanyCertificationController extends Controller
     {
         $company_certification = $this->getDoctrine()->getRepository('AseagleBundle:CompanyCertification')->find($id);
         $form = $this->createFormBuilder($company_certification)
-            ->add('name', 'text', array('label' => 'Certification Name:'))
-            ->add('type', 'number', array('label' => 'Type:'))
-            ->add('issued_by', 'date', array('label' => 'Issued By:') )
-            ->add('start_date', 'date', array('label' => 'Start Date:') )
-            ->add('end_date', 'date', array('label' => 'End Date:') )
-            ->add('scope', 'text', array('label' => 'Scope:') )
+            ->add('name', 'text', array('label' => 'Certification Name:', 'attr' => array('class'=>'form-control input-md', 'placeholder' => 'Give certification a name')))
+            ->add('type', 'integer', array('label' => 'Type:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('issued_by', 'date', array('label' => 'Issued By:'))
+            ->add('start_date', 'date', array('label' => 'Start Date:'))
+            ->add('end_date', 'date', array('label' => 'End Date:'))
+            ->add('scope', 'text', array('label' => 'Scope:', 'attr'=> array('class'=>'form-control input-md')))
             ->add('save', 'submit', array('label' => 'Save', 'attr' => array('class' => 'btn btn-primary')))
             ->getForm();
 
@@ -65,7 +65,7 @@ class CompanyCertificationController extends Controller
             return $this->redirect($this->generateUrl('seller_company_certification_index',array('seller_id' => $seller_id)));
         }else{
             return $this->render('AseagleBundle:CompanyCertification:edit.html.twig', array(
-                'form' => $form->createView(),
+                'form' => $form->createView(),'seller_id' => $seller_id
             ));
         }
     }

@@ -18,10 +18,10 @@ class CompanyCustomerController extends Controller
     {
         $company_customer = new CompanyCustomer();
         $form = $this->createFormBuilder($company_customer)
-            ->add('name', 'text', array('label' => 'Customer Name:'))
-            ->add('country')
-            ->add('products', 'text', array('label' => 'Products:') )
-            ->add('annual_turnover', 'number', array('label' => 'Annual Turnover:'))
+            ->add('name', 'text', array('label' => 'Customer Name:', 'attr' => array('class'=>'form-control input-md', 'placeholder' => 'Give a name')))
+            ->add('country',null , array('label' => 'Country:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('products', 'text', array('label' => 'Products:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('annual_turnover', 'integer', array('label' => 'Annual Turnover:', 'attr'=> array('class'=>'form-control input-md')))
             ->add('save', 'submit', array('label' => 'Save', 'attr' => array('class' => 'btn btn-primary')))
             ->getForm();
 
@@ -37,7 +37,7 @@ class CompanyCustomerController extends Controller
             return $this->redirect($this->generateUrl('seller_company_customer_index',array('seller_id' => $seller_id)));
         }else{
             return $this->render('AseagleBundle:CompanyCustomer:new.html.twig', array(
-                'form' => $form->createView(),
+                'form' => $form->createView(),'seller_id' => $seller_id
             ));
         }
     }
@@ -46,10 +46,10 @@ class CompanyCustomerController extends Controller
     {
         $company_customer = $this->getDoctrine()->getRepository('AseagleBundle:CompanyCustomer')->find($id);
         $form = $this->createFormBuilder($company_customer)
-            ->add('name', 'text', array('label' => 'Customer Name:'))
-            ->add('country')
-            ->add('products', 'text', array('label' => 'Products:') )
-            ->add('annual_turnover', 'number', array('label' => 'Annual Turnover:'))
+            ->add('name', 'text', array('label' => 'Customer Name:', 'attr' => array('class'=>'form-control input-md', 'placeholder' => 'Give a name')))
+            ->add('country',null , array('label' => 'Country:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('products', 'text', array('label' => 'Products:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('annual_turnover', 'integer', array('label' => 'Annual Turnover:', 'attr'=> array('class'=>'form-control input-md')))
             ->add('save', 'submit', array('label' => 'Save', 'attr' => array('class' => 'btn btn-primary')))
             ->getForm();
 
@@ -62,7 +62,7 @@ class CompanyCustomerController extends Controller
             return $this->redirect($this->generateUrl('seller_company_customer_index',array('seller_id' => $seller_id)));
         }else{
             return $this->render('AseagleBundle:CompanyCustomer:edit.html.twig', array(
-                'form' => $form->createView(),
+                'form' => $form->createView(),'seller_id' => $seller_id
             ));
         }
     }

@@ -1,4 +1,4 @@
-<div class="navbar yamm navbar-default navbar-fixed-top" style="box-shadow: none">
+<div id="top_bar" class="navbar navbar-xs yamm navbar-default navbar-fixed-top bar-header">
     <!--div class="container"-->
     <div class="navbar-header">
         <button type="button" data-toggle="collapse" data-target="#navbar-collapse-1" class="navbar-toggle collapsed">
@@ -8,6 +8,30 @@
         </button><a href="#" class="navbar-brand"><img src="{{ asset('bundles/framework/img/logo.png') }}" style="width: 130px; height: 25px"></a>
     </div>
     <div id="navbar-collapse-1" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li><a href="{{path('upload_product')}}">My Aseagle</a></li>
+            <li><a href="{{path('message')}}">Message Center</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">For Buyer <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">For Seller <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                </ul>
+            </li>
+        </ul>
         <div style="float: right">
             {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
@@ -32,7 +56,7 @@
     </div>
     <!--/div-->
 </div>
-<div class="navbar yamm navbar-default navbar-fixed-top" style="background-image: none; box-shadow: none; margin-top: 51px">
+<div id="lower_bar" class="navbar yamm navbar-default navbar-fixed-top bar-header">
     <div class="navbar-collapse collapse" style="padding-left: 60px;">
         <ul class="nav navbar-nav">
             <!-- Grid 12 Menu -->
@@ -69,29 +93,32 @@
                 </div>
             </div>
         </form>
-        <ul class="nav navbar-nav" style="padding-left: 200px">
+        <ul class="nav navbar-nav lower-my-aseagle" style="padding-left: 10px; display: none">
             <li><a href="{{path('upload_product')}}">My Aseagle</a></li>
-            <li><a href="{{path('message')}}">Message Center</a></li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">For Buyer <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">For Seller <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                </ul>
-            </li>
         </ul>
     </div>
 </div>
+<script>
+    (function($) {
+        var ost = 0;
+        $(window).scroll(function() {
+            var cOst = $(this).scrollTop();
+
+            if(cOst > ost) {
+                if($('.lower-my-aseagle').css('display') == 'none'){
+                    $('#top_bar').addClass('top-bar-fixed').removeClass('top-bar-default');
+                    $('#lower_bar').addClass('lower-bar-fixed').removeClass('lower-bar-default');
+                    $('.lower-my-aseagle').show();
+                }
+            }
+            else {
+                $('#top_bar').addClass('top-bar-default').removeClass('top-bar-fixed');
+                $('#lower_bar').addClass('lower-bar-default').removeClass('lower-bar-fixed');
+                $('.lower-my-aseagle').hide();
+            }
+
+            ost = cOst;
+        });
+
+    })(jQuery);
+</script>

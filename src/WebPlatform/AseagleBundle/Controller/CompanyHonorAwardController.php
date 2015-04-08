@@ -18,10 +18,10 @@ class CompanyHonorAwardController extends Controller
     {
         $company_honor_award = new CompanyHonorAward();
         $form = $this->createFormBuilder($company_honor_award)
-            ->add('name', 'text', array('label' => 'Customer Name:'))
+            ->add('name', 'text', array('label' => 'Award Name:', 'attr' => array('class'=>'form-control input-md', 'placeholder' => 'Give factory a name')))
             ->add('issued_by', 'date', array('label' => 'Issued By:'))
             ->add('start_date', 'date', array('label' => 'Start Date:'))
-            ->add('description', 'text', array('label' => 'Description:'))
+            ->add('description', 'textarea', array('label' => 'Description:', 'attr'=> array('class'=>'form-control')))
             ->add('save', 'submit', array('label' => 'Save', 'attr' => array('class' => 'btn btn-primary')))
             ->getForm();
 
@@ -37,7 +37,7 @@ class CompanyHonorAwardController extends Controller
             return $this->redirect($this->generateUrl('seller_company_honor_award_index',array('seller_id' => $seller_id)));
         }else{
             return $this->render('AseagleBundle:CompanyHonorAward:new.html.twig', array(
-                'form' => $form->createView(),
+                'form' => $form->createView(),'seller_id' => $seller_id
             ));
         }
     }
@@ -46,10 +46,10 @@ class CompanyHonorAwardController extends Controller
     {
         $company_honor_award = $this->getDoctrine()->getRepository('AseagleBundle:CompanyHonorAward')->find($id);
         $form = $this->createFormBuilder($company_honor_award)
-            ->add('name', 'text', array('label' => 'Customer Name:'))
+            ->add('name', 'text', array('label' => 'Award Name:', 'attr' => array('class'=>'form-control input-md', 'placeholder' => 'Give Award a name')))
             ->add('issued_by', 'date', array('label' => 'Issued By:'))
             ->add('start_date', 'date', array('label' => 'Start Date:'))
-            ->add('description', 'text', array('label' => 'Description:'))
+            ->add('description', 'textarea', array('label' => 'Description:', 'attr'=> array('class'=>'form-control')))
             ->add('save', 'submit', array('label' => 'Save', 'attr' => array('class' => 'btn btn-primary')))
             ->getForm();
 
@@ -61,7 +61,7 @@ class CompanyHonorAwardController extends Controller
             return $this->redirect($this->generateUrl('seller_company_honor_award_index',array('seller_id' => $seller_id)));
         }else{
             return $this->render('AseagleBundle:CompanyHonorAward:edit.html.twig', array(
-                'form' => $form->createView(),
+                'form' => $form->createView(),'seller_id' => $seller_id
             ));
         }
     }

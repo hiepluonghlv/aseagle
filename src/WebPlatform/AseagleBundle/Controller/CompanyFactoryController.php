@@ -18,11 +18,11 @@ class CompanyFactoryController extends Controller
     {
         $company_factory = new CompanyFactory();
         $form = $this->createFormBuilder($company_factory)
-            ->add('name', 'text', array('label' => 'Factory Name:'))
-            ->add('country')
-            ->add('year_cooperation', 'date', array('label' => 'Year Cooperation:') )
-            ->add('total_transaction', 'number', array('label' => 'Total Transaction:'))
-            ->add('product_capacity', 'text', array('label' => 'Product Capacity:'))
+            ->add('name', 'text', array('label' => 'Factory Name:', 'attr' => array('class'=>'form-control input-md', 'placeholder' => 'Give factory a name')))
+            ->add('country',null , array('label' => 'Country:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('year_cooperation', 'date', array('label' => 'Year Cooperation:'))
+            ->add('total_transaction', 'integer', array('label' => 'Total Transaction:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('product_capacity', 'text', array('label' => 'Product Capacity:', 'attr'=> array('class'=>'form-control input-md')))
             ->add('save', 'submit', array('label' => 'Save', 'attr' => array('class' => 'btn btn-primary')))
             ->getForm();
 
@@ -38,7 +38,7 @@ class CompanyFactoryController extends Controller
             return $this->redirect($this->generateUrl('seller_company_factory_index',array('seller_id' => $seller_id)));
         }else{
             return $this->render('AseagleBundle:CompanyFactory:new.html.twig', array(
-                'form' => $form->createView(),
+                'form' => $form->createView(),'seller_id' => $seller_id
             ));
         }
     }
@@ -47,12 +47,12 @@ class CompanyFactoryController extends Controller
     {
         $company_factory = $this->getDoctrine()->getRepository('AseagleBundle:CompanyFactory')->find($id);
         $form = $this->createFormBuilder($company_factory)
-            ->add('name', 'text', array('label' => 'Factory Name:'))
-            ->add('country')
-            ->add('year_cooperation', 'date', array('label' => 'Year Cooperation:') )
-            ->add('total_transaction', 'number', array('label' => 'Total Transaction:'))
-            ->add('product_capacity', 'text', array('label' => 'Product Capacity:'))
-            ->add('save', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary')))
+            ->add('name', 'text', array('label' => 'Factory Name:', 'attr' => array('class'=>'form-control input-md', 'placeholder' => 'Give factory a name')))
+            ->add('country',null , array('label' => 'Country:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('year_cooperation', 'date', array('label' => 'Year Cooperation:'))
+            ->add('total_transaction', 'integer', array('label' => 'Total Transaction:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('product_capacity', 'text', array('label' => 'Product Capacity:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('save', 'submit', array('label' => 'Save', 'attr' => array('class' => 'btn btn-primary')))
             ->getForm();
 
         $form->handleRequest($request);
@@ -64,7 +64,7 @@ class CompanyFactoryController extends Controller
             return $this->redirect($this->generateUrl('seller_company_factory_index',array('seller_id' => $seller_id)));
         }else{
             return $this->render('AseagleBundle:CompanyFactory:edit.html.twig', array(
-                'form' => $form->createView(),
+                'form' => $form->createView(),'seller_id' => $seller_id
             ));
         }
     }

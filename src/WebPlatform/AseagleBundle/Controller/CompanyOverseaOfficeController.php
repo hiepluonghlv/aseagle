@@ -18,12 +18,12 @@ class CompanyOverseaOfficeController extends Controller
     {
         $company_oversea_office = new CompanyOverseaOffice();
         $form = $this->createFormBuilder($company_oversea_office)
-            ->add('country')
-            ->add('city', 'text', array('label' => 'City:') )
-            ->add('address', 'text', array('label' => 'Address:'))
-            ->add('telephone', 'text', array('label' => 'Telephone:'))
-            ->add('dutires', 'text', array('label' => 'Dutires:'))
-            ->add('personInCharge', 'text', array('label' => 'Person In Charge:'))
+            ->add('country',null , array('label' => 'Country:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('city', 'text', array('label' => 'City:', 'attr' => array('class'=>'form-control input-md')) )
+            ->add('address', 'text', array('label' => 'Address:', 'attr' => array('class'=>'form-control input-md')))
+            ->add('telephone', 'text', array('label' => 'Telephone:', 'attr' => array('class'=>'form-control input-md')))
+            ->add('dutires', 'text', array('label' => 'Dutires:', 'attr' => array('class'=>'form-control input-md')))
+            ->add('personInCharge', 'text', array('label' => 'Person In Charge:', 'attr' => array('class'=>'form-control input-md')))
             ->add('save', 'submit', array('label' => 'Save', 'attr' => array('class' => 'btn btn-primary')))
             ->getForm();
 
@@ -39,7 +39,7 @@ class CompanyOverseaOfficeController extends Controller
             return $this->redirect($this->generateUrl('seller_company_oversea_office_index',array('seller_id' => $seller_id)));
         }else{
             return $this->render('AseagleBundle:CompanyOverseaOffice:new.html.twig', array(
-                'form' => $form->createView(),
+                'form' => $form->createView(),'seller_id' => $seller_id
             ));
         }
     }
@@ -48,12 +48,12 @@ class CompanyOverseaOfficeController extends Controller
     {
         $company_oversea_office = $this->getDoctrine()->getRepository('AseagleBundle:CompanyOverseaOffice')->find($id);
         $form = $this->createFormBuilder($company_oversea_office)
-            ->add('country')
-            ->add('city', 'text', array('label' => 'City:') )
-            ->add('address', 'text', array('label' => 'Address:'))
-            ->add('telephone', 'text', array('label' => 'Telephone:'))
-            ->add('dutires', 'text', array('label' => 'Dutires:'))
-            ->add('personInCharge', 'text', array('label' => 'Person In Charge:'))
+            ->add('country',null , array('label' => 'Country:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('city', 'text', array('label' => 'City:', 'attr' => array('class'=>'form-control input-md')) )
+            ->add('address', 'text', array('label' => 'Address:', 'attr' => array('class'=>'form-control input-md')))
+            ->add('telephone', 'text', array('label' => 'Telephone:', 'attr' => array('class'=>'form-control input-md')))
+            ->add('dutires', 'text', array('label' => 'Dutires:', 'attr' => array('class'=>'form-control input-md')))
+            ->add('personInCharge', 'text', array('label' => 'Person In Charge:', 'attr' => array('class'=>'form-control input-md')))
             ->add('save', 'submit', array('label' => 'Save', 'attr' => array('class' => 'btn btn-primary')))
             ->getForm();
 
@@ -66,7 +66,7 @@ class CompanyOverseaOfficeController extends Controller
             return $this->redirect($this->generateUrl('seller_company_oversea_office_index',array('seller_id' => $seller_id)));
         }else{
             return $this->render('AseagleBundle:CompanyOverseaOffice:new.html.twig', array(
-                'form' => $form->createView(),
+                'form' => $form->createView(),'seller_id' => $seller_id
             ));
         }
     }

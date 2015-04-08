@@ -13,35 +13,35 @@ class SellerController extends Controller
     {
         $company_profile = new CompanyProfile();
         $form = $this->createFormBuilder($company_profile)
-            ->add('name', 'text', array('label' => 'Company Name:'))
-            ->add('reg_address', 'text', array('label' => 'Register Address:'))
+            ->add('name', 'text', array('label' => 'Company Name:', 'attr' => array('class'=>'form-control input-md', 'placeholder' => 'Give a name')))
+            ->add('reg_address', 'text', array('label' => 'Register Address:', 'attr'=> array('class'=>'form-control input-md')))
             ->add('reg_year', 'date', array('label' => 'Register Year:'))
-            ->add('reg_country')
-            ->add('total_employee', 'number', array('label' => 'Total of Employee:') )
-            ->add('ops_address', 'text', array('label' => 'Operation Address:'))
-            ->add('ops_city', 'text', array('label' => 'Operation City:'))
-            ->add('ops_country')
-            ->add('ops_zip', 'text', array('label' => 'Operation Zip:'))
-            ->add('main_products', 'text', array('label' => 'Primary Productions:'))
-            ->add('others_selling', 'text', array('label' => 'Others Selling:'))
-            ->add('website', 'text', array('label' => 'Website:'))
-            ->add('legal_owner', 'text', array('label' => 'Legal Owner:'))
-            ->add('office_site', 'number', array('label' => 'Office Site:'))
-            ->add('total_sale_volumn', 'text', array('label' => 'Total Sale Volumn:'))
-            ->add('export_percentage', 'text')
-            ->add('main_markets_distribution', 'text')
-            ->add('year_start_export', 'number')
-            ->add('total_trade_staff', 'number')
-            ->add('total_rnd_staff', 'number')
-            ->add('total_qc_staff', 'number')
-            ->add('nearest_port', 'text')
-            ->add('average_lead_time', 'number')
-            ->add('deliver_term', 'text')
-            ->add('currency', 'text')
-            ->add('payment_type', 'text')
-            ->add('language', 'text')
-            ->add('company_advantage', 'textarea')
-            ->add('detail_introduction', 'textarea')
+            ->add('reg_country',null , array('label' => 'Register Country:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('total_employee', 'integer', array('label' => 'Total of Employee:', 'attr'=> array('class'=>'form-control input-md')) )
+            ->add('ops_address', 'text', array('label' => 'Operation Address:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('ops_city', 'text', array('label' => 'Operation City:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('ops_country',null , array('label' => 'OPS Country:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('ops_zip', 'text', array('label' => 'Operation Zip:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('main_products', 'text', array('label' => 'Primary Productions:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('others_selling', 'text', array('label' => 'Others Selling:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('website', 'text', array('label' => 'Website:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('legal_owner', 'text', array('label' => 'Legal Owner:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('office_site', 'integer', array('label' => 'Office Site:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('total_sale_volumn', 'text', array('label' => 'Total Sale Volumn:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('export_percentage', 'text', array('attr'=> array('class'=>'form-control input-md')))
+            ->add('main_markets_distribution', 'text', array('attr'=> array('class'=>'form-control input-md')))
+            ->add('year_start_export', 'integer', array('attr'=> array('class'=>'form-control input-md')))
+            ->add('total_trade_staff', 'integer', array('attr'=> array('class'=>'form-control input-md')))
+            ->add('total_rnd_staff', 'integer', array('attr'=> array('class'=>'form-control input-md')))
+            ->add('total_qc_staff', 'integer', array('attr'=> array('class'=>'form-control input-md')))
+            ->add('nearest_port', 'text', array('attr'=> array('class'=>'form-control input-md')))
+            ->add('average_lead_time', 'integer', array('attr'=> array('class'=>'form-control input-md')))
+            ->add('deliver_term', 'text', array('attr'=> array('class'=>'form-control input-md')))
+            ->add('currency', 'text', array('attr'=> array('class'=>'form-control input-md')))
+            ->add('payment_type', 'text', array('attr'=> array('class'=>'form-control input-md')))
+            ->add('language', 'text', array('attr'=> array('class'=>'form-control input-md')))
+            ->add('company_advantage', 'textarea', array('attr'=> array('class'=>'form-control')))
+            ->add('detail_introduction', 'textarea', array('attr'=> array('class'=>'form-control')))
             ->add('save', 'submit', array('label' => 'Save', 'attr' => array('class' => 'btn btn-primary')))
             ->getForm();
 
@@ -58,7 +58,7 @@ class SellerController extends Controller
             return $this->redirect($this->generateUrl('aseagle_homepage'));
         }else{
             return $this->render('AseagleBundle:Seller:new.html.twig', array(
-                'form' => $form->createView(),
+                'form' => $form->createView(),'seller_id' => null
             ));
         }
     }
@@ -68,36 +68,36 @@ class SellerController extends Controller
         $company_profile = $this->getDoctrine()->getRepository('AseagleBundle:CompanyProfile')->find($id);
 
         $form = $this->createFormBuilder($company_profile)
-            ->add('name', 'text', array('label' => 'Company Name:'))
-            ->add('reg_address', 'text', array('label' => 'Register Address:'))
+            ->add('name', 'text', array('label' => 'Company Name:', 'attr' => array('class'=>'form-control input-md', 'placeholder' => 'Give a name')))
+            ->add('reg_address', 'text', array('label' => 'Register Address:', 'attr'=> array('class'=>'form-control input-md')))
             ->add('reg_year', 'date', array('label' => 'Register Year:'))
-            ->add('reg_country')
-            ->add('total_employee', 'number', array('label' => 'Total of Employee:') )
-            ->add('ops_address', 'text', array('label' => 'Operation Address:'))
-            ->add('ops_city', 'text', array('label' => 'Operation City:'))
-            ->add('ops_country')
-            ->add('ops_zip', 'text', array('label' => 'Operation Zip:'))
-            ->add('main_products', 'text', array('label' => 'Primary Productions:'))
-            ->add('others_selling', 'text', array('label' => 'Others Selling:'))
-            ->add('website', 'text', array('label' => 'Website:'))
-            ->add('legal_owner', 'text', array('label' => 'Legal Owner:'))
-            ->add('office_site', 'number', array('label' => 'Office Site:'))
-            ->add('total_sale_volumn', 'text', array('label' => 'Total Sale Volumn:'))
-            ->add('export_percentage', 'text')
-            ->add('main_markets_distribution', 'text')
-            ->add('year_start_export', 'number')
-            ->add('total_trade_staff', 'number')
-            ->add('total_rnd_staff', 'number')
-            ->add('total_qc_staff', 'number')
-            ->add('nearest_port', 'text')
-            ->add('average_lead_time', 'number')
-            ->add('deliver_term', 'text')
-            ->add('currency', 'text')
-            ->add('payment_type', 'text')
-            ->add('language', 'text')
-            ->add('company_advantage', 'textarea')
-            ->add('detail_introduction', 'textarea')
-            ->add('save', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary')))
+            ->add('reg_country',null , array('label' => 'Register Country:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('total_employee', 'integer', array('label' => 'Total of Employee:', 'attr'=> array('class'=>'form-control input-md')) )
+            ->add('ops_address', 'text', array('label' => 'Operation Address:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('ops_city', 'text', array('label' => 'Operation City:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('ops_country',null , array('label' => 'OPS Country:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('ops_zip', 'text', array('label' => 'Operation Zip:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('main_products', 'text', array('label' => 'Primary Productions:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('others_selling', 'text', array('label' => 'Others Selling:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('website', 'text', array('label' => 'Website:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('legal_owner', 'text', array('label' => 'Legal Owner:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('office_site', 'integer', array('label' => 'Office Site:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('total_sale_volumn', 'text', array('label' => 'Total Sale Volumn:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('export_percentage', 'text', array('attr'=> array('class'=>'form-control input-md')))
+            ->add('main_markets_distribution', 'text', array('attr'=> array('class'=>'form-control input-md')))
+            ->add('year_start_export', 'integer', array('attr'=> array('class'=>'form-control input-md')))
+            ->add('total_trade_staff', 'integer', array('attr'=> array('class'=>'form-control input-md')))
+            ->add('total_rnd_staff', 'integer', array('attr'=> array('class'=>'form-control input-md')))
+            ->add('total_qc_staff', 'integer', array('attr'=> array('class'=>'form-control input-md')))
+            ->add('nearest_port', 'text', array('attr'=> array('class'=>'form-control input-md')))
+            ->add('average_lead_time', 'integer', array('attr'=> array('class'=>'form-control input-md')))
+            ->add('deliver_term', 'text', array('attr'=> array('class'=>'form-control input-md')))
+            ->add('currency', 'text', array('attr'=> array('class'=>'form-control input-md')))
+            ->add('payment_type', 'text', array('attr'=> array('class'=>'form-control input-md')))
+            ->add('language', 'text', array('attr'=> array('class'=>'form-control input-md')))
+            ->add('company_advantage', 'textarea', array('attr'=> array('class'=>'form-control')))
+            ->add('detail_introduction', 'textarea', array('attr'=> array('class'=>'form-control')))
+            ->add('save', 'submit', array('label' => 'Save', 'attr' => array('class' => 'btn btn-primary')))
             ->getForm();
 
         $form->handleRequest($request);
@@ -108,14 +108,14 @@ class SellerController extends Controller
             return $this->redirect($this->generateUrl('aseagle_homepage'));
         }else{
             return $this->render('AseagleBundle:Seller:edit.html.twig', array(
-                'form' => $form->createView(),
+                'form' => $form->createView(), 'seller_id' => $company_profile->getId()
             ));
         }
     }
 
     public function showAction($id, Request $request)
     {
-        $company_profile = $this->getDoctrine()->getRepository('AseagleBundle:CompanyProfile')->find($id);;
+        $company_profile = $this->getDoctrine()->getRepository('AseagleBundle:CompanyProfile')->find($id);
 
 
     }

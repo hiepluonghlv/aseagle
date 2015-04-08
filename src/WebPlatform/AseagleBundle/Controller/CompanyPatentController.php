@@ -18,10 +18,10 @@ class CompanyPatentController extends Controller
     {
         $company_patent = new CompanyPatent();
         $form = $this->createFormBuilder($company_patent)
-            ->add('name', 'text', array('label' => 'Patent Name:'))
-            ->add('country')
-            ->add('products', 'text', array('label' => 'Product:') )
-            ->add('annual_turnover', 'number', array('label' => 'Annual Turnover:') )
+            ->add('name', 'text', array('label' => 'Patent Name:', 'attr' => array('class'=>'form-control input-md', 'placeholder' => 'Give a name')))
+            ->add('country',null , array('label' => 'Country:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('products', 'text', array('label' => 'Product:', 'attr' => array('class'=>'form-control input-md')) )
+            ->add('annual_turnover', 'integer', array('label' => 'Annual Turnover:', 'attr' => array('class'=>'form-control input-md')) )
             ->add('save', 'submit', array('label' => 'Save', 'attr' => array('class' => 'btn btn-primary')))
             ->getForm();
 
@@ -37,7 +37,7 @@ class CompanyPatentController extends Controller
             return $this->redirect($this->generateUrl('seller_company_patent_index',array('seller_id' => $seller_id)));
         }else{
             return $this->render('AseagleBundle:CompanyPatent:new.html.twig', array(
-                'form' => $form->createView(),
+                'form' => $form->createView(),'seller_id' => $seller_id
             ));
         }
     }
@@ -46,11 +46,11 @@ class CompanyPatentController extends Controller
     {
         $company_patent = $this->getDoctrine()->getRepository('AseagleBundle:CompanyPatent')->find($id);
         $form = $this->createFormBuilder($company_patent)
-            ->add('name', 'text', array('label' => 'Patent Name:'))
-            ->add('country')
-            ->add('products', 'text', array('label' => 'Product:') )
-            ->add('annual_turnover', 'number', array('label' => 'Annual Turnover:') )
-            ->add('save', 'submit', array('label' => 'Update', 'attr' => array('class' => 'btn btn-primary')))
+            ->add('name', 'text', array('label' => 'Patent Name:', 'attr' => array('class'=>'form-control input-md', 'placeholder' => 'Give a name')))
+            ->add('country',null , array('label' => 'Country:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('products', 'text', array('label' => 'Product:', 'attr' => array('class'=>'form-control input-md')) )
+            ->add('annual_turnover', 'integer', array('label' => 'Annual Turnover:', 'attr' => array('class'=>'form-control input-md')) )
+            ->add('save', 'submit', array('label' => 'Save', 'attr' => array('class' => 'btn btn-primary')))
             ->getForm();
 
         $form->handleRequest($request);
@@ -61,7 +61,7 @@ class CompanyPatentController extends Controller
             return $this->redirect($this->generateUrl('seller_company_patent_index',array('seller_id' => $seller_id)));
         }else{
             return $this->render('AseagleBundle:CompanyPatent:edit.html.twig', array(
-                'form' => $form->createView(),
+                'form' => $form->createView(),'seller_id' => $seller_id
             ));
         }
     }

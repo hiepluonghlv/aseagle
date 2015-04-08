@@ -2,6 +2,7 @@
 {% block dashboard_local_css %}
     <link rel="stylesheet" href="{{ asset('bundles/framework/vendor/bootplus/css/bootplus.css') }}" />
     <link rel="stylesheet" href="{{ asset('bundles/framework/css/main.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/framework/css/buying_request.css') }}" />
 {% endblock %}
 
 {% block dashboard_content %}
@@ -20,25 +21,26 @@
                         </div>
                     </div>
                     <div class="card-body" style="  padding-bottom: 6px;">
-                        {{ br.m }}
+                        <div id="div-br-content" class="ellipsis-close">
+                            {{ br.m }}
+                        </div>
                         {% if view == 'buyer' %}
                             <div class="comments-collapse-toggle">
-                                <a data-toggle="collapse" href="#b3-comments">{{ br.quotes|length }} quotation(s) <span class="badge">2 unread</span> <i class="icon-angle-down"></i></a>
-                                <a href="#" class="pull-right"> more detail </a>
+                                <a data-toggle="collapse" href="#b3-comments" >{{ br.quotes|length }} quotation(s) <span class="badge">2 unread</span> <i class="icon-angle-down"></i></a>
+                                <a class="pull-right" style="cursor: pointer" onclick="document.getElementById('div-br-content').classList.toggle('ellipsis-open');"> more detail </a>
                             </div>
                             <div id="b3-comments" class="comments collapse" style="height: 0px;">
                                 {% for q in br.quotes %}
-                                    <div class="comment"><strong>Cong ty ABC:</strong>US$1000 per 100 ton(s)</div>
+                                    <div class="comment"><a target="_blank" href="{{ path('show_quotation', {'purchase_id': q.pm_id ,'id' : q.id, 'page': 'home'}) }}" ><strong>Company {{ q.co }}</strong></a>{{ q.pr ~ ' ' ~ q.c ~ ' per ' ~ q.q ~ ' ' ~  q.q_t}}</div>
                                 {% endfor %}
-                                <div class="comment"><strong>XYZ Inc:</strong>US$900 per 100 ton(s)</div>
-                                <div class="comment"><strong>TMA Solution:</strong>US$1020 per 100 ton(s)</div>
                             </div>
                         {% elseif view == 'seller' %}
                             <div class="comments-collapse-toggle">
                                 {% if br.my_q is null %}
-                                    <a target="_blank" class="btn btn-default btn-xs" href="{{ path('create_quotation', {'purchase_id': br.id ,'page': 'home'}) }}" >Send Quotation</a>
+                                    <a target="_blank" class="btn btn-default btn-xs" href="{{ path('create_quotation', {'purchase_id': br.pm_id ,'page': 'home'}) }}" >Send Quotation</a>
                                 {% else %}
-                                    <a target="_blank" class="btn btn-default btn-xs" href="{{ path('edit_quotation', {'purchase_id': br.id ,'id': br.my_q.id ,'page': 'home'}) }}" >Edit Quotation</a>
+                                    <a target="_blank" class="btn btn-default btn-xs" href="{{ path('show_quotation', {'purchase_id': br.pm_id ,'id': br.my_q.id ,'page': 'home'}) }}" >View Quotation</a>
+                                    <a target="_blank" class="btn btn-default btn-xs" href="{{ path('edit_quotation', {'purchase_id': br.pm_id ,'id': br.my_q.id ,'page': 'home'}) }}" >Edit Quotation</a>
                                 {% endif %}
                                 <a href="#" class="pull-right"> more detail </a>
                             </div>
@@ -49,7 +51,6 @@
         </div><!--/main area-->
     </div><!--/row-->
     <hr>
-
 
 {% endblock %}
 

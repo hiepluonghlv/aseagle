@@ -297,9 +297,9 @@ seller_get_buying_request:
     path:     purchase/seller_get_buying_request
     defaults: { _controller: AseagleBundle:Purchase:seller_get_buying_request }
 
-buyer_get_quotation_detail:
-    path:     purchase/buyer_get_quotation_detail
-    defaults: { _controller: AseagleBundle:Purchase:buyer_get_quotation_detail }
+show_quotation:
+    path:     purchase/{purchase_id}/quotation/{id}/show
+    defaults: { _controller: AseagleBundle:Purchase:show_quotation }
 
 seller_get_quotation_detail:
     path:     purchase/seller_get_quotation_detail

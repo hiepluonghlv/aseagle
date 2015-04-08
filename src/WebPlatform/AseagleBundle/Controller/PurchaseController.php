@@ -18,11 +18,11 @@ class PurchaseController extends Controller
         $user = $this->getUser();
         $buying_request = new BuyingRequest();
         $form = $this->createFormBuilder($buying_request)
-            ->add('title', 'text', array('label' => 'Title:'))
-            ->add('buying_request_message', 'textarea', array('label' => 'Detail:') )
-            ->add('category')
-            ->add('quantity', 'number', array('label' => 'Quantity:'))
-            ->add('quantity_type', 'text', array('label' => 'Quantity Type:') )
+            ->add('title', 'text', array('label' => 'Title:', 'attr' => array('class'=>'form-control input-md', 'placeholder' => 'Give a title')))
+            ->add('buying_request_message', 'textarea', array('label' => 'Detail:', 'attr' => array('class'=>'form-control')) )
+            ->add('category',null , array('label' => 'Category:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('quantity', 'integer', array('label' => 'Quantity:', 'attr'=> array('class'=>'form-control input-md')))
+            ->add('quantity_type', 'text', array('label' => 'Quantity Type:', 'attr'=> array('class'=>'form-control input-md')) )
             ->add('expired_date', 'date', array('label' => 'Expired Date:') )
             ->add('save', 'submit', array('label' => 'Save', 'attr' => array('class' => 'btn btn-primary')))
             ->getForm();
@@ -50,10 +50,10 @@ class PurchaseController extends Controller
                 }
             }
 
-            return $this->redirect($this->generateUrl('create_buying_request',array()));
+            return $this->redirect($this->generateUrl('create_buying_request',array('seller_id'=>$user->getCompany()->getId())));
         }else{
             return $this->render('AseagleBundle:Purchase:buying_request.html.twig', array(
-                'form' => $form->createView()
+                'form' => $form->createView(), 'seller_id'=>$user->getCompany()->getId()
             ));
         }
 
@@ -104,19 +104,20 @@ class PurchaseController extends Controller
 
         $quotation = new Quotation();
         $form = $this->createFormBuilder($quotation)
-            ->add('quote_message', 'textarea', array('label' => 'Message:') )
+            ->add('quote_message', 'textarea', array('label' => 'Message:', 'attr' => array('class'=>'form-control')) )
             ->add('product','entity', array(
                 'class' => 'AseagleBundle:Product',
                 'choices' => $user->getProducts(),
                 'required' => false,
                 'empty_data' => null,
+                'attr' => array('class'=>'form-control input-md')
             ))
-            ->add('price', 'number', array('label' => 'Price:'))
-            ->add('currency', 'text', array('label' => 'Currency:') )
-            ->add('quantity', 'number', array('label' => 'Quantity:'))
-            ->add('quantity_type', 'text', array('label' => 'Quantity Type:') )
-            ->add('payment_term', 'text', array('label' => 'Payment Term:') )
-            ->add('deliver_time', 'text', array('label' => 'Deliver Time:') )
+            ->add('price', 'integer', array('label' => 'Price:', 'attr' => array('class'=>'form-control input-md')))
+            ->add('currency', 'text', array('label' => 'Currency:', 'attr' => array('class'=>'form-control input-md')) )
+            ->add('quantity', 'integer', array('label' => 'Quantity:', 'attr' => array('class'=>'form-control input-md')))
+            ->add('quantity_type', 'text', array('label' => 'Quantity Type:', 'attr' => array('class'=>'form-control input-md')) )
+            ->add('payment_term', 'text', array('label' => 'Payment Term:', 'attr' => array('class'=>'form-control input-md')) )
+            ->add('deliver_time', 'text', array('label' => 'Deliver Time:', 'attr' => array('class'=>'form-control input-md')) )
             ->add('expired_date', 'date', array('label' => 'Expired Date:') )
             ->add('save', 'submit', array('label' => 'Save', 'attr' => array('class' => 'btn btn-primary')))
             ->getForm();
@@ -133,10 +134,10 @@ class PurchaseController extends Controller
             $message_helper = $this->get('message_helper');
             $message_helper->sendMessage('', $pm->getBuyingRequest()->getBuyerId(),'[Quote] '.$pm->getBuyingRequest()->getTitle().$pm->getBuyingRequest()->getExpiredDate()->format('Y-m-d H:i:s'),$quotation->getQuoteMessage().$quotation->getPrice().$quotation->getQuantity().$quotation->getQuantityType().$quotation->getPaymentTerm().$quotation->getDeliverTime(), $user, $em);
 
-            return $this->redirect($this->generateUrl('create_quote',array('purchase_id'=>$purchase_id)));
+            return $this->redirect($this->generateUrl('create_quote',array('purchase_id'=>$purchase_id, 'seller_id'=>$user->getCompany()->getId())));
         }else{
-            return $this->render('AseagleBundle:Purchase:quote.html.twig', array(
-                'form' => $form->createView()
+            return $this->render('AseagleBundle:Purchase:quotation.html.twig', array(
+                'form' => $form->createView(), 'seller_id'=>$user->getCompany()->getId()
             ));
         }
     }
@@ -149,19 +150,20 @@ class PurchaseController extends Controller
 
         $quotation = $em->getRepository('AseagleBundle:Quotation')->find($id);
         $form = $this->createFormBuilder($quotation)
-            ->add('quote_message', 'textarea', array('label' => 'Message:') )
+            ->add('quote_message', 'textarea', array('label' => 'Message:', 'attr' => array('class'=>'form-control')) )
             ->add('product','entity', array(
                 'class' => 'AseagleBundle:Product',
                 'choices' => $user->getProducts(),
                 'required' => false,
                 'empty_data' => null,
+                'attr' => array('class'=>'form-control input-md')
             ))
-            ->add('price', 'number', array('label' => 'Price:'))
-            ->add('currency', 'text', array('label' => 'Currency:') )
-            ->add('quantity', 'number', array('label' => 'Quantity:'))
-            ->add('quantity_type', 'text', array('label' => 'Quantity Type:') )
-            ->add('payment_term', 'text', array('label' => 'Payment Term:') )
-            ->add('deliver_time', 'text', array('label' => 'Deliver Time:') )
+            ->add('price', 'integer', array('label' => 'Price:', 'attr' => array('class'=>'form-control input-md')))
+            ->add('currency', 'text', array('label' => 'Currency:', 'attr' => array('class'=>'form-control input-md')) )
+            ->add('quantity', 'integer', array('label' => 'Quantity:', 'attr' => array('class'=>'form-control input-md')))
+            ->add('quantity_type', 'text', array('label' => 'Quantity Type:', 'attr' => array('class'=>'form-control input-md')) )
+            ->add('payment_term', 'text', array('label' => 'Payment Term:', 'attr' => array('class'=>'form-control input-md')) )
+            ->add('deliver_time', 'text', array('label' => 'Deliver Time:', 'attr' => array('class'=>'form-control input-md')) )
             ->add('expired_date', 'date', array('label' => 'Expired Date:') )
             ->add('save', 'submit', array('label' => 'Save', 'attr' => array('class' => 'btn btn-primary')))
             ->getForm();
@@ -174,10 +176,10 @@ class PurchaseController extends Controller
             $message_helper = $this->get('message_helper');
             $message_helper->sendMessage('', $pm->getBuyingRequest()->getBuyerId(),'[Quote] '.$pm->getBuyingRequest()->getTitle().$pm->getBuyingRequest()->getExpiredDate()->format('Y-m-d H:i:s'),$quotation->getQuoteMessage().$quotation->getPrice().$quotation->getQuantity().$quotation->getQuantityType().$quotation->getPaymentTerm().$quotation->getDeliverTime(), $user, $em);
 
-            return $this->redirect($this->generateUrl('create_quote',array('purchase_id'=>$purchase_id)));
+            return $this->redirect($this->generateUrl('create_quote',array('purchase_id'=>$purchase_id, 'seller_id'=>$user->getCompany()->getId())));
         }else{
-            return $this->render('AseagleBundle:Purchase:quote.html.twig', array(
-                'form' => $form->createView()
+            return $this->render('AseagleBundle:Purchase:quotation.html.twig', array(
+                'form' => $form->createView(), 'seller_id'=>$user->getCompany()->getId()
             ));
         }
     }
@@ -191,7 +193,7 @@ class PurchaseController extends Controller
         foreach($user->getBuyingRequests() as $br)
         {
             array_push($brs_info, array(
-                'id' => $br->getId(),
+                'br_id' => $br->getId(),
                 'g_id' => $br->getGroupId(),
                 'c_id' => $br->getCategoryId(),
                 'co_id' => $br->getCompanyId(),
@@ -204,20 +206,27 @@ class PurchaseController extends Controller
                 'quotes' => self::getQuotes($br)
             ));
         }
-        return $this->render('AseagleBundle:Purchase:list_buying_request.html.twig', array('view' => 'buyer', 'brs_info' => $brs_info));
+        return $this->render('AseagleBundle:Purchase:list_buying_request.html.twig', array('view' => 'buyer', 'brs_info' => $brs_info, 'seller_id'=>$user->getCompany()->getId()));
     }
 
     public static function getQuotes($br)
     {
 
         $quotes_info = array();
-        foreach($br->getQuotations() as $quote)
+        foreach($br->getPurchaseManagements() as $pm)
         {
-            array_push($quotes_info, array(
-                'id' => $quote->getId(),
-                'co_id' => $quote->getCompanyId(),
-                'pr' => $quote->getPrice()
-            ));
+            if ($pm->getQuotation() != null){
+                array_push($quotes_info, array(
+                    'id' => $pm->getQuotation()->getId(),
+                    'pm_id' => $pm->getId(),
+                    'co' => $pm->getCompany()->getName(),
+                    'co_id' => $pm->getCompany()->getId(),
+                    'pr' => $pm->getQuotation()->getPrice(),
+                    'c' => $pm->getQuotation()->getCurrency(),
+                    'q' => $pm->getQuotation()->getQuantity(),
+                    'q_t' => $pm->getQuotation()->getQuantityType()
+                ));
+            }
         }
         return $quotes_info;
     }
@@ -233,7 +242,7 @@ class PurchaseController extends Controller
             foreach($user->getCompany()->getPurchaseManagements() as $pm)
             {
                 array_push($pms_info, array(
-                    'id' => $pm->getId(),
+                    'pm_id' => $pm->getId(),
                     'br_id' => $pm->getBuyingRequest()->getId(),
                     't' => $pm->getBuyingRequest()->getTitle(),
                     'm' => $pm->getBuyingRequest()->getBuyingRequestMessage(),
@@ -252,27 +261,27 @@ class PurchaseController extends Controller
             }
         }
 
-        return $this->render('AseagleBundle:Purchase:list_buying_request.html.twig', array('view' => 'seller', 'brs_info' => $pms_info));
+        return $this->render('AseagleBundle:Purchase:list_buying_request.html.twig', array('view' => 'seller', 'brs_info' => $pms_info,  'seller_id'=>$user->getCompany()->getId()));
         #return new Response(json_encode($pms_info),200,array('Content-Type'=>'application/json'));
     }
 
-    public function buyer_get_quotation_detailAction(Request $request)
+    public function show_quotationAction(Request $request,$purchase_id, $id)
     {
         //get current user
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
-        $quote_id = $request->request->get('quote_id');
-        $quote = $em->getRepository('AseagleBundle:Quotation')->find($quote_id);
+        $quote = $em->getRepository('AseagleBundle:Quotation')->find($id);
         $result = null;
         if($quote != null){
             $result =  array(
                 'id' => $quote->getId(),
-                'pr_id' => $quote->getPrId(),
+                'pm_id' => $quote->getPurchaseManagement()->getId(),
                 'ex_d' => $quote->getExpiredDate(),
                 'p_id' => $quote->getProductId(),
-                'pr_t' => $quote->getBuyingRequest()->getTitle(),
-                'q_m' => $quote->getQuotationMessage(),
+                'br_t' => $quote->getPurchaseManagement()->getBuyingRequest()->getTitle(),
+                'q_m' => $quote->getQuoteMessage(),
                 'pr' => $quote->getPrice(),
+                'c' => $quote->getCurrency(),
                 'q' => $quote->getQuantity(),
                 'q_t' => $quote->getQuantityType(),
                 'p_t' => $quote->getPaymentTerm(),
@@ -280,7 +289,12 @@ class PurchaseController extends Controller
             );
 
         }
-        return new Response(json_encode($result),200,array('Content-Type'=>'application/json'));
+        if ($quote->getSeller() == $user ){
+            return $this->render('AseagleBundle:Purchase:show_quotation.html.twig', array('view' => 'seller', 'quote' => $result));
+        }else{
+            return $this->render('AseagleBundle:Purchase:show_quotation.html.twig', array('view' => 'buyer', 'quote' => $result));
+        }
+        #return new Response(json_encode($result),200,array('Content-Type'=>'application/json'));
     }
 
     public function seller_get_quotation_detailAction(Request $request)
