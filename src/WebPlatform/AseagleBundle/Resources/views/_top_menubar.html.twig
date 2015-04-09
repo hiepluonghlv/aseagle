@@ -5,11 +5,11 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-        </button><a href="#" class="navbar-brand"><img src="{{ asset('bundles/framework/img/logo.png') }}" style="width: 130px; height: 25px"></a>
+        </button><a href="{{path('welcome')}}" class="navbar-brand"><img src="{{ asset('bundles/framework/img/logo.png') }}" style="width: 130px; height: 25px"></a>
     </div>
     <div id="navbar-collapse-1" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-            <li><a href="{{path('upload_product')}}">My Aseagle</a></li>
+            <li><a href="{{path('buyer_get_buying_request')}}">My Aseagle</a></li>
             <li><a href="{{path('message')}}">Message Center</a></li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">For Buyer <span class="caret"></span></a>
@@ -94,7 +94,7 @@
             </div>
         </form>
         <ul class="nav navbar-nav lower-my-aseagle" style="padding-left: 10px; display: none">
-            <li><a href="{{path('upload_product')}}">My Aseagle</a></li>
+            <li><a href="{{path('buyer_get_buying_request')}}">My Aseagle</a></li>
         </ul>
     </div>
 </div>
