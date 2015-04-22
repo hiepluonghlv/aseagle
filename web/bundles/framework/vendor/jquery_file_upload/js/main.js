@@ -19,7 +19,7 @@ $(function () {
         // Uncomment the following to send cross-domain cookies:
         //xhrFields: {withCredentials: true},
 		autoUpload: true,
-        url: '/app_dev.php/upload_file'
+        url: '/aseagle/web/app.php/upload_file'
     });
 
     /*
