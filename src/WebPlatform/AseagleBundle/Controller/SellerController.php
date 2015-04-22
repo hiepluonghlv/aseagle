@@ -49,16 +49,18 @@ class SellerController extends Controller
         if ($form->isValid()) {
             // save company_profile
             $em = $this->getDoctrine()->getManager();
+            $company_profile->setIsVerified(false);
             $em->persist($company_profile);
             $em->flush();
             //get company_id and save seller
             $seller = $this->getUser();
             $seller->setCompany($company_profile);
+            $seller->setIsSeller(true);
             $em->flush();
-            return $this->redirect($this->generateUrl('aseagle_homepage'));
+            return $this->redirect($this->generateUrl('edit_seller',array("id" => $company_profile->getId())));
         }else{
             return $this->render('AseagleBundle:Seller:new.html.twig', array(
-                'form' => $form->createView(),'seller_id' => null
+                'form' => $form->createView()
             ));
         }
     }
@@ -105,10 +107,10 @@ class SellerController extends Controller
             $em = $this->getDoctrine()->getManager();
             //$em->persist($company_profile);
             $em->flush();
-            return $this->redirect($this->generateUrl('aseagle_homepage'));
+            return $this->redirect($this->generateUrl('edit_seller',array("id" => $company_profile->getId())));
         }else{
             return $this->render('AseagleBundle:Seller:edit.html.twig', array(
-                'form' => $form->createView(), 'seller_id' => $company_profile->getId()
+                'form' => $form->createView()
             ));
         }
     }

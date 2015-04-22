@@ -8,13 +8,14 @@ use WebPlatform\AseagleBundle\Entity\CompanyFactory;
 
 class CompanyFactoryController extends Controller
 {
-    public function indexAction($seller_id)
+    public function indexAction()
     {
-        $company_factories = $this->getDoctrine()->getRepository('AseagleBundle:CompanyFactory')->findAll();
-        return $this->render('AseagleBundle:CompanyFactory:index.html.twig', array('factories' => $company_factories, 'seller_id' => $seller_id));
+        $user = $this->getUser();
+        $company_factories = $user->getCompany()->getCompanyFactories();
+        return $this->render('AseagleBundle:CompanyFactory:index.html.twig', array('factories' => $company_factories));
     }
 
-    public function newAction($seller_id, Request $request)
+    public function newAction(Request $request)
     {
         $company_factory = new CompanyFactory();
         $form = $this->createFormBuilder($company_factory)
@@ -29,21 +30,20 @@ class CompanyFactoryController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             // save company_profile
-            $company_profile = $this->getDoctrine()->getRepository('AseagleBundle:CompanyProfile')->find($seller_id);
-            $company_factory->setCompany($company_profile);
+            $company_factory->setCompany($this->getUser()->getCompany());
             $em = $this->getDoctrine()->getManager();
             $em->persist($company_factory);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('seller_company_factory_index',array('seller_id' => $seller_id)));
+            return $this->redirect($this->generateUrl('seller_company_factory_index'));
         }else{
             return $this->render('AseagleBundle:CompanyFactory:new.html.twig', array(
-                'form' => $form->createView(),'seller_id' => $seller_id
+                'form' => $form->createView()
             ));
         }
     }
 
-    public function editAction($seller_id, $id, Request $request)
+    public function editAction($id, Request $request)
     {
         $company_factory = $this->getDoctrine()->getRepository('AseagleBundle:CompanyFactory')->find($id);
         $form = $this->createFormBuilder($company_factory)
@@ -61,21 +61,21 @@ class CompanyFactoryController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-            return $this->redirect($this->generateUrl('seller_company_factory_index',array('seller_id' => $seller_id)));
+            return $this->redirect($this->generateUrl('seller_company_factory_index'));
         }else{
             return $this->render('AseagleBundle:CompanyFactory:edit.html.twig', array(
-                'form' => $form->createView(),'seller_id' => $seller_id
+                'form' => $form->createView()
             ));
         }
     }
 
-    public function destroyAction($seller_id, $id)
+    public function destroyAction( $id)
     {
         $company_factory = $this->getDoctrine()->getRepository('AseagleBundle:CompanyFactory')->find($id);
         $em = $this->getDoctrine()->getManager();
         $em->remove($company_factory);
         $em->flush();
-        return $this->redirect($this->generateUrl('seller_company_factory_index',array('seller_id' => $seller_id)));
+        return $this->redirect($this->generateUrl('seller_company_factory_index'));
     }
 
 }

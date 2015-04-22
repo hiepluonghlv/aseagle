@@ -234,23 +234,23 @@ class CompanyProfile
     /**
      * @var integer
      *
-     * @ORM\Column(name="representative_id", type="integer")
+     * @ORM\Column(name="representative_id", type="integer", nullable=true)
      */
-    private $representative_id;
+    private $representative_id = null;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="member_type", type="integer")
+     * @ORM\Column(name="member_type", type="integer", nullable=true)
      */
-    private $member_type;
+    private $member_type = null;
 
     /**
      * @var boolean
      *
-     * @ORM\Column(name="is_verified", type="boolean")
+     * @ORM\Column(name="is_verified", type="boolean", nullable=true)
      */
-    private $is_verified;
+    private $is_verified = null;
 
     /**
      * @ORM\OneToMany(targetEntity="CompanyCustomer", mappedBy="company")

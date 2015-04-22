@@ -8,13 +8,14 @@ use WebPlatform\AseagleBundle\Entity\CompanyOverseaOffice;
 
 class CompanyOverseaOfficeController extends Controller
 {
-    public function indexAction($seller_id)
+    public function indexAction()
     {
-        $company_oversea_offices = $this->getDoctrine()->getRepository('AseagleBundle:CompanyOverseaOffice')->findAll();
-        return $this->render('AseagleBundle:CompanyOverseaOffice:index.html.twig', array('oversea_offices' => $company_oversea_offices, 'seller_id' => $seller_id));
+        $user = $this->getUser();
+        $company_oversea_offices = $user->getCompany()->getOverseaOffices();
+        return $this->render('AseagleBundle:CompanyOverseaOffice:index.html.twig', array('oversea_offices' => $company_oversea_offices));
     }
 
-    public function newAction($seller_id, Request $request)
+    public function newAction(Request $request)
     {
         $company_oversea_office = new CompanyOverseaOffice();
         $form = $this->createFormBuilder($company_oversea_office)
@@ -30,21 +31,20 @@ class CompanyOverseaOfficeController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             // save company_profile
-            $company_profile = $this->getDoctrine()->getRepository('AseagleBundle:CompanyProfile')->find($seller_id);
-            $company_oversea_office->setCompany($company_profile);
+            $company_oversea_office->setCompany($this->getUser()->getCompany());
             $em = $this->getDoctrine()->getManager();
             $em->persist($company_oversea_office);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('seller_company_oversea_office_index',array('seller_id' => $seller_id)));
+            return $this->redirect($this->generateUrl('seller_company_oversea_office_index'));
         }else{
             return $this->render('AseagleBundle:CompanyOverseaOffice:new.html.twig', array(
-                'form' => $form->createView(),'seller_id' => $seller_id
+                'form' => $form->createView()
             ));
         }
     }
 
-    public function editAction($seller_id, $id, Request $request)
+    public function editAction($id, Request $request)
     {
         $company_oversea_office = $this->getDoctrine()->getRepository('AseagleBundle:CompanyOverseaOffice')->find($id);
         $form = $this->createFormBuilder($company_oversea_office)
@@ -63,21 +63,21 @@ class CompanyOverseaOfficeController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-            return $this->redirect($this->generateUrl('seller_company_oversea_office_index',array('seller_id' => $seller_id)));
+            return $this->redirect($this->generateUrl('seller_company_oversea_office_index'));
         }else{
             return $this->render('AseagleBundle:CompanyOverseaOffice:new.html.twig', array(
-                'form' => $form->createView(),'seller_id' => $seller_id
+                'form' => $form->createView()
             ));
         }
     }
 
-    public function destroyAction($seller_id, $id)
+    public function destroyAction($id)
     {
         $company_oversea_office = $this->getDoctrine()->getRepository('AseagleBundle:CompanyOverseaOffice')->find($id);
         $em = $this->getDoctrine()->getManager();
         $em->remove($company_oversea_office);
         $em->flush();
-        return $this->redirect($this->generateUrl('seller_company_oversea_office_index',array('seller_id' => $seller_id)));
+        return $this->redirect($this->generateUrl('seller_company_oversea_office_index'));
     }
 
 }

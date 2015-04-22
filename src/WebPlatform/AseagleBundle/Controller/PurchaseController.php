@@ -50,10 +50,10 @@ class PurchaseController extends Controller
                 }
             }
 
-            return $this->redirect($this->generateUrl('create_buying_request',array('seller_id'=>$user->getCompany()->getId())));
+            return $this->redirect($this->generateUrl('create_buying_request'));
         }else{
             return $this->render('AseagleBundle:Purchase:buying_request.html.twig', array(
-                'form' => $form->createView(), 'seller_id'=>$user->getCompany() != null ? $user->getCompany()->getId() : null
+                'form' => $form->createView()
             ));
         }
 
@@ -134,10 +134,10 @@ class PurchaseController extends Controller
             $message_helper = $this->get('message_helper');
             $message_helper->sendMessage('', $pm->getBuyingRequest()->getBuyerId(),'[Quote] '.$pm->getBuyingRequest()->getTitle().$pm->getBuyingRequest()->getExpiredDate()->format('Y-m-d H:i:s'),$quotation->getQuoteMessage().$quotation->getPrice().$quotation->getQuantity().$quotation->getQuantityType().$quotation->getPaymentTerm().$quotation->getDeliverTime(), $user, $em);
 
-            return $this->redirect($this->generateUrl('create_quote',array('purchase_id'=>$purchase_id, 'seller_id'=>$user->getCompany()->getId())));
+            return $this->redirect($this->generateUrl('create_quote',array('purchase_id'=>$purchase_id)));
         }else{
             return $this->render('AseagleBundle:Purchase:quotation.html.twig', array(
-                'form' => $form->createView(),  'seller_id'=>$user->getCompany() != null ? $user->getCompany()->getId() : null
+                'form' => $form->createView()
             ));
         }
     }
@@ -176,10 +176,10 @@ class PurchaseController extends Controller
             $message_helper = $this->get('message_helper');
             $message_helper->sendMessage('', $pm->getBuyingRequest()->getBuyerId(),'[Quote] '.$pm->getBuyingRequest()->getTitle().$pm->getBuyingRequest()->getExpiredDate()->format('Y-m-d H:i:s'),$quotation->getQuoteMessage().$quotation->getPrice().$quotation->getQuantity().$quotation->getQuantityType().$quotation->getPaymentTerm().$quotation->getDeliverTime(), $user, $em);
 
-            return $this->redirect($this->generateUrl('create_quote',array('purchase_id'=>$purchase_id, 'seller_id'=>$user->getCompany()->getId())));
+            return $this->redirect($this->generateUrl('create_quote'));
         }else{
             return $this->render('AseagleBundle:Purchase:quotation.html.twig', array(
-                'form' => $form->createView(),  'seller_id'=>$user->getCompany() != null ? $user->getCompany()->getId() : null
+                'form' => $form->createView()
             ));
         }
     }
@@ -206,7 +206,7 @@ class PurchaseController extends Controller
                 'quotes' => self::getQuotes($br)
             ));
         }
-        return $this->render('AseagleBundle:Purchase:list_buying_request.html.twig', array('view' => 'buyer', 'brs_info' => $brs_info,  'seller_id'=>$user->getCompany() != null ? $user->getCompany()->getId() : null));
+        return $this->render('AseagleBundle:Purchase:list_buying_request.html.twig', array('view' => 'buyer', 'brs_info' => $brs_info));
     }
 
     public static function getQuotes($br)
@@ -261,7 +261,7 @@ class PurchaseController extends Controller
             }
         }
 
-        return $this->render('AseagleBundle:Purchase:list_buying_request.html.twig', array('view' => 'seller', 'brs_info' => $pms_info,   'seller_id'=>$user->getCompany() != null ? $user->getCompany()->getId() : null));
+        return $this->render('AseagleBundle:Purchase:list_buying_request.html.twig', array('view' => 'seller', 'brs_info' => $pms_info  ));
         #return new Response(json_encode($pms_info),200,array('Content-Type'=>'application/json'));
     }
 

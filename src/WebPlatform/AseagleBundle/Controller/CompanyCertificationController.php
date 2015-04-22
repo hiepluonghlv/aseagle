@@ -8,13 +8,14 @@ use WebPlatform\AseagleBundle\Entity\CompanyCertification;
 
 class CompanyCertificationController extends Controller
 {
-    public function indexAction($seller_id)
+    public function indexAction()
     {
-        $company_certifications = $this->getDoctrine()->getRepository('AseagleBundle:CompanyCertification')->findAll();
-        return $this->render('AseagleBundle:CompanyCertification:index.html.twig', array('certifications' => $company_certifications, 'seller_id' => $seller_id));
+        $user = $this->getUser();
+        $company_certifications = $user->getCompany()->getCompanyCertifications();
+        return $this->render('AseagleBundle:CompanyCertification:index.html.twig', array('certifications' => $company_certifications));
     }
 
-    public function newAction($seller_id, Request $request)
+    public function newAction(Request $request)
     {
         $company_certification = new CompanyCertification();
         $form = $this->createFormBuilder($company_certification)
@@ -30,21 +31,20 @@ class CompanyCertificationController extends Controller
         $form->handleRequest($request);
         if ($form->isValid()) {
             // save company_profile
-            $company_profile = $this->getDoctrine()->getRepository('AseagleBundle:CompanyProfile')->find($seller_id);
-            $company_certification->setCompany($company_profile);
+            $company_certification->setCompany($this->getUser()->getCompany());
             $em = $this->getDoctrine()->getManager();
             $em->persist($company_certification);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('seller_company_certification_index',array('seller_id' => $seller_id)));
+            return $this->redirect($this->generateUrl('seller_company_certification_index'));
         }else{
             return $this->render('AseagleBundle:CompanyCertification:new.html.twig', array(
-                'form' => $form->createView(),'seller_id' => $seller_id
+                'form' => $form->createView()
             ));
         }
     }
 
-    public function editAction($seller_id, $id, Request $request)
+    public function editAction( $id, Request $request)
     {
         $company_certification = $this->getDoctrine()->getRepository('AseagleBundle:CompanyCertification')->find($id);
         $form = $this->createFormBuilder($company_certification)
@@ -62,21 +62,21 @@ class CompanyCertificationController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
-            return $this->redirect($this->generateUrl('seller_company_certification_index',array('seller_id' => $seller_id)));
+            return $this->redirect($this->generateUrl('seller_company_certification_index'));
         }else{
             return $this->render('AseagleBundle:CompanyCertification:edit.html.twig', array(
-                'form' => $form->createView(),'seller_id' => $seller_id
+                'form' => $form->createView()
             ));
         }
     }
 
-    public function destroyAction($seller_id, $id)
+    public function destroyAction( $id)
     {
         $company_certification = $this->getDoctrine()->getRepository('AseagleBundle:CompanyCertification')->find($id);
         $em = $this->getDoctrine()->getManager();
         $em->remove($company_certification);
         $em->flush();
-        return $this->redirect($this->generateUrl('seller_company_certification_index',array('seller_id' => $seller_id)));
+        return $this->redirect($this->generateUrl('seller_company_certification_index'));
     }
 
 }

@@ -24,14 +24,14 @@ class ProductController extends Controller
         }
         //get current user
         $user = $this->getUser();
-        return $this->render('AseagleBundle:Product:index.html.twig', array('products' => $products, 'seller_id' => $user->getCompany() != null ? $user->getCompany()->getId() : null));
+        return $this->render('AseagleBundle:Product:index.html.twig', array('products' => $products));
     }
 
     public function uploadAction()
     {
         //get current user
         $user = $this->getUser();
-        return $this->render('AseagleBundle:Product:upload.html.twig', array('seller_id' => $user->getCompany() != null ? $user->getCompany()->getId() : null));
+        return $this->render('AseagleBundle:Product:upload.html.twig');
     }
 
     public function createAction(Request $request)

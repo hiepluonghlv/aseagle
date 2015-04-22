@@ -12,7 +12,7 @@
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Scope</th>
-                <th><a href="{{ path('seller_company_certification_new', {'seller_id': seller_id}) }}" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></a></th>
+                <th><a href="{{ path('seller_company_certification_new', {'seller_id': app.user.getCompany().getId()}) }}" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></a></th>
             </tr>
             </thead>
             {% for certification in certifications %}
@@ -24,8 +24,8 @@
                     <td>{{ certification.startDate|date("m/d/Y") }}</td>
                     <td>{{ certification.endDate|date("m/d/Y") }}</td>
                     <td>{{ certification.scope }}</td>
-                    <td><a href="{{ path('seller_company_certification_edit', {'seller_id': seller_id, 'id': certification.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
-                        <a href="{{ path('seller_company_certification_destroy', {'seller_id': seller_id, 'id': certification.id}) }}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
+                    <td><a href="{{ path('seller_company_certification_edit', {'seller_id': app.user.getCompany().getId(), 'id': certification.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a href="{{ path('seller_company_certification_destroy', {'seller_id': app.user.getCompany().getId(), 'id': certification.id}) }}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
                 </tr>
             {% endfor %}
         </table>

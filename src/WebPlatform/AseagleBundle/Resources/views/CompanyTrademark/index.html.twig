@@ -11,7 +11,7 @@
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Approved Goods</th>
-                <th><a href="{{ path('seller_company_trademark_new', {'seller_id': seller_id}) }}" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></a></th>
+                <th><a href="{{ path('seller_company_trademark_new', {'seller_id': app.user.getCompany().getId()}) }}" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></a></th>
             </tr>
             </thead>
             {% for trademark in trademarks %}
@@ -22,8 +22,8 @@
                     <td>{{ trademark.startDate|date("m/d/Y") }}</td>
                     <td>{{ trademark.endDate|date("m/d/Y") }}</td>
                     <td>{{ trademark.approvedGoods }}</td>
-                    <td><a href="{{ path('seller_company_trademark_edit', {'seller_id': seller_id, 'id': trademark.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
-                        <a href="{{ path('seller_company_trademark_destroy', {'seller_id': seller_id, 'id': trademark.id}) }}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
+                    <td><a href="{{ path('seller_company_trademark_edit', {'seller_id': app.user.getCompany().getId(), 'id': trademark.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a href="{{ path('seller_company_trademark_destroy', {'seller_id': app.user.getCompany().getId(), 'id': trademark.id}) }}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
                 </tr>
             {% endfor %}
         </table>

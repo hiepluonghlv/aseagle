@@ -10,7 +10,7 @@
                     <th>Country</th>
                     <th>Products</th>
                     <th>Annual Turnover</th>
-                    <th><a href="{{ path('seller_company_customer_new', {'seller_id': seller_id}) }}" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></a></th>
+                    <th><a href="{{ path('seller_company_customer_new', {'seller_id': app.user.getCompany().getId()}) }}" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></a></th>
                 </tr>
             </thead>
             {% for customer in customers %}
@@ -20,8 +20,8 @@
                     <td>{{ customer.country.name }}</td>
                     <td>{{ customer.products }}</td>
                     <td>{{ customer.annualTurnover }}</td>
-                    <td><a href="{{ path('seller_company_customer_edit', {'seller_id': seller_id, 'id': customer.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
-                        <a href="{{ path('seller_company_customer_destroy', {'seller_id': seller_id, 'id': customer.id}) }}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
+                    <td><a href="{{ path('seller_company_customer_edit', {'seller_id': app.user.getCompany().getId(), 'id': customer.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a href="{{ path('seller_company_customer_destroy', {'seller_id': app.user.getCompany().getId(), 'id': customer.id}) }}" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
                 </tr>
             {% endfor %}
         </table>
