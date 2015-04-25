@@ -69,4 +69,13 @@ class ImageHelper {
         }
         return $result;
     }
+    public function generate_one_small_image_url($str_images, $root) {
+
+        $result = '';
+        if(isset($str_images) && $str_images != ""){
+            $images = explode(";", $str_images);
+            $result = $result.($root.dirname($images[0])."/small/".basename($images[0]));
+        }
+        return $result;
+    }
 } 

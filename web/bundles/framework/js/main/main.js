@@ -453,7 +453,7 @@ _AsgMainBuilder.MainContent = ( function() {
 			
 				var product_head_image_row_product_detail_image = $('<img src="'+product_json.img+'" rel="popover">')
 				 .appendTo(product_head_image_row_product_detail);	
-				$('<h3 class="title" data-toggle="tooltip" data-placement="bottom" title="'+product_json.n+'"><strong>'+product_json.n+'</strong></h3>').appendTo(product_head_image_row_product_detail);
+				$('<h3 class="title" data-toggle="tooltip" data-placement="bottom" title="'+product_json.n+'"><strong><a href="/aseagle/web/app.php/product/show/'+product_json.id+'">'+product_json.n+'</a></strong></h3>').appendTo(product_head_image_row_product_detail);
 				$('<h3>FOB Price: <strong>US$'+product_json.pr+'</strong></h3>').appendTo(product_head_image_row_product_detail);
 				$('<h3>Min. order: <strong>'+product_json.m_o+'</strong> (kg)</h3>').appendTo(product_head_image_row_product_detail);
 				

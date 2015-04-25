@@ -20,7 +20,7 @@ class ProductController extends Controller
         $root = "/aseagle/web/files/";
         foreach($products as $product)
         {
-            $product->setPicture($image_helper->generate_small_image_url($product->getPicture(),$root));
+            $product->setPicture($image_helper->generate_one_small_image_url($product->getPicture(),$root));
         }
         //get current user
         $user = $this->getUser();
@@ -271,7 +271,8 @@ class ProductController extends Controller
         $product_info['json'] = json_encode($product_info);
         $product_info['spec'] = $product->getSpecification();
         $product_info['s_a'] = $product->getSupplyAbility() != null ? ($product->getSupplyAbility() + " " + $product->getSupplyAbilityUnit() + '/' + $product->getSupplyAbilityUnit()) : null;
-
+        $product_info['d_t'] = $product->getDeliverTime();
+        $product_info['p_d'] = $product->getPackaging();
         return $this->render('AseagleBundle:Product:show.html.twig', $product_info);
     }
 
