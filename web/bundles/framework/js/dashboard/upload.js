@@ -74,7 +74,7 @@ _AsgDashboard.Upload = ( function() {
     	temp += '<select id="selectbasic" name="product_detail'+col_id +'" class="form-control" style="padding: 3px">';
     	
     	$.each(default_values, function(i) {
-    		temp += '<option value="'+(i+1)+'" ' + (value != null ? (value == i ? ' selected=true ' : '') : "") + '>'+_AsgUtil.Mapping.getDefaultValue(default_values[i])+'</option>';
+    		temp += '<option value="'+(i+1)+'" ' + (value != null ? (value == (i+1) ? ' selected=true ' : '') : "") + '>'+_AsgUtil.Mapping.getDefaultValue(default_values[i])+'</option>';
     	});
     	temp += '</select>';
     	temp += '</div>';
@@ -133,11 +133,11 @@ _AsgDashboard.Upload = ( function() {
         //$(".product-detail-fields").empty();
         $.each(current_product_detail_list, function(i) {
             if(current_product_detail_list[i].n === "Place of Origin") {
-                __build_select_box_place_of_origin(cat_id, i, country_mapping, value_list[i]);
+                __build_select_box_place_of_origin(cat_id, i, country_mapping, value_list[i.replace("_", "")]);
             } else if (current_product_detail_list[i].def_v.length > 0){
-                __build_select_box(cat_id, i, value_list[i]);
+                __build_select_box(cat_id, i, value_list[i.replace("_", "")]);
             } else {
-                __build_textbox(cat_id, i, value_list[i]);
+                __build_textbox(cat_id, i, value_list[i.replace("_", "")]);
             }
         });
     }

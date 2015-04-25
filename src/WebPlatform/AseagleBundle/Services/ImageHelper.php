@@ -51,4 +51,22 @@ class ImageHelper {
         }
         return $result;
     }
+
+    public function generate_small_image_url($str_images, $root) {
+
+        $result = '';
+        if(isset($str_images) && $str_images != ""){
+            $images = explode(";", $str_images);
+            foreach ($images as &$image) {
+                $filename = basename($image);
+                $dirname = dirname($image);
+                if ($result == ''){
+                    $result = $result.($root.$dirname."/small/".$filename);
+                }else{
+                    $result = $result.','.($root.$dirname."/small/".$filename);
+                }
+            }
+        }
+        return $result;
+    }
 } 

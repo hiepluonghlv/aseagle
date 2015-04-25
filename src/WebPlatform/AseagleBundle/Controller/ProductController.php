@@ -17,10 +17,10 @@ class ProductController extends Controller
     {
         $products = $this->getUser()->getProducts();
         $image_helper = $this->get('image_helper');
-        $root = "http://localhost:8000/files/";
+        $root = "/aseagle/web/files/";
         foreach($products as $product)
         {
-            $product->setPicture($image_helper->generate_thumb_image_url($product->getPicture(),$root));
+            $product->setPicture($image_helper->generate_small_image_url($product->getPicture(),$root));
         }
         //get current user
         $user = $this->getUser();
@@ -255,7 +255,7 @@ class ProductController extends Controller
         self::notEmptyOrNull($product->getProductDetail23()) ? $product_detail['23'] = $product->getProductDetail23() : null;
         self::notEmptyOrNull($product->getProductDetail24()) ? $product_detail['24'] = $product->getProductDetail24() : null;
 
-        $root = "http://localhost:8000/files/";
+        $root = "/aseagle/web/files/";
         $product_info = array(
             'id' => $product->getId(),
             'cat_id' => $product->getCategoryId(),
@@ -311,7 +311,7 @@ class ProductController extends Controller
         self::notEmptyOrNull($product->getProductDetail23()) ? $product_detail['23'] = $product->getProductDetail23() : null;
         self::notEmptyOrNull($product->getProductDetail24()) ? $product_detail['24'] = $product->getProductDetail24() : null;
 
-        $root = "http://localhost:8000/files/";
+        $root = "/aseagle/web/files/";
         $product_info = array(
             'id' => $product->getId(),
             'cat_id' => $product->getCategoryId(),
@@ -327,8 +327,11 @@ class ProductController extends Controller
         $product_info['json'] = json_encode($product_info);
         $product_info['spec'] = $product->getSpecification();
         $product_info['b_d'] = $product->getBriefDescription();
-        $product_info['s_a'] = $product->getSupplyAbility() != null ? ($product->getSupplyAbility() + " " + $product->getSupplyAbilityUnit() + '/' + $product->getSupplyAbilityUnit()) : null;
-
+        $product_info['s_a'] = $product->getSupplyAbility();
+        $product_info['sa_u'] = $product->getSupplyAbilityUnit();
+        $product_info['sa_t'] = $product->getSupplyAbilityPerTime();
+        $product_info['d_t'] = $product->getDeliverTime();
+        $product_info['p_d'] = $product->getPackaging();
         //get current user
         $user = $this->getUser();
         $product_info['seller_id'] = $user->getCompany() != null ? $user->getCompany()->getId() : null;

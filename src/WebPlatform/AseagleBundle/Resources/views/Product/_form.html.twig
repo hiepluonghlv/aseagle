@@ -141,7 +141,7 @@
                     <label class="col-md-4 control-label" for="buttondropdown">Supply Ability</label>
                     <div class="col-md-4">
                         <div class="input-group">
-                            <input id="buttondropdown" name="supply_ability" class="form-control" placeholder="How many" type="text" required="">
+                            <input id="buttondropdown" name="supply_ability" class="form-control" placeholder="How many" type="text" required="" value="{% if s_a is defined %}{{ s_a }}{% endif %}">
                             <div class="input-group-btn">
                                 <input type="hidden" name="supply_applity_unit" value="">
                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -170,7 +170,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="textinput">Delivery Time</label>
                     <div class="col-md-6">
-                        <input id="textinput" name="deliver_time" type="text" placeholder="Delivery Time" class="form-control input-md" required="">
+                        <input id="textinput" name="deliver_time" type="text" placeholder="Delivery Time" class="form-control input-md" required="" value="{% if d_t is defined %}{{ d_t }}{% endif %}">
 
                     </div>
                 </div>
@@ -179,7 +179,7 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="textarea">Packaging Details</label>
                     <div class="col-md-6">
-                        <textarea class="form-control" id="textarea" placeholder="Packaging Details" name="packaging"></textarea>
+                        <textarea class="form-control" id="textarea" placeholder="Packaging Details" name="packaging">{% if p_d is defined %}{{ p_d }}{% endif %}</textarea>
                     </div>
                 </div>
             </div>
