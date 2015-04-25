@@ -451,9 +451,9 @@ _AsgMainBuilder.MainContent = ( function() {
 			var product_head_image_row_product_detail = $('<div/>')
 			 .addClass('col-xs-8 col-sm-8 card-heading-header').appendTo(product_head_image_row);
 			
-				var product_head_image_row_product_detail_image = $('<img src="'+product_json.img+'" rel="popover">')
+				var product_head_image_row_product_detail_image = $('<a href="/aseagle/web/app.php/product/show/'+product_json.id+'" target="_blank"><img src="'+product_json.img+'" rel="popover"></a>')
 				 .appendTo(product_head_image_row_product_detail);	
-				$('<h3 class="title" data-toggle="tooltip" data-placement="bottom" title="'+product_json.n+'"><strong><a href="/aseagle/web/app.php/product/show/'+product_json.id+'">'+product_json.n+'</a></strong></h3>').appendTo(product_head_image_row_product_detail);
+				$('<h3 class="title" data-toggle="tooltip" data-placement="bottom" title="'+product_json.n+'"><strong><a href="/aseagle/web/app.php/product/show/'+product_json.id+'" target="_blank">'+product_json.n+'</a></strong></h3>').appendTo(product_head_image_row_product_detail);
 				$('<h3>FOB Price: <strong>US$'+product_json.pr+'</strong></h3>').appendTo(product_head_image_row_product_detail);
 				$('<h3>Min. order: <strong>'+product_json.m_o+'</strong> (kg)</h3>').appendTo(product_head_image_row_product_detail);
 				
@@ -468,7 +468,7 @@ _AsgMainBuilder.MainContent = ( function() {
 			// ------ product_head_image_row_seller_detail
 			var product_head_image_row_seller_detail = $('<div/>')
 			 .addClass('col-xs-4 col-sm-4 card-heading-header').appendTo(product_head_image_row);
-				$('<h3><a class="company-hover-label" href="">'+product_json.sup.n+'<div style="display:none;">asdasdasdasd</div></a>   <span class="glyphicon glyphicon-check" aria-hidden="true"></span></h3>').appendTo(product_head_image_row_seller_detail);
+				$('<h3><a class="company-hover-label" href="">'+product_json.sup.n+'<div style="display:none;"></div></a>   <span class="glyphicon glyphicon-check" aria-hidden="true"></span></h3>').appendTo(product_head_image_row_seller_detail);
 				$('<h3>('+_AsgUtil.Mapping.getCountryName(product_json.sup.c)+')</h3>').appendTo(product_head_image_row_seller_detail);
 				$('<h3>('+_AsgUtil.Mapping.getCountryName(product_json.sup.c)+')</h3>').appendTo(product_head_image_row_seller_detail);
 				$('<h3>('+_AsgUtil.Mapping.getCountryName(product_json.sup.c)+')</h3>').appendTo(product_head_image_row_seller_detail);
